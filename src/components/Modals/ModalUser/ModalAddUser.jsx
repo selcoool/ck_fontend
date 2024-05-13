@@ -45,7 +45,7 @@ function ModalAddUser({visible,setVisible}) {
         phone: "",
         birthday: "",
         gender: true,
-        role: "",
+        role: "USER",
         // skill: [
         //   "string"
         // ],
@@ -298,6 +298,8 @@ const handleCertification = (e) => {
       </Radio.Group>
     </Form.Item>
 
+    {JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+    
 
 <Form.Item label="Vai trò">
   <Select
@@ -313,6 +315,8 @@ const handleCertification = (e) => {
   </Select>
   {errors.role && touched.role ? (<div className='text-red-500 '>{errors.role}</div>) : ''}
 </Form.Item>
+
+) :null }
 
 
 

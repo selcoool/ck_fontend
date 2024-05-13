@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllJobs } from '../redux/jobReducerSlice';
 import Search from 'antd/es/input/Search'
+import { Button } from 'antd';
+import ModalAddJob from './Modals/ModalJob/ModalAddJob';
 
 function ShowJobs() {
 
   const {jobs} = useSelector((state) => state?.manageJob);
+   const [modalAddJob, setModalAddJob] = useState(false);
   const [jobData, setJobData] = useState([]);
   console.log('jobData',jobData)
 
@@ -34,14 +37,31 @@ useEffect(() => {
     <div className='bg-orange-400 w-full h-screen '>
       <div className='px-4 bg-orange-100'>
 
-      <div className='flex justify-center items-center md:justify-start md:w-96 py-3'>
-    <Search
-   placeholder="Nhập thông tin công việc "
-   allowClear
-   enterButton="Tìm kiếm"
-   size="large"
-   onSearch={onSearchJob}
- />
+      <div className='flex justify-center items-start md:justify-start flex-col md:flex-row py-3 gap-1'>
+            <div>
+        <Search
+      placeholder="Nhập thông tin công việc "
+      allowClear
+      enterButton="Tìm kiếm"
+      size="large"
+      onSearch={onSearchJob}
+      
+    />
+    </div>
+
+
+    <div className=' flex  gap-1 '>
+<Button  size="large" className='bg-white' >Số công việc ({jobs ?jobs.length:0})</Button>
+  <Button size="large"  onClick={()=>setModalAddJob(!modalAddJob)} className='bg-green-500'>Thêm Công Việc</Button>
+  <ModalAddJob visible={modalAddJob} setVisible={setModalAddJob}/>
+</div>
+
+
+    
+
+
+ 
+
 
   </div>
 

@@ -3,11 +3,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../redux/userReducerSlice';
 import Search from 'antd/es/input/Search'
+import { Button } from 'antd';
+import ModalAddUser from './Modals/ModalUser/ModalAddUser';
 
 function ShowUsers() {
 
  
    const {users} = useSelector((state) => state?.manageUser);
+   const [modalAddUser, setModalAddUser] = useState(false);
    const [userData, setUserData] = useState([]);
    console.log('userData',userData)
 
@@ -53,7 +56,9 @@ function ShowUsers() {
 
 
       
-<div className='flex justify-center items-center md:justify-start md:w-96 py-3'>
+<div className='flex justify-center items-start md:justify-start flex-col md:flex-row py-3 gap-1'>
+
+  <div>
     <Search
    placeholder="Nhập thông tin tên tài khoản "
    allowClear
@@ -61,6 +66,13 @@ function ShowUsers() {
    size="large"
    onSearch={onSearchUser}
  />
+ </div>
+
+<div className='flex gap-1 '>
+
+<Button  size="large" className='bg-white' >Số người ({users ?users.length:0})</Button> <Button size="large"  onClick={()=>setModalAddUser(!modalAddUser)} className='bg-green-500'>Thêm Người Dùng</Button>
+  <ModalAddUser visible={modalAddUser} setVisible={setModalAddUser}/>
+</div>
 
 </div>
 
