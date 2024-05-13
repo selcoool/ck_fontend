@@ -52,8 +52,12 @@ useEffect(() => {
 
     <div className=' flex  gap-1 '>
 <Button  size="large" className='bg-white' >Số công việc ({jobs ?jobs.length:0})</Button>
+{JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+      <>                      
   <Button size="large"  onClick={()=>setModalAddJob(!modalAddJob)} className='bg-green-500'>Thêm Công Việc</Button>
   <ModalAddJob visible={modalAddJob} setVisible={setModalAddJob}/>
+  </>
+):''}
 </div>
 
 

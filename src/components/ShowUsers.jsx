@@ -70,8 +70,14 @@ function ShowUsers() {
 
 <div className='flex gap-1 '>
 
-<Button  size="large" className='bg-white' >Số người ({users ?users.length:0})</Button> <Button size="large"  onClick={()=>setModalAddUser(!modalAddUser)} className='bg-green-500'>Thêm Người Dùng</Button>
+<Button  size="large" className='bg-white' >Số người ({users ?users.length:0})</Button> 
+{JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+      <>  
+
+<Button size="large"  onClick={()=>setModalAddUser(!modalAddUser)} className='bg-green-500'>Thêm Người Dùng</Button>
   <ModalAddUser visible={modalAddUser} setVisible={setModalAddUser}/>
+  </>
+):''}
 </div>
 
 </div>
