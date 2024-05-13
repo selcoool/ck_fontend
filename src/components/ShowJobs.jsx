@@ -70,7 +70,7 @@ useEffect(() => {
   </div>
 
 
-      <div className='bg-orange-100  w-full flex flex-col  h-full lg:max-h-[520px] overflow-y-auto no-scrollbar'>
+      <div className='bg-orange-100  w-full flex flex-col  h-full lg:max-h-[650px] overflow-y-auto no-scrollbar'>
       <div className='grid grid-cols-2 lg:grid-cols-4 gap-4 '>
 
       {jobData.length > 0 && Array.isArray(jobData) ? (
