@@ -114,7 +114,14 @@ function ShowUsers() {
             </div>
         </div>
     ))
-) : null}
+) : (
+
+  <div className='flex justify-center items-start w-full h-screen '>
+  
+    <div >Không tìm thấy người dùng với tên này</div>
+  </div>
+  
+  )}
 
 
 

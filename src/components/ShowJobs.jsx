@@ -70,9 +70,9 @@ useEffect(() => {
     ))
 ) : (
 
-<div className='flex justify-center items-center w-screen h-screen '>
+<div className='flex justify-center items-start w-full h-screen '>
 
-  <div className='bg-slate-400'>Không tìm thấy</div>
+  <div >Không tìm thấy công việc với tên này</div>
 </div>
 
 )}
