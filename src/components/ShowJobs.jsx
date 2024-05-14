@@ -4,12 +4,23 @@ import { getAllJobs } from '../redux/jobReducerSlice';
 import Search from 'antd/es/input/Search'
 import { Button } from 'antd';
 import ModalAddJob from './Modals/ModalJob/ModalAddJob';
+import ModalDetailJobUi from './Modals/ModalJob/ModalDetailJobUi';
+
 
 function ShowJobs() {
 
   const {jobs} = useSelector((state) => state?.manageJob);
+
+  const [detailJobDataUi, setDetailJobDataUi] = useState();
+  const [modalDetailJobUi, setModalDetailJobUi] = useState(false);
+  console.log('dddddddddd',modalDetailJobUi)
+  console.log('ddddddddddssss',modalDetailJobUi)
+  
+
+  
    const [modalAddJob, setModalAddJob] = useState(false);
   const [jobData, setJobData] = useState([]);
+  console.log('modalAddJob',modalAddJob)
   console.log('jobData',jobData)
 
 useEffect(() => {
@@ -60,7 +71,6 @@ useEffect(() => {
 ):''}
 </div>
 
-
     
 
 
@@ -78,7 +88,7 @@ useEffect(() => {
         <div key={job.id} className='relative overflow-hidden cursor-pointer group'>
             <div className='w-full shadow-lg shadow-slate-400 relative flex justify-center items-center '>
                 <img className='w-full h-40 object-cover group-hover:scale-105 duration-300' src={job.hinhAnh} alt={job.hinhAnh} />
-                <div className='absolute  hidden group-hover:block hover:bg-red-300  text-white text-center border-2 border-white p-4 w-fit bg-white/50 '>Xem Chi Tiết</div>
+                <div  onClick={()=>[setModalDetailJobUi(!modalDetailJobUi),setDetailJobDataUi(job) ]} className='absolute  hidden group-hover:block hover:bg-red-300  text-white text-center border-2 border-white p-4 w-fit bg-white/50 '>Xem Chi Tiết</div>
             </div>
             <div className='flex  flex-col p-3  transition-all duration-100 '>  
                 <div className='pb-3 flex items-center gap-3'>
@@ -113,6 +123,8 @@ useEffect(() => {
 
 
       </div>
+
+      <ModalDetailJobUi visible={modalDetailJobUi} data={detailJobDataUi} setVisible={setModalDetailJobUi}/>
 
     </div>
   )

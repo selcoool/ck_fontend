@@ -3,7 +3,7 @@ import moment from 'moment';
 import 'moment/locale/vi';
 import { Modal, Form, Input, Button, Rate } from 'antd';
 
-function ModalDetailUser({visible,setVisible,data}) {
+function ModalDetailUserUi({visible,setVisible,data}) {
   console.log("pppppppppppdataxx",data)
 
   return (
@@ -23,11 +23,11 @@ function ModalDetailUser({visible,setVisible,data}) {
         setVisible(false)
       }}
     >
-        <h1 className='text-2xl  font-bold text-center pb-3'><span className='text-red-500'>{data?.role}</span>-[{data?.id}]</h1>
+        <h1 className='text-2xl  font-bold text-center pb-3'><span className='text-red-500'>{data?.name}</span></h1>
         <div className='flex gap-2'>
           <div className='w-1/2 flex justify-center items-center'>
             <img  className='w-80 h-80 object-cover' src={data?.avatar} alt={data?.avatar}
-             onError={(e)=>{e.target.onError=null;e.target.src='https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg'}}
+             onError={(e)=>{e.target.onError=null;e.target.src='https://tse2.mm.bing.net/th?id=OIP.x7X2oAehk5M9IvGwO_K0PgHaHa&pid=Api&P=0&h=220'}}
             ></img>
 
           </div>
@@ -94,4 +94,4 @@ function ModalDetailUser({visible,setVisible,data}) {
   )
 }
 
-export default ModalDetailUser
+export default ModalDetailUserUi

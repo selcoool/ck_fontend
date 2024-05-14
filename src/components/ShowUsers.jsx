@@ -5,11 +5,14 @@ import { getAllUsers } from '../redux/userReducerSlice';
 import Search from 'antd/es/input/Search'
 import { Button } from 'antd';
 import ModalAddUser from './Modals/ModalUser/ModalAddUser';
+import ModalDetailUserUi from './Modals/ModalUser/ModalDetailUserUi';
 
 function ShowUsers() {
 
  
    const {users} = useSelector((state) => state?.manageUser);
+   const [detailUserDataUi, setDetailUserDataUi] = useState();
+   const [modalDetailUserUi, setModalDetailUserUi] = useState(false);
    const [modalAddUser, setModalAddUser] = useState(false);
    const [userData, setUserData] = useState([]);
    console.log('userData',userData)
@@ -91,7 +94,7 @@ function ShowUsers() {
         <div key={user.id} className='relative overflow-hidden cursor-pointer group'>
             <div className='w-full shadow-lg shadow-slate-400 relative flex justify-center items-center '>
                 <img className='w-full h-60 object-cover group-hover:scale-105 duration-300 rounded-full p-2' src={user.avatar !== "" ? user.avatar : "https://tse2.mm.bing.net/th?id=OIP.x7X2oAehk5M9IvGwO_K0PgHaHa&pid=Api&P=0&h=220"} alt={user.avatar} />
-                <div className='absolute  hidden group-hover:block hover:bg-red-300  text-white text-center border-2 border-white p-4 w-fit bg-white/50 '>Xem Chi Tiết CV</div>
+                <div onClick={()=>[setModalDetailUserUi(!modalDetailUserUi),setDetailUserDataUi(user) ]} className='absolute  hidden group-hover:block hover:bg-red-300  text-white text-center border-2 border-white p-4 w-fit bg-white/50 '>Xem Chi Tiết CV</div>
             </div>
             <div className='flex  flex-col p-3  transition-all duration-100 '>
                 <div className='pb-3 flex items-center justify-center gap-3'>
@@ -155,6 +158,8 @@ function ShowUsers() {
 
 
     </div>
+
+    <ModalDetailUserUi visible={modalDetailUserUi} data={detailUserDataUi} setVisible={setModalDetailUserUi}/>
 
   </div>
   )

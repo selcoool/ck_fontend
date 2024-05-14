@@ -35,7 +35,7 @@ function ModalDetailJob({visible,setVisible,data}) {
             ></img>
 
           </div>
-          <div className='w-1/2 pt-7 pb-2'>
+          <div className='w-1/2  pb-2'>
             <div >
            <span className='font-bold'>Tên công việc [{data?.
 maChiTietLoaiCongViec}]:</span> {data?.tenCongViec}
