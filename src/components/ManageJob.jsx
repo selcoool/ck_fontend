@@ -264,7 +264,7 @@ columns={[
 
     JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
 
-        JSON.parse(localStorage.getItem('USER'))?.user.id === tenCongViecData?.nguoiTao ? (
+        JSON.parse(localStorage.getItem('USER'))?.user.id === tenCongViecData?.nguoiTao ||  JSON.parse(localStorage.getItem('USER'))?.user.role === "ADMIN"  ? (
 
           <div className='flex gap-2'>
      

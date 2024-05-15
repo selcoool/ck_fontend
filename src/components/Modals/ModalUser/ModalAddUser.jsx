@@ -264,7 +264,7 @@ const handleCertification = (e) => {
           {errors.email && touched.email ? (<div className='text-red-500 '>{errors.email}</div>) : ''}
         </Form.Item>
         <Form.Item label="Mật khẩu">
-          <Input onChange={handleChange} onBlur={handleBlur} id='password' value={values.password} />
+          <Input type='password' onChange={handleChange} onBlur={handleBlur} id='password' value={values.password} />
           {errors.password && touched.password ? (<div className='text-red-500 '>{errors.password}</div>) : ''}
         </Form.Item>
 
