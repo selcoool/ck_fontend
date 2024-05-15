@@ -54,7 +54,7 @@ function ShowUsers() {
 
 
   return (
-    <div className='bg-orange-400 w-full h-screen '>
+    <div className='bg-orange-400 w-full h-full md:min-h-screen'>
     <div className='px-4 bg-orange-100'>
 
 

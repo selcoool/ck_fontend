@@ -45,7 +45,7 @@ useEffect(() => {
 
 
   return (
-    <div className='bg-orange-400 w-full h-screen '>
+    <div className='bg-orange-400 w-full h-full md:min-h-screen'>
       <div className='px-4 bg-orange-100'>
 
       <div className='flex justify-center items-start md:justify-start flex-col md:flex-row py-3 gap-1'>

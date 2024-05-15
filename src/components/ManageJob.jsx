@@ -151,7 +151,7 @@ columns={[
   },
    
     render: (text) => <span>{text}</span>,
-    width:30,
+    width:60,
   },
   {
     title: 'Tên công việc',

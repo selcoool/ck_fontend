@@ -23,23 +23,24 @@ export const getRelatedComments = createAsyncThunk(
 
 
 
-// export const addAJob = createAsyncThunk(
-//   'jobs/addAJob',
-//   async (user, {dispatch,rejectWithValue}) => {
-//     try {
-//       console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
-//       // Gửi request POST đến endpoint `/QuanLyNguoiDung/ThemNguoiDung` với formData của user
-//       const users = await http.post(`/api/cong-viec`, user.formData);
-//       // Trả về dữ liệu từ response
-//       dispatch(getAllJobs())
-//       console.log('RRRRRxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',users)
-//       return users.data.content;
-//     } catch (error) {
-//       // Trả về một giá trị bị reject nếu có lỗi xảy ra
-//       return rejectWithValue({ error: error.message });
-//     }
-//   }
-// );
+export const addAComment = createAsyncThunk(
+  'comments/addAComment',
+  async (user, {dispatch,rejectWithValue}) => {
+    try {
+      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
+      // Gửi request POST đến endpoint `/QuanLyNguoiDung/ThemNguoiDung` với formData của user
+      const users = await http.post(`/api/binh-luan`, user.formData);
+      // Trả về dữ liệu từ response
+      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxusers',users)
+      // dispatch(getRelatedComments())
+      
+      return users.data.content;
+    } catch (error) {
+      // Trả về một giá trị bị reject nếu có lỗi xảy ra
+      return rejectWithValue({ error: error.message });
+    }
+  }
+);
 
 
 
@@ -145,19 +146,19 @@ export const userSlice = createSlice({
     });
 
 
-    // builder.addCase(addAJob.pending, (state) => {
-    //   state.status = 'pending';
-    // });
-    // builder.addCase(addAJob.fulfilled, (state, action) => {
-    //   state.status = 'fulfilled';
-    //   state.jobs.push(action.payload);
-    //   toast.success('Bạn đã thêm công việc thành công !')
+    builder.addCase(addAComment.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(addAComment.fulfilled, (state, action) => {
+      state.status = 'fulfilled';
+      state.relatedComments.push(action.payload);
+      toast.success('Bạn đã thêm công việc thành công !')
 
-    // });
-    // builder.addCase(addAJob.rejected, (state, action) => {
-    //   state.status = 'rejected';
-    //   toast.error('Bạn đã thêm công việc không thành công ! !')
-    // });
+    });
+    builder.addCase(addAComment.rejected, (state, action) => {
+      state.status = 'rejected';
+      toast.error('Bạn đã thêm công việc không thành công ! !')
+    });
 
 
     // builder.addCase(deleteAJob.pending, (state) => {

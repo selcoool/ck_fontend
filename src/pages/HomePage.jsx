@@ -47,7 +47,7 @@ function HomePage() {
   const [activeTab, setActiveTab] = useState(pathname);
 
   return (
-    <div className='w-full h-full bg-slate-500'>
+    <div className='w-full h-full bg-slate-500 md:min-h-screen'>
 
   
     <div className='w-screen h-full flex flex-col md:flex-row '>
