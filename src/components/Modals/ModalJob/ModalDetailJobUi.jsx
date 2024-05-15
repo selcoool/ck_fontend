@@ -4,18 +4,20 @@ import 'moment/locale/vi';
 import { Modal, Form, Input, Button, Rate } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllJobs } from '../../../redux/jobReducerSlice';
-import { addAComment, getAllComments, getRelatedComments } from '../../../redux/commentReducerSlice';
+import { addAComment, deleteAComment, getAllComments, getRelatedComments } from '../../../redux/commentReducerSlice';
 import { useFormik } from 'formik';
 import * as yup from "yup"
 import { FaPencil } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-
+import ModalEditComment from '../ModalComment.jsx/ModalEditComment';
+const { TextArea } = Input;
 
 function ModalDetailJobUi({ visible, setVisible, data }) {
   console.log("ModalDetailJobUi", data)
 
   const dispatch = useDispatch();
-
+  const [modalEditComment, setModalEditComment] = useState(false);
+  const [editCommentData, setEditCommentData] = useState();
 
   const { relatedComments } = useSelector((state) => state?.manageComment);
   const [commentData, setCommentData] = useState([]);
@@ -24,7 +26,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
     enableReinitialize: true,
     initialValues: {
       maCongViec: data?.id,
-      maNguoiBinhLuan: localStorage.getItem('USER') ? JSON.parse(localStorage.getItem('USER')).user.id : 0,
+      maNguoiBinhLuan: localStorage.getItem('USER') ? JSON.parse(localStorage.getItem('USER'))?.user?.id : 0,
       ngayBinhLuan: moment().format('DD/MM/YYYY'),
       noiDung: "",
       saoBinhLuan: 5
@@ -105,7 +107,21 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
 
 
+  const handleDeleteComment=(value)=>{
+    // dispatch(deleteAMovie(value))
 
+    console.log('xxxxxxxxxxxxx',value)
+
+    Modal.confirm({
+      title:"Bạn thật sự muốn xóa bình luận này ?",
+      okText:"Đồng ý",
+      okType:"danger",
+      cancelText:"Hủy",
+      onOk:()=>{
+        dispatch(deleteAComment(value))
+      }
+    })
+  }
 
   return (
 
@@ -185,8 +201,8 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
                           <div className='flex items-center gap-1 cursor-pointer'>
                             <span className='text-lg' key={index} >{comment.tenNguoiBinhLuan}</span>
-                            <MdDelete className='text-red-500' />
-                            <FaPencil className='text-cyan-500' />
+                            <MdDelete onClick={()=>handleDeleteComment(comment)}  className='text-red-500' />
+                            <FaPencil onClick={()=>[setModalEditComment(!modalEditComment),setEditCommentData(comment)]}  className='text-cyan-500' />
 
                           </div>
                         </div>
@@ -200,6 +216,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
                       </div>
                       <div className='flex items-center gap-1'> {comment.noiDung}</div>
+                      <Rate className='text-sm'  value={comment.saoBinhLuan}  disabled/>
 
                     </div>
 
@@ -224,7 +241,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
                       <Form.Item >
 
-                        <Input onChange={handleChange} onBlur={handleBlur} id='noiDung' value={values.noiDung} placeholder='Vui lòng gõ bình luận...' />
+                        <TextArea onChange={handleChange} onBlur={handleBlur} id='noiDung' value={values.noiDung} placeholder='Vui lòng gõ bình luận...' />
 
                         {errors.noiDung && touched.noiDung
                           ? (<div className='text-red-500 '>{errors.noiDung
@@ -263,8 +280,12 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
 
 
-
+        
       </Modal>
+
+      <ModalEditComment  visible={modalEditComment} data={editCommentData}  setVisible={setModalEditComment}/>
+
+     
     </div>
   )
 }

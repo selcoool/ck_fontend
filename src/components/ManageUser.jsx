@@ -243,7 +243,7 @@ columns={[
   dataIndex: 'certification',
   ellipsis: true, // Hiển thị ba chấm (...) nếu nội dung quá dài
   render: (text, certifications) => (
-    
+
     certifications?.certification?.length > 0 ? (
       Array.isArray(certifications.certification) ? (
         certifications.certification.map((certificate, index) => (
@@ -256,6 +256,7 @@ columns={[
     ) : (
       <span>Chưa có chứng chỉ nào</span>
     )
+   
 
     // <span>{text}</span>
     // <img src={film.tenPhim} alt={film.tenPhim} className='w-[50px] h-[50px]' onError={(e)=>{e.target.onError=null;e.target.src='https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg'}} />

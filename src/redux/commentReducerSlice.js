@@ -45,47 +45,47 @@ export const addAComment = createAsyncThunk(
 
 
 
-// export const deleteAJob = createAsyncThunk(
-//   'users/deleteAJob',
-//   async (user, {dispatch,rejectWithValue}) => {
-//     try {
+export const deleteAComment = createAsyncThunk(
+  'comments/deleteAComment',
+  async (user, {dispatch,rejectWithValue}) => {
+    try {
        
-//       console.log('pppppppppppppppppcccc',user.id)
-//       const users = await http.delete(`/api/cong-viec/${user.id}`)
-//       dispatch(getAllJobs())
-//         console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
-//       return user.id;
+      console.log('pppppppppppppppppcccc',user.id)
+      const users = await http.delete(`/api/binh-luan/${user.id}`)
+      // dispatch(getAllJobs())
+        console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
+      return user.id;
 
-//     //   console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
-
-
-//     } catch (error) {
-//       return rejectWithValue({ error: error.message });
-//     }
-//   }
-// );
+    //   console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
 
 
-
-// export const editAJob = createAsyncThunk(
-//   'jobs/editAJob',
-//   async (user, {dispatch,rejectWithValue}) => {
-//     try {
-
-//       // console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',await user.formData.id)
-//       const users = await http.put(`/api/cong-viec/${user.formData.id}`,user.formData)
-//       // console.log('RRRRRxxxxxxxxxxxxxeditAUser',users)
-//       // console.log('dddyyyyyyy',users)
-//       dispatch(getAllJobs())
-//       return users.data.content;
+    } catch (error) {
+      return rejectWithValue({ error: error.message });
+    }
+  }
+);
 
 
 
-//     } catch (error) {
-//       return rejectWithValue({ error: error.message });
-//     }
-//   }
-// );
+export const editAComment = createAsyncThunk(
+  'comments/editAComment',
+  async (user, {dispatch,rejectWithValue}) => {
+    try {
+
+      // console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',await user.formData.id)
+      const users = await http.put(`/api/binh-luan/${user.formData.id}`,user.formData)
+      // console.log('RRRRRxxxxxxxxxxxxxeditAUser',users)
+      // console.log('dddyyyyyyy',users)
+      // dispatch(getAllJobs())
+      return users.data.content;
+
+
+
+    } catch (error) {
+      return rejectWithValue({ error: error.message });
+    }
+  }
+);
 
 
 
@@ -152,46 +152,46 @@ export const userSlice = createSlice({
     builder.addCase(addAComment.fulfilled, (state, action) => {
       state.status = 'fulfilled';
       state.relatedComments.push(action.payload);
-      toast.success('Bạn đã thêm công việc thành công !')
+      toast.success('Bạn đã bình luận công việc thành công !')
 
     });
     builder.addCase(addAComment.rejected, (state, action) => {
       state.status = 'rejected';
-      toast.error('Bạn đã thêm công việc không thành công ! !')
+      toast.error('Bạn đã bình luận không thành công ! !')
     });
 
 
-    // builder.addCase(deleteAJob.pending, (state) => {
-    //   state.status = 'pending';
-    // });
-    // builder.addCase(deleteAJob.fulfilled, (state, action) => {
-    //   state.status = 'fulfilled';
-    //   state.jobs = state.jobs.filter(job => job.id !== action.payload);
-    //   toast.success('Bạn đã xóa thành công !')
-    //   // console.log('action.payloadccccccccccc',action.payload)
-    // });
-    // builder.addCase(deleteAJob.rejected, (state, action) => {
-    //   state.status = 'rejected';
-    //   toast.error('Bạn xóa thất bại !')
-    // });
+    builder.addCase(deleteAComment.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(deleteAComment.fulfilled, (state, action) => {
+      state.status = 'fulfilled';
+      state.relatedComments = state.relatedComments.filter(comment => comment.id !== action.payload);
+      toast.success('Bạn đã xóa bình luận thành công !')
+      // console.log('action.payloadccccccccccc',action.payload)
+    });
+    builder.addCase(deleteAComment.rejected, (state, action) => {
+      state.status = 'rejected';
+      toast.error('Bạn xóa bình luận thất bại !')
+    });
 
 
-    // builder.addCase(editAJob.pending, (state) => {
-    //   state.status = 'pending';
-    // });
-    // builder.addCase(editAJob.fulfilled, (state, action) => {
-    //   state.status = 'fulfilled';
-    //   // state.movies = state.movies.filter(movie => movie.maPhim !== action.payload);
-    //   state.jobs = state.jobs.map(job =>
-    //     job.id === action.payload.id ? action.payload : job
-    //     );
-    //     toast.success('Bạn đã chỉnh sửa thành công !')
-    //   // console.log("oiiiiiiiiii",action.payload)
-    // });
-    // builder.addCase(editAJob.rejected, (state, action) => {
-    //   state.status = 'rejected';
-    //   toast.error('Bạn chỉnh sửa thất bại !')
-    // });
+    builder.addCase(editAComment.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(editAComment.fulfilled, (state, action) => {
+      state.status = 'fulfilled';
+      // state.movies = state.movies.filter(movie => movie.maPhim !== action.payload);
+      state.relatedComments = state.relatedComments.map(comment =>
+        comment.id === action.payload.id ? action.payload : comment
+        );
+        toast.success('Bạn đã chỉnh sửa  bình luật thành công !')
+      // console.log("oiiiiiiiiii",action.payload)
+    });
+    builder.addCase(editAComment.rejected, (state, action) => {
+      state.status = 'rejected';
+      toast.error('Bạn chỉnh sửa thất bại !')
+    });
 
 
     // builder.addCase(editImageJob.pending, (state) => {
