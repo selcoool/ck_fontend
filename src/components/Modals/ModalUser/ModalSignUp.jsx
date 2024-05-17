@@ -224,7 +224,7 @@ function ModalSignUp({ isOpen, setIsOpen}) {
   
   
     return (
-      <div className='w-full h-full'>
+      <div className='w-full h-full bg-slate-500 '>
       <Modal
        cancelButtonProps={{ style: { display: 'none' } }}
        okButtonProps={{ style: { display: 'none' } }}

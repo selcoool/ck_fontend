@@ -4,9 +4,9 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: {
-        'background_sidebar': "url('/public/assets/bg01.jpeg')",
-        'background_sidebar2': "url('/public/assets/bg02.jpeg')",
-        'background_work':"url('/public/assets/bg03.jpeg')",
+        'background_00': "url('/public/assets/bg01.jpeg')",
+        'background_01': "url('/public/assets/bg02.jpeg')",
+        'background_02':"url('/public/assets/bg03.jpeg')",
         // 'background_logout':"url('/public/assets/logout.jpeg')",
         // 'background_detail':"url('/public/assets/detailbg.jpeg')"
         

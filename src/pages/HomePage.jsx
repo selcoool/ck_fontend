@@ -63,7 +63,7 @@ function HomePage() {
     <div className='w-screen h-full flex flex-col md:flex-row '>
     
 
-    <div className='w-full md:w-2/6 lg:w-1/6 bg-slate-500 flex flex-col bg-background_sidebar2 bg-cover'>
+    <div className='w-full md:w-2/6 lg:w-1/6 bg-slate-500 flex flex-col bg-background_01 bg-cover'>
                                <div className='w-full h-12 flex justify-center'><img className='w-full h-12 object-cover ' src="https://logospng.org/wp-content/uploads/tailwind-css.png" alt="" /></div>
                                {JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
                                 <div className='flex justify-between items-center px-2 pt-2'>
@@ -79,7 +79,7 @@ function HomePage() {
                                 {JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
                                     <Avatar  className=' w-28 h-28  ' src={JSON.parse(localStorage.getItem('USER')).user.avatar}  />
                                 ):(
-                                  <Avatar className=' w-28 h-28  ' src="https://scontent.fkul10-1.fna.fbcdn.net/v/t39.30808-6/431403523_3657596567812919_1168612133943379337_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeGtlG6Em8dLI6_maqBnjvqya0b7bsLAwDtrRvtuwsDAO2sNYGhjh6cxNiD24p--OIbh1clY96Vig_-hNuSdVpKa&_nc_ohc=8W9OZX7kL3IQ7kNvgE0TUGC&_nc_ht=scontent.fkul10-1.fna&oh=00_AYCcJgAWFRj7o6HN5vd-admfYEFN4RK_2XP0RROO8hcPRg&oe=6646EC0C" />
+                                  <Avatar className=' w-28 h-28  ' src="https://scontent.fkul10-1.fna.fbcdn.net/v/t39.30808-6/257562002_3039447956294453_1832238329207388837_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=juigomsLgMUQ7kNvgE5NMky&_nc_ht=scontent.fkul10-1.fna&oh=00_AYBgziZNl2a59zYMf_Wzl2QSNcrd4Kcb3dZ4fn-eDt-FOQ&oe=664D784A" />
                                 )}
 
                                 

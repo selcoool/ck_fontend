@@ -80,7 +80,7 @@ function ShowRecruitJob() {
     [...recruitJobData]?.reverse().map((recruitJob) => (
         <div key={recruitJob?.id} className=' overflow-hidden cursor-pointer group'>
             
-            <div className='flex gap-1   flex-col p-3 bg-background_work bg-cover  transition-all duration-100 '>
+            <div className='flex gap-1   flex-col p-3 bg-background_02 bg-cover  transition-all duration-100 '>
                 <div className='bg-gray-800/60 flex flex-col'>
                 <div className='pb-3 flex items-center justify-center gap-3'>
                     <h1 className='font-bold text-sky-500 '>{recruitJob?.maNguoiThue}</h1>
