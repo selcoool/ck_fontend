@@ -9,6 +9,11 @@ import { FaSignOutAlt } from "react-icons/fa";
 import { FaRegImage } from "react-icons/fa6";
 import { FaPencil } from "react-icons/fa6";
 import { SiWorkplace } from "react-icons/si";
+import { LuNetwork } from "react-icons/lu";
+import { FaRegCommentAlt } from "react-icons/fa";
+import { GiArchiveRegister } from "react-icons/gi";
+
+
 
 
 
@@ -23,6 +28,11 @@ import ModalEditUserAfterLogin from '../components/Modals/ModalUser/ModalEditUse
 
 import { useLocation } from 'react-router-dom';
 import WorkShop from '../components/WorkShop';
+import ManageTypeJob from '../components/ManagetTypeJob';
+import ManageComment from '../components/ManageComment';
+import ManageRecruitJob from '../components/ManageRecruitJob';
+import Footer from '../components/Footer';
+import { excerpt } from '../utility';
  
 
 
@@ -53,11 +63,12 @@ function HomePage() {
     <div className='w-screen h-full flex flex-col md:flex-row '>
     
 
-    <div className='w-full md:w-2/6 lg:w-1/6 bg-slate-500 flex flex-col'>
+    <div className='w-full md:w-2/6 lg:w-1/6 bg-slate-500 flex flex-col bg-background_sidebar2 bg-cover'>
+                               <div className='w-full h-12 flex justify-center'><img className='w-full h-12 object-cover ' src="https://logospng.org/wp-content/uploads/tailwind-css.png" alt="" /></div>
                                {JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
                                 <div className='flex justify-between items-center px-2 pt-2'>
-                               <div className='flex gap-1 cursor-pointer'  onClick={()=>[setOpenMenuAvatar(!openMenuAvatar)]}><FaRegImage className='w-5 h-5  transition-all duration-100 cursor-pointer text-gray-200 hover:text-white' /><span className='text-sm'>Ảnh đại diện</span></div>
-                               <div className='flex gap-1 cursor-pointer'  onClick={()=>[setOpenMenuSignOut(!openMenuSignOut)]}><FaSignOutAlt className='w-5 h-5  transition-all duration-100 cursor-pointer text-gray-200 hover:text-white' /></div>
+                               <div className='flex gap-1 cursor-pointer'  onClick={()=>[setOpenMenuAvatar(!openMenuAvatar)]}><FaRegImage className='w-5 h-5  transition-all duration-100 cursor-pointer text-red-500 hover:text-white' /><span className='text-sm'>Ảnh đại diện</span></div>
+                               <div className='flex gap-1 cursor-pointer'  onClick={()=>[setOpenMenuSignOut(!openMenuSignOut)]}><FaSignOutAlt className='w-5 h-5  transition-all duration-100 cursor-pointer text-white hover:text-white' /></div>
                                </div>
                                 ):''}
                                 
@@ -77,7 +88,7 @@ function HomePage() {
                                 
                                 <div className='flex gap-2 text-[12px] text-zinc-50'>
                                 {JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
-                                     <div  className='cursor-pointer text-xl pt-2 font-bold flex justify-center items-center gap-1'>{JSON.parse(localStorage.getItem('USER'))?.user.name} <FaPencil onClick={()=>[setModalEditUser(!modalEditUser),setEditUserData(JSON.parse(localStorage.getItem('USER'))?.user)]} color='black' size={18}/></div>
+                                     <div  className='cursor-pointer text-xl pt-2 font-bold flex justify-center items-center gap-1'>{excerpt(JSON.parse(localStorage.getItem('USER'))?.user.name,10)  } <FaPencil onClick={()=>[setModalEditUser(!modalEditUser),setEditUserData(JSON.parse(localStorage.getItem('USER'))?.user)]} color='#6e9eea' size={18}/></div>
                                 ):(
                                    <>
                                     <div  className='cursor-pointer pt-2 font-bold' onClick={()=>[setOpenMenuSignIn(!openMenuSignIn),setOpenMenuSignUp(false)]}>Đăng Nhập</div>
@@ -120,6 +131,22 @@ function HomePage() {
                                   key:"/jobs",
                                   icon:<MdOutlineWork/>
                                   },
+                                  
+                                  {
+                                    label:"Loại Công Việc",
+                                    key:"/type_job",
+                                    icon:<LuNetwork/>
+                                    },
+                                    {
+                                      label:"Thuê Công Việc",
+                                      key:"/recruit_job",
+                                      icon:<GiArchiveRegister/>
+                                      },
+                                    {
+                                      label:"Bình Luận",
+                                      key:"/comments",
+                                      icon:<FaRegCommentAlt/>
+                                      },
                                
                             
                                 
@@ -152,7 +179,10 @@ function HomePage() {
 
                    
                     {activeTab === '/users' && <ManageUser />}
-                    {activeTab === '/jobs' && <ManageJob />}
+                    {activeTab === '/jobs' && <ManageJob />}       
+                    {activeTab === '/type_job' && <ManageTypeJob />}
+                    {activeTab === '/recruit_job' && <ManageRecruitJob/>}
+                    {activeTab === '/comments' && <ManageComment />}
                     
                     
                     </div>
@@ -168,7 +198,11 @@ function HomePage() {
 <ModalSignOut  isOpen={openMenuSignOut} setIsOpen={setOpenMenuSignOut} />
 <ModalEditUserAfterLogin visible={modalEditUser} data={editUserData}  setVisible={setModalEditUser}/>
 
+
+
   </div>
+
+  
   )
 }
 

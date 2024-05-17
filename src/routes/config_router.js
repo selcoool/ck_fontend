@@ -5,6 +5,9 @@ import ErrorPage from '../pages/ErrorPage';
 import HomePage from '../pages/HomePage';
 import ManageUser from '../components/ManageUser';
 import ManageJob from '../components/ManageJob';
+import ManageTypeJob from '../components/ManagetTypeJob';
+import ManageComment from '../components/ManageComment';
+import ManageRecruitJob from '../components/ManageRecruitJob';
 // import ManagementPage from '../pages/ManagementPage';
 // import ManageMovie from '../components/ManageMovie';
 // import ManageUser from '../components/ManageUser';
@@ -33,6 +36,20 @@ function useRouteCustom() {
             path:"jobs",
             element:<ManageJob/>
         },
+       
+        {
+          path:"type_job",
+          element:<ManageTypeJob/>
+       },
+       {
+        path:"comments",
+        element:<ManageComment/>
+     },
+     {
+      path:"recruit_job",
+      element:<ManageRecruitJob/>
+   },
+
         {
           path:"*",
           element:<ManageUser/>

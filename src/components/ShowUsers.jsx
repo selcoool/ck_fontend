@@ -6,6 +6,7 @@ import Search from 'antd/es/input/Search'
 import { Button } from 'antd';
 import ModalAddUser from './Modals/ModalUser/ModalAddUser';
 import ModalDetailUserUi from './Modals/ModalUser/ModalDetailUserUi';
+import Footer from './Footer';
 
 function ShowUsers() {
 
@@ -54,7 +55,7 @@ function ShowUsers() {
 
 
   return (
-    <div className='bg-orange-400 w-full h-full md:min-h-screen'>
+    <div className='bg-orange-100 w-full h-full md:min-h-screen'>
     <div className='px-4 bg-orange-100'>
 
 
@@ -74,7 +75,7 @@ function ShowUsers() {
 <div className='flex gap-1 '>
 
 <Button  size="large" className='bg-white' >Số người ({users ?users.length:0})</Button> 
-{JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+{ JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
       <>  
 
 <Button size="large"  onClick={()=>setModalAddUser(!modalAddUser)} className='bg-green-500'>Thêm Người Dùng</Button>
@@ -160,7 +161,7 @@ function ShowUsers() {
     </div>
 
     <ModalDetailUserUi visible={modalDetailUserUi} data={detailUserDataUi} setVisible={setModalDetailUserUi}/>
-
+    <Footer/>
   </div>
   )
 }

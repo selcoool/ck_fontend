@@ -20,18 +20,11 @@ import ModalDetailJob from './Modals/ModalJob/ModalDetailJob';
 import ModalEditJob from './Modals/ModalJob/ModalEditJob';
 import ModalEditImageJob from './Modals/ModalJob/ModalEditImageJob';
 import { SiMalt } from 'react-icons/si';
-// import ModalEditMovie from './ModalEditMovie';
-// import ModalEditUser from './ModalEditUser';
+
 
 function ManageJob() {
 
-    // const onSearch = (value, _e, info) => console.log(info?.source, value);
     const {jobs} = useSelector((state) => state?.manageJob);
-
-     // console.log('yyyyyyyyyyyyygroup',group)
-
-    // const [group, setGroup] = useState('GP00');
-    // const [usersData, setUsersData] = useState(users);
     const [editJobData, setEditJobData] = useState();
     const [detailJobData, setDetailJobData] = useState();
     const [jobData, setJobData] = useState([]);
@@ -45,10 +38,6 @@ function ManageJob() {
 
     const [openMenuImage,setOpenMenuImage]=useState(false)
   
-
-    console.log('jobData',jobData)
-    // console.log('yyyyyyyyyyyyyusersData',usersData)
-    // console.log('yyyyyyyyyyyyyeditUsersData',editUsersData)
   
     useEffect(() => {
       setJobData(jobs);
@@ -72,16 +61,9 @@ function ManageJob() {
     }, []);
 
 
-    // const handleChangeSelect = (value) => {
-    //   // console.log(`selected ${value}`);
-    //   setGroup(value)
-    // };
-
 
     const handleDeleteJob=(value)=>{
-      // dispatch(deleteAMovie(value))
 
-      console.log('xxxxxxxxxxxxx',value)
 
       Modal.confirm({
         title:"Bạn thật sự muốn xóa công việc này ?",
@@ -122,7 +104,7 @@ function ManageJob() {
 
 <div className='px-3 pb-3 flex  gap-1 '>
 <Button  size="large" className='bg-white' >Số công việc ({jobs ?jobs.length:0})</Button>
-{JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+{JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
       <> 
   <Button size="large"  onClick={()=>setModalAddJob(!modalAddJob)} className='bg-green-500'>Thêm Công Việc</Button>
   <ModalAddJob visible={modalAddJob} setVisible={setModalAddJob}/>
@@ -134,7 +116,7 @@ function ManageJob() {
   <div className='px-3 '>
   <Table
   rowKey={'id'}
-scroll={{ x: 700, y: 450 }}
+scroll={{ x: 700, y: 550 }}
 dataSource={jobData}
 columns={[
   {
@@ -189,7 +171,7 @@ columns={[
    render: (text, moTaData) => (
      
      <span>{text}</span>
-     // <img src={film.tenPhim} alt={film.tenPhim} className='w-[50px] h-[50px]' onError={(e)=>{e.target.onError=null;e.target.src='https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg'}} />
+    
    ),
    width:100,
  },
@@ -198,14 +180,9 @@ columns={[
    dataIndex: 'giaTien',
    ellipsis: true, // Hiển thị ba chấm (...) nếu nội dung quá dài
    render: (text, giaTienData) => (
-  //  div
-    // console.log('ddđxxxxxxxxxxxx',skills)
-    // console.log('ddđxxxxxxxxxxxx__text',text)
-
+ 
         <span>{text}</span>
 
-    //  <span>{text}</span>
-     // <img src={film.tenPhim} alt={film.tenPhim} className='w-[50px] h-[50px]' onError={(e)=>{e.target.onError=null;e.target.src='https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg'}} />
    ),
    width:90,
 
@@ -219,8 +196,7 @@ columns={[
     
     
     <Rate  value={saoCongViecData.saoCongViec}  disabled/>
-    // <span>{text}</span>
-    // <img src={film.tenPhim} alt={film.tenPhim} className='w-[50px] h-[50px]' onError={(e)=>{e.target.onError=null;e.target.src='https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg'}} />
+   
   ),
   width:200,
 
@@ -232,7 +208,7 @@ columns={[
    render: (text, film) => (
 
      <span>{text}</span>
-     // <img src={film.tenPhim} alt={film.tenPhim} className='w-[50px] h-[50px]' onError={(e)=>{e.target.onError=null;e.target.src='https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg'}} />
+   
    ),
  
    width:60,

@@ -5,14 +5,22 @@ import Search from 'antd/es/input/Search'
 import { Button } from 'antd';
 import ModalAddJob from './Modals/ModalJob/ModalAddJob';
 import ModalDetailJobUi from './Modals/ModalJob/ModalDetailJobUi';
+import ModalDetailUser from './Modals/ModalUser/ModalDetailUser';
+import Footer from './Footer';
+
+;
 
 
 function ShowJobs() {
 
   const {jobs} = useSelector((state) => state?.manageJob);
+  
 
   const [detailJobDataUi, setDetailJobDataUi] = useState();
   const [modalDetailJobUi, setModalDetailJobUi] = useState(false);
+  const [modalDetailUser, setModalDetailUser] = useState(false);
+
+
   console.log('dddddddddd',modalDetailJobUi)
   console.log('ddddddddddssss',modalDetailJobUi)
   
@@ -20,12 +28,17 @@ function ShowJobs() {
   
    const [modalAddJob, setModalAddJob] = useState(false);
   const [jobData, setJobData] = useState([]);
+
   console.log('modalAddJob',modalAddJob)
   console.log('jobData',jobData)
+
 
 useEffect(() => {
     setJobData(jobs);
   }, [jobs]);
+
+
+ 
 
 
   const dispatch=useDispatch();
@@ -33,10 +46,14 @@ useEffect(() => {
   useEffect(() => {
 
    dispatch(getAllJobs())
+  
 
    
-   
+
   }, []);
+
+
+
 
   const onSearchJob = (value) => {
     setJobData(jobs.filter(job => job.tenCongViec.trim().toLowerCase().includes(value.trim().toLowerCase())));
@@ -45,7 +62,7 @@ useEffect(() => {
 
 
   return (
-    <div className='bg-orange-400 w-full h-full md:min-h-screen'>
+    <div className=' bg-orange-100 w-full h-full md:min-h-screen'>
       <div className='px-4 bg-orange-100'>
 
       <div className='flex justify-center items-start md:justify-start flex-col md:flex-row py-3 gap-1'>
@@ -123,9 +140,9 @@ useEffect(() => {
 
 
       </div>
-
+   
       <ModalDetailJobUi visible={modalDetailJobUi} data={detailJobDataUi} setVisible={setModalDetailJobUi}/>
-
+      <Footer/>
     </div>
   )
 }

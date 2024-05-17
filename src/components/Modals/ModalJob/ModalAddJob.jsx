@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Modal,
   Button,
@@ -22,20 +22,43 @@ import {
 import { useFormik } from 'formik';
 import * as yup from "yup"
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addAUser } from '../../../redux/userReducerSlice';
 import { addAJob } from '../../../redux/jobReducerSlice';
+import { getAllTypeJobs } from '../../../redux/typeJobReducerSlice';
 const { TextArea } = Input;
+
+  
+
+
 function ModalAddJob({visible,setVisible}) {
+
+     const dispatch=useDispatch();
 
   const [createSkillTag, setCreateSkillTag]=useState([])
   const [inputSkillValue, setInputSkillValue] = useState('');
 
   const [createCertificationTag, setCreateCertificationTag]=useState([])
   const [inputCertificationValue, setInputCertificationValue] = useState('');
+
     // console.log('modalCreateMovie',visible)
+    const {typeJobs} = useSelector((state) => state?.manageTypeJob);
+    const [typeJobData, setTypeJobData] = useState([]);
+  console.log('typeJobData',typeJobData)
+
  
-    const dispatch=useDispatch();
+ 
+
+    useEffect(() => {
+      setTypeJobData(typeJobs);
+    }, [typeJobs]);
+
+
+    useEffect(() => {
+
+      dispatch(getAllTypeJobs())
+     
+     }, []);
   
 
     const { handleChange, handleSubmit, handleBlur, resetForm, values, errors, touched,setFieldValue } = useFormik({
@@ -54,17 +77,18 @@ function ModalAddJob({visible,setVisible}) {
 
       },
       validationSchema: yup.object().shape({
-    //     taiKhoan: yup.string().required("Vui lòng nhập tên tài khoản "),
-    //     hoTen: yup.string().required("Vui lòng nhập họ và tên"),
+        tenCongViec: yup.string().required("Vui lòng nhập tên công việc "),
+        danhGia: yup.number().required("Vui lòng nhập số"),
   
-    //     email: yup.string().required("Vui lòng nhập email"),
-    //     soDt:yup.number().required("Vui lòng nhập số điện thoại"),
+        giaTien: yup.number()
+        .typeError('Giá tiền phải là một số')
+        .required('Vui lòng nhập giá tiền'),
+        moTa:yup.string().required("Vui lòng nhập miêu tả"),
 
-    //     matKhau:yup.string().required("Vui lòng nhập mật khẩu"),
-    //    maNhom:yup.string().required("Vui lòng chọn mã nhóm"),
-    //    maLoaiNguoiDung:yup.string().required("Vui lòng chọn mã loại người dùng"),
+        maChiTietLoaiCongViec:yup.string().required("Vui lòng nhập loại công việc"),
+        moTaNgan:yup.string().required("Vui lòng miêu tả ngắn"),
 
-      //  File:yup.string().required("Vui lòng chọn file")
+      //  hinhAnh:yup.string().required("Vui lòng chọn ảnh")
       
   
   
@@ -275,10 +299,47 @@ const handleCertification = (e) => {
 
         </Form.Item>
 
-        <Form.Item label="Mã chi tiết loại công việc">
+
+
+
+
+
+
+
+        {/* <Form.Item label="Mã chi tiết loại công việc">
           <Input onChange={handleChange} onBlur={handleBlur} id='maChiTietLoaiCongViec' value={values.maChiTietLoaiCongViec} />
           {errors.maChiTietLoaiCongViec && touched.maChiTietLoaiCongViec ? (<div className='text-red-500 '>{errors.maChiTietLoaiCongViec}</div>) : ''}
-        </Form.Item>
+        </Form.Item> */}
+
+
+
+
+        <Form.Item label="Mã chi tiết loại công việc">
+  <Select
+    onBlur={handleBlur}
+    value={values.maNhom}
+    onChange={handleOnChangeCustom('maChiTietLoaiCongViec')} id='maChiTietLoaiCongViec'
+  >
+
+    {typeJobData.length>0 && Array.isArray(typeJobData) 
+    ?( 
+      typeJobData.map((typeJob,index)=>{
+        return ( <Select.Option  value={typeJob?.id} >{typeJob?.tenLoaiCongViec}</Select.Option>)
+      })
+   
+    ) 
+    :(<Select.Option  value='0' >Không có loại công việc</Select.Option>)}
+  </Select>
+  {errors.maChiTietLoaiCongViec && touched.maChiTietLoaiCongViec ? (<div className='text-red-500 '>{errors.maChiTietLoaiCongViec}</div>) : ''}
+</Form.Item>
+
+
+
+
+
+
+
+
 
         <Form.Item label="Sao công việc">
         <Rate defaultValue={5}  onChange={handleOnChangeCustom('saoCongViec')}  id='saoCongViec' value={values.saoCongViec} />

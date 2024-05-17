@@ -4,13 +4,13 @@ import { http } from "../services/config_service"
 import { ToastContainer, toast } from 'react-toastify';
 
 
-export const getAllJobs = createAsyncThunk(
-  'jobs/getAllJobs',
+export const getAllTypeJobs = createAsyncThunk(
+  'typeJobs/getAllTypeJobs',
   async (user, thunkAPI) => {
     try {
 
      
-      let users = await http.get(`/api/cong-viec`);
+      let users = await http.get(`/api/loai-cong-viec`);
       
     
       return users.data.content;
@@ -22,15 +22,15 @@ export const getAllJobs = createAsyncThunk(
 
 
 
-export const addAJob = createAsyncThunk(
-  'jobs/addAJob',
+export const addATypeJob = createAsyncThunk(
+  'typeJobs/addATypeJob',
   async (user, {dispatch,rejectWithValue}) => {
     try {
       console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
       // Gửi request POST đến endpoint `/QuanLyNguoiDung/ThemNguoiDung` với formData của user
-      const users = await http.post(`/api/cong-viec`, user.formData);
+      const users = await http.post(`/api/loai-cong-viec`, user.formData);
       // Trả về dữ liệu từ response
-      dispatch(getAllJobs())
+      // dispatch(getAllJobs())
       console.log('RRRRRxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',users)
       return users.data.content;
     } catch (error) {
@@ -43,14 +43,14 @@ export const addAJob = createAsyncThunk(
 
 
 
-export const deleteAJob = createAsyncThunk(
-  'users/deleteAJob',
+export const deleteATypeJob = createAsyncThunk(
+  'typeJobs/deleteATypeJob',
   async (user, {dispatch,rejectWithValue}) => {
     try {
        
       console.log('pppppppppppppppppcccc',user.id)
-      const users = await http.delete(`/api/cong-viec/${user.id}`)
-      dispatch(getAllJobs())
+      const users = await http.delete(`/api/loai-cong-viec/${user.id}`)
+      // dispatch(getAllJobs())
         console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
       return user.id;
 
@@ -65,16 +65,16 @@ export const deleteAJob = createAsyncThunk(
 
 
 
-export const editAJob = createAsyncThunk(
-  'jobs/editAJob',
+export const editATypeJob = createAsyncThunk(
+  'typeJobs/editATypeJob',
   async (user, {dispatch,rejectWithValue}) => {
     try {
 
       // console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',await user.formData.id)
-      const users = await http.put(`/api/cong-viec/${user.formData.id}`,user.formData)
+      const users = await http.put(`/api/loai-cong-viec/${user.formData.id}`,user.formData)
       // console.log('RRRRRxxxxxxxxxxxxxeditAUser',users)
       // console.log('dddyyyyyyy',users)
-      dispatch(getAllJobs())
+      // dispatch(getAllJobs())
       return users.data.content;
 
 
@@ -87,27 +87,27 @@ export const editAJob = createAsyncThunk(
 
 
 
-export const editImageJob = createAsyncThunk(
-  'jobs/editImageJob',
-  async (user, {dispatch,rejectWithValue}) => {
-    try {
+// export const editImageJob = createAsyncThunk(
+//   'jobs/editImageJob',
+//   async (user, {dispatch,rejectWithValue}) => {
+//     try {
    
-      // console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',await user.formData)
-      const users = await http.post(`/api/cong-viec/upload-hinh-cong-viec/${user.id}`,user.formData)
+//       // console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',await user.formData)
+//       const users = await http.post(`/api/cong-viec/upload-hinh-cong-viec/${user.id}`,user.formData)
 
-      // console.log('Avatar1',users)
+//       // console.log('Avatar1',users)
 
-      dispatch(getAllJobs())
-      return users.data.content;
+//       dispatch(getAllJobs())
+//       return users.data.content;
 
 
 
-    } catch (error) {
-      return rejectWithValue({ error});
-      // return rejectWithValue({ error: error.message });
-    }
-  }
-);
+//     } catch (error) {
+//       return rejectWithValue({ error});
+//       // return rejectWithValue({ error: error.message });
+//     }
+//   }
+// );
 
 
 
@@ -183,12 +183,12 @@ export const editImageJob = createAsyncThunk(
 
 
 const initialState = {
-  jobs:[],
+  typeJobs:[],
   status:''
 }
 
-export const userSlice = createSlice({
-  name: 'jobs',
+export const typeJobSlice = createSlice({
+  name: 'typeJobs',
   initialState,
   reducers: {
     // signOutUser: (state, action) => {
@@ -199,85 +199,85 @@ export const userSlice = createSlice({
     // },
   },
   extraReducers: (builder) => {
-    builder.addCase(getAllJobs.pending, (state) => {
+    builder.addCase(getAllTypeJobs.pending, (state) => {
       state.status = 'pending';
     });
-    builder.addCase(getAllJobs.fulfilled, (state, action) => {
+    builder.addCase(getAllTypeJobs.fulfilled, (state, action) => {
       state.status = 'fulfilled';
-      state.jobs = action.payload;
+      state.typeJobs = action.payload;
     });
-    builder.addCase(getAllJobs.rejected, (state, action) => {
+    builder.addCase(getAllTypeJobs.rejected, (state, action) => {
       state.status = 'rejected';
     });
 
 
-    builder.addCase(addAJob.pending, (state) => {
+    builder.addCase(addATypeJob.pending, (state) => {
       state.status = 'pending';
     });
-    builder.addCase(addAJob.fulfilled, (state, action) => {
+    builder.addCase(addATypeJob.fulfilled, (state, action) => {
       state.status = 'fulfilled';
-      state.jobs.push(action.payload);
+      state.typeJobs.push(action.payload);
       toast.success('Bạn đã thêm công việc thành công !')
 
     });
-    builder.addCase(addAJob.rejected, (state, action) => {
+    builder.addCase(addATypeJob.rejected, (state, action) => {
       state.status = 'rejected';
       toast.error('Bạn đã thêm công việc không thành công ! !')
     });
 
 
-    builder.addCase(deleteAJob.pending, (state) => {
+    builder.addCase(deleteATypeJob.pending, (state) => {
       state.status = 'pending';
     });
-    builder.addCase(deleteAJob.fulfilled, (state, action) => {
+    builder.addCase(deleteATypeJob.fulfilled, (state, action) => {
       state.status = 'fulfilled';
-      state.jobs = state.jobs.filter(job => job.id !== action.payload);
+      state.typeJobs = state.typeJobs.filter(typeJob => typeJob.id !== action.payload);
       toast.success('Bạn đã xóa thành công !')
       // console.log('action.payloadccccccccccc',action.payload)
     });
-    builder.addCase(deleteAJob.rejected, (state, action) => {
+    builder.addCase(deleteATypeJob.rejected, (state, action) => {
       state.status = 'rejected';
       toast.error('Bạn xóa thất bại !')
     });
 
 
-    builder.addCase(editAJob.pending, (state) => {
+    builder.addCase(editATypeJob.pending, (state) => {
       state.status = 'pending';
     });
-    builder.addCase(editAJob.fulfilled, (state, action) => {
+    builder.addCase(editATypeJob.fulfilled, (state, action) => {
       state.status = 'fulfilled';
       // state.movies = state.movies.filter(movie => movie.maPhim !== action.payload);
-      state.jobs = state.jobs.map(job =>
-        job.id === action.payload.id ? action.payload : job
+      state.typeJobs = state.typeJobs.map(typeJob =>
+        typeJob.id === action.payload.id ? action.payload : typeJob
         );
         toast.success('Bạn đã chỉnh sửa thành công !')
       // console.log("oiiiiiiiiii",action.payload)
     });
-    builder.addCase(editAJob.rejected, (state, action) => {
+    builder.addCase(editATypeJob.rejected, (state, action) => {
       state.status = 'rejected';
       toast.error('Bạn chỉnh sửa thất bại !')
     });
 
 
-    builder.addCase(editImageJob.pending, (state) => {
-      state.status = 'pending';
-    });
-    builder.addCase(editImageJob.fulfilled, (state, action) => {
+    // builder.addCase(editImageJob.pending, (state) => {
+    //   state.status = 'pending';
+    // });
+    // builder.addCase(editImageJob.fulfilled, (state, action) => {
 
 
-      state.status = 'fulfilled';
-      // state.movies = state.movies.filter(movie => movie.maPhim !== action.payload);
-      state.jobs = state.jobs.map(job =>
-        job.id === action.payload.id ? action.payload : job
-        );
+    //   state.status = 'fulfilled';
+    //   // state.movies = state.movies.filter(movie => movie.maPhim !== action.payload);
+    //   state.jobs = state.jobs.map(job =>
+    //     job.id === action.payload.id ? action.payload : job
+    //     );
      
     
      
-    });
-    builder.addCase(editImageJob.rejected, (state, action) => {
-      state.status = 'rejected';
-      toast.error('Bạn đã cập nhật ảnh công việc thất bại ! !')
-    });
+    // });
+    // builder.addCase(editImageJob.rejected, (state, action) => {
+    //   state.status = 'rejected';
+    //   toast.error('Bạn đã cập nhật ảnh công việc thất bại ! !')
+    // });
 
 
     
@@ -333,6 +333,6 @@ export const userSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {  } = userSlice.actions
+export const {  } = typeJobSlice.actions
 
-export default userSlice.reducer
+export default typeJobSlice.reducer

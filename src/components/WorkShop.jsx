@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Radio, Space, Tabs } from 'antd';
 import ShowJobs from './ShowJobs';
 import ShowUsers from './ShowUsers';
+import ShowRecruitJob from './ShowRecruitJob';
+// import ShowRecruitJob from './ShowRecruitJob';
 
 function WorkShop() {
 
@@ -17,11 +19,11 @@ function WorkShop() {
           label: 'Người Làm Việc',
           children:<ShowUsers/>,
         },
-        // {
-        //   key: 'Công Việc Đã Thuê',
-        //   label: 'Công Việc Đã Thuê',
-        //   children: "Công Việc Đã Thuê",
-        // },
+        {
+          key: 'Công Việc Bạn Đã Thuê',
+          label: 'Công Việc Bạn Đã Thuê',
+          children: <ShowRecruitJob/>,
+        },
       ];
   
     

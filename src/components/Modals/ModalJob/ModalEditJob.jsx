@@ -32,19 +32,6 @@ function ModalEditJob({visible,setVisible,data}) {
 
 
     
-//     const [createSkillTag, setCreateSkillTag]=useState([])
-//     const [inputSkillValue, setInputSkillValue] = useState('');
-//     const [inputEditSkillValue, setInputEditSkillValue] = useState([]);
-
-
-//     const [createCertificationTag, setCreateCertificationTag]=useState([])
-//   const [inputCertificationValue, setInputCertificationValue] = useState('');
-    // console.log('createSkillTag',createSkillTag)
-
-    
-  
-  
-    
  
     const dispatch=useDispatch();
   

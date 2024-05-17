@@ -4,12 +4,15 @@ import 'moment/locale/vi';
 import { Modal, Form, Input, Button, Rate } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllJobs } from '../../../redux/jobReducerSlice';
-import { addAComment, deleteAComment, getAllComments, getRelatedComments } from '../../../redux/commentReducerSlice';
+import { addAComment, addARelatedComment, deleteAComment, deleteARelatedComment, getAllComments, getRelatedComments } from '../../../redux/commentReducerSlice';
 import { useFormik } from 'formik';
 import * as yup from "yup"
 import { FaPencil } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-import ModalEditComment from '../ModalComment.jsx/ModalEditComment';
+// import ModalEditComment from '../ModalComment/ModalEditComment';
+import ModalEditRelatedComment from '../ModalComment/ModalEditRelatedComment';
+import { addARecruitJob } from '../../../redux/recruitJobReducerSlice';
+import ModalSignIn from '../ModalUser/ModalSignIn';
 const { TextArea } = Input;
 
 function ModalDetailJobUi({ visible, setVisible, data }) {
@@ -18,8 +21,12 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
   const dispatch = useDispatch();
   const [modalEditComment, setModalEditComment] = useState(false);
   const [editCommentData, setEditCommentData] = useState();
+    
+  const [openMenuSignUp,setOpenMenuSignUp]=useState(false)
+  const [openMenuSignIn,setOpenMenuSignIn]=useState(false)
 
   const { relatedComments } = useSelector((state) => state?.manageComment);
+  const { recruitJobs } = useSelector((state) => state?.manageRecruitJob);
   const [commentData, setCommentData] = useState([]);
 
   const { handleChange, handleSubmit, handleBlur, resetForm, values, errors, touched, setFieldValue } = useFormik({
@@ -64,7 +71,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
         }
 
 
-        await dispatch(addAComment({ formData: values }))
+        await dispatch(addARelatedComment({ formData: values }))
 
         //  getRelatedComments({jobId:data?.id})
         resetForm();
@@ -118,10 +125,38 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
       okType:"danger",
       cancelText:"Hủy",
       onOk:()=>{
-        dispatch(deleteAComment(value))
+        dispatch(deleteARelatedComment(value))
       }
     })
   }
+
+
+  const handleRecruitJob=(value)=>{
+    // dispatch(deleteAMovie(value))
+
+    console.log('xxxxxxxxxxxxx',value)
+
+    Modal.confirm({
+      title:"Bạn thật sự muốn thuê công việc này ?",
+      okText:"Đồng ý",
+      okType:"danger",
+      cancelText:"Hủy",
+      onOk:()=>{
+
+        let thueCongViec={
+          maCongViec: values.maCongViec,
+          maNguoiThue: localStorage.getItem('USER') ? JSON.parse(localStorage.getItem('USER'))?.user?.id : 0,
+          ngayThue:  moment().format('DD/MM/YYYY'),
+          hoanThanh: false
+        }
+
+
+        // console.log('yyyyyyyyyyy',thueCongViec)
+        dispatch(addARecruitJob({formData:thueCongViec}))
+      }
+    })
+  }
+
 
   return (
 
@@ -167,9 +202,26 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
               </div>
               <div>
-                <span className='font-bold' >Số sao công việc:</span><Rate value={data?.saoCongViec} disabled />
+                <span className='font-bold' >Số sao công việc:</span><Rate className='pt-2' value={data?.saoCongViec} disabled />
 
               </div>
+
+
+
+ 
+              <div className='flex justify-center pt-4'>
+              {JSON.parse(localStorage.getItem('USER'))?.user.role === "USER" || JSON.parse(localStorage.getItem('USER'))?.user.role === "ADMIN" ? (
+            
+                <div onClick={()=>handleRecruitJob()} className='bg-yellow-500 p-3 cursor-pointer hover:text-white'>Thuê Công Việc</div>
+               
+              ) : (
+                <div onClick={()=>[setOpenMenuSignIn(!openMenuSignIn),setOpenMenuSignUp(false)]} className='bg-yellow-500 p-3 cursor-pointer hover:text-white'>Thuê Công Việc</div>
+
+              )}
+              </div>
+
+
+            
 
 
 
@@ -201,9 +253,12 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
                           <div className='flex items-center gap-1 cursor-pointer'>
                             <span className='text-lg' key={index} >{comment.tenNguoiBinhLuan}</span>
+                            {JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+                             <> 
                             <MdDelete onClick={()=>handleDeleteComment(comment)}  className='text-red-500' />
                             <FaPencil onClick={()=>[setModalEditComment(!modalEditComment),setEditCommentData(comment)]}  className='text-cyan-500' />
-
+                            </>
+                     ):''}
                           </div>
                         </div>
 
@@ -265,7 +320,50 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
                   </div>
 
                 </>
-              ) : ''}
+              ) : (
+
+                <>
+
+
+                <div>
+                  <Form
+                    
+
+                    layout="horizontal"
+
+
+                  >
+
+                    <Form.Item >
+
+                      <TextArea onChange={handleChange} onBlur={handleBlur} id='noiDung' value={values.noiDung} placeholder='Vui lòng gõ bình luận...' />
+
+                      {errors.noiDung && touched.noiDung
+                        ? (<div className='text-red-500 '>{errors.noiDung
+                        }</div>) : ''}
+
+
+                    </Form.Item>
+
+                    <Form.Item label="Sao bình luận">
+                      <Rate defaultValue={5} onChange={handleOnChangeCustom('saoBinhLuan')} id='saoBinhLuan' value={values.saoBinhLuan} />
+                      {errors.saoBinhLuan && touched.saoBinhLuan ? (
+                        <div className='text-red-500 '>{errors.saoBinhLuan}</div>
+                      ) : ''}
+                    </Form.Item>
+
+
+                    <Form.Item >
+                      <button onClick={()=>[setOpenMenuSignIn(!openMenuSignIn),setOpenMenuSignUp(false)]} className='px-2 py-1 rounded bg-green-500 text-white' >Gửi bình luận</button>
+                    </Form.Item>
+                  </Form>
+                </div>
+
+              </>
+
+
+
+              )}
 
 
             </div>
@@ -283,9 +381,9 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
         
       </Modal>
 
-      <ModalEditComment  visible={modalEditComment} data={editCommentData}  setVisible={setModalEditComment}/>
+      <ModalEditRelatedComment  visible={modalEditComment} data={editCommentData}  setVisible={setModalEditComment}/>
 
-     
+      <ModalSignIn  isOpen={openMenuSignIn} setIsOpen={setOpenMenuSignIn} setOpenMenuSignUp={setOpenMenuSignUp} />
     </div>
   )
 }

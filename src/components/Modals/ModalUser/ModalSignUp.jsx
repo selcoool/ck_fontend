@@ -55,17 +55,20 @@ function ModalSignUp({ isOpen, setIsOpen}) {
   
         },
         validationSchema: yup.object().shape({
-      //     taiKhoan: yup.string().required("Vui lòng nhập tên tài khoản "),
-      //     hoTen: yup.string().required("Vui lòng nhập họ và tên"),
+          name: yup.string().required("Vui lòng nhập tên tài khoản "),
+          email: yup.string().email('Địa chỉ email không hợp lệ').required("Vui lòng nhập email"),
     
-      //     email: yup.string().required("Vui lòng nhập email"),
-      //     soDt:yup.number().required("Vui lòng nhập số điện thoại"),
+          password: yup.string().required("Vui lòng nhập mật khẩu"),
+          phone:yup.string()
+          .matches(/^[0-9]+$/, "Số điện thoại chỉ được chứa các chữ số")
+          .required('Vui lòng nhập số điện thoại')
+          .min(10, 'Số điện thoại phải có ít nhất 10 chữ số')
+          .max(11, 'Số điện thoại không được vượt quá 11 chữ số'),
   
-      //     matKhau:yup.string().required("Vui lòng nhập mật khẩu"),
-      //    maNhom:yup.string().required("Vui lòng chọn mã nhóm"),
-      //    maLoaiNguoiDung:yup.string().required("Vui lòng chọn mã loại người dùng"),
+          birthday:yup.string().required("Vui lòng nhập ngày sinh"),
+        
   
-        //  File:yup.string().required("Vui lòng chọn file")
+      
         
     
     
@@ -275,15 +278,9 @@ function ModalSignUp({ isOpen, setIsOpen}) {
   
           <Form.Item label="Ngày sinh">
   
-  {/* <DatePicker format={'DD/MM/YYYY'} onChange={handleChangeDatePicker}     placeholder='Chọn ngày'/> */}
+ 
   <DatePicker format={'DD/MM/YYYY'} onChange={handleChangeDatePicker}  value={values.birthday ? moment(values.birthday, 'DD/MM/YYYY') : null}   placeholder='Chọn ngày'/>
   
-    {/* <DatePicker
-      format={'DD/MM/YYYY'}
-      onChange={(value) => handleChangeDatePicker(value)}
-      value={values.ngayKhoiChieu ? moment(values.ngayKhoiChieu, 'DD/MM/YYYY') : null} // Convert value to moment object
-      placeholder='Chọn ngày'
-    /> */}
     {errors.birthday && touched.birthday ? (<div className='text-red-500 '>{errors.birthday}</div>) : ''}
   </Form.Item>
   

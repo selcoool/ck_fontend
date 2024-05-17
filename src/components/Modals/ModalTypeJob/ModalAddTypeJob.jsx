@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Modal,
   Button,
@@ -17,56 +17,67 @@ import {
   TreeSelect,
   Upload,
   Tag,
+  Rate,
 } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from "yup"
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addAUser } from '../../../redux/userReducerSlice';
+import { addAJob } from '../../../redux/jobReducerSlice';
+import { addATypeJob, getAllTypeJobs } from '../../../redux/typeJobReducerSlice';
 const { TextArea } = Input;
-function ModalAddUser({visible,setVisible}) {
+
+  
+
+
+function ModalAddTypeJob({visible,setVisible}) {
+
+     const dispatch=useDispatch();
 
   const [createSkillTag, setCreateSkillTag]=useState([])
   const [inputSkillValue, setInputSkillValue] = useState('');
 
   const [createCertificationTag, setCreateCertificationTag]=useState([])
   const [inputCertificationValue, setInputCertificationValue] = useState('');
+
     // console.log('modalCreateMovie',visible)
+    const {typeJobs} = useSelector((state) => state?.manageTypeJob);
+    const [typeJobData, setTypeJobData] = useState([]);
+  console.log('typeJobData',typeJobData)
+
  
-    const dispatch=useDispatch();
+ 
+
+    useEffect(() => {
+      setTypeJobData(typeJobs);
+    }, [typeJobs]);
+
+
+    useEffect(() => {
+
+      dispatch(getAllTypeJobs())
+     
+     }, []);
   
 
     const { handleChange, handleSubmit, handleBlur, resetForm, values, errors, touched,setFieldValue } = useFormik({
       
       initialValues: {
-        name: "",
-        email: "",
-        password: "",
-        phone: "",
-        birthday: "",
-        gender: true,
-        role: "USER",
-        skill: createSkillTag,
-        certification: createCertificationTag
-       
-
+        tenLoaiCongViec: "",
       },
       validationSchema: yup.object().shape({
-        name: yup.string().required("Vui lòng nhập tên "),
-       
+    //     taiKhoan: yup.string().required("Vui lòng nhập tên tài khoản "),
+    //     hoTen: yup.string().required("Vui lòng nhập họ và tên"),
   
-        email: yup.string().email('Địa chỉ email không hợp lệ').required("Vui lòng nhập email "),
-        password: yup.string().required("Vui lòng nhập mật khẩu"),
-        phone:yup.string()
-        .matches(/^[0-9]+$/, "Số điện thoại chỉ được chứa các chữ số")
-        .required('Vui lòng nhập số điện thoại')
-        .min(10, 'Số điện thoại phải có ít nhất 10 chữ số')
-        .max(11, 'Số điện thoại không được vượt quá 11 chữ số'),
+    //     email: yup.string().required("Vui lòng nhập email"),
+    //     soDt:yup.number().required("Vui lòng nhập số điện thoại"),
 
-        birthday:yup.string().required("Vui lòng nhập ngày sinh"),
-   
+    //     matKhau:yup.string().required("Vui lòng nhập mật khẩu"),
+    //    maNhom:yup.string().required("Vui lòng chọn mã nhóm"),
+    //    maLoaiNguoiDung:yup.string().required("Vui lòng chọn mã loại người dùng"),
 
-  
+      //  File:yup.string().required("Vui lòng chọn file")
       
   
   
@@ -83,7 +94,7 @@ function ModalAddUser({visible,setVisible}) {
                   }
 
 
-                 await dispatch(addAUser({formData:values}))
+                 await dispatch(addATypeJob({formData:values}))
                  resetForm();
                    setVisible(false)
                 //  setImageData();
@@ -108,19 +119,24 @@ function ModalAddUser({visible,setVisible}) {
 
     const handleChangeDatePicker = (date, dateString) => {
 
-     
+      // console.log('handleChangeDatePicker', moment('2024-04-30T00:00:00', 'DD/MM/YYYY'));
+      // console.log('handleChangeDatePicker', moment(date.d).format('DD/MM/YYYY'));
       setFieldValue('birthday', dateString); // Update form value
     };
 
     
 
-   
+    // const handleChangeDatePicker = (value) => {
+    //   // console.log('dateString', dateString);
 
- const handleOnChangeCustom=(name)=>{
-   return (value)=>{
-    setFieldValue(name,value)
-   }
- }
+    //   console.log("value_date", moment(value.selectedDate).format('DD/MM/YYYY'));
+    // };
+
+    const handleOnChangeCustom = (name) => {
+      return (value) => {
+        setFieldValue(name, value);
+      };
+    };
 
  const handleGenderOnChangeCustom=(name)=>{
   //  console.log('dddđ')
@@ -238,7 +254,7 @@ const handleCertification = (e) => {
         setInputSkillValue('')
       }}
     >
-        <h1 className='text-2xl font-bold text-center pb-3'>Thêm Người Dùng Mới</h1>
+        <h1 className='text-2xl font-bold text-center pb-3'>Thêm Loại Công Việc Mới</h1>
         <Form
         onSubmitCapture={handleSubmit}
         
@@ -247,148 +263,18 @@ const handleCertification = (e) => {
        
       >
       
-        <Form.Item  label="Tên">
+        <Form.Item  label="Tên loại công việc">
         
-          <Input  onChange={handleChange} onBlur={handleBlur} id='name' value={values.name} />
+          <Input  onChange={handleChange} onBlur={handleBlur} id='tenLoaiCongViec' value={values.tenLoaiCongViec} />
           
          
-          {errors.name && touched.name ? (<div className='text-red-500 '>{errors.name}</div>) : ''}
-          
+          {errors.tenLoaiCongViec && touched.tenLoaiCongViec ? (<div className='text-red-500 '>{errors.tenLoaiCongViec}</div>) : ''}
+
         </Form.Item>
-        <Form.Item label="Email">
-          <Input onChange={handleChange} onBlur={handleBlur} id='email' value={values.email} />
-          {errors.email && touched.email ? (<div className='text-red-500 '>{errors.email}</div>) : ''}
-        </Form.Item>
-        <Form.Item label="Mật khẩu">
-          <Input type='password' onChange={handleChange} onBlur={handleBlur} id='password' value={values.password} />
-          {errors.password && touched.password ? (<div className='text-red-500 '>{errors.password}</div>) : ''}
-        </Form.Item>
-
-        <Form.Item label="Số Điện Thoại">
-          <Input onChange={handleChange} onBlur={handleBlur} id='phone' value={values.phone} />
-          {errors.phone && touched.phone ? (<div className='text-red-500 '>{errors.phone}</div>) : ''}
-        </Form.Item>
-
-        <Form.Item label="Ngày sinh">
-
-{/* <DatePicker format={'DD/MM/YYYY'} onChange={handleChangeDatePicker}     placeholder='Chọn ngày'/> */}
-<DatePicker format={'DD/MM/YYYY'} onChange={handleChangeDatePicker}  value={values.birthday ? moment(values.birthday, 'DD/MM/YYYY') : null}   placeholder='Chọn ngày'/>
-
-  {/* <DatePicker
-    format={'DD/MM/YYYY'}
-    onChange={(value) => handleChangeDatePicker(value)}
-    value={values.ngayKhoiChieu ? moment(values.ngayKhoiChieu, 'DD/MM/YYYY') : null} // Convert value to moment object
-    placeholder='Chọn ngày'
-  /> */}
-  {errors.birthday && touched.birthday ? (<div className='text-red-500 '>{errors.birthday}</div>) : ''}
-</Form.Item>
-
-
-<Form.Item  label="Giới tính">
-      <Radio.Group   onBlur={handleBlur}
-    value={values.gender}
-    onChange={handleGenderOnChangeCustom('gender')} id='gender'>
-        <Radio value={true} >Nam</Radio>
-        <Radio value={false}>Nữ</Radio>
-       
-      </Radio.Group>
-    </Form.Item>
-
-    {JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
-    
-
-<Form.Item label="Vai trò">
-  <Select
-    style={{width:100}}
-    onBlur={handleBlur}
-    value={values.role}
-    onChange={handleOnChangeCustom('role')} id='role'
-  >
-     <Select.Option value="USER"  >USER</Select.Option>
-    <Select.Option  value="ADMIN" >ADMIN</Select.Option>
-   
-   
-  </Select>
-  {errors.role && touched.role ? (<div className='text-red-500 '>{errors.role}</div>) : ''}
-</Form.Item>
-
-) :null }
-
-
-
-
-<Form.Item label="Kỹ năng">
-  <div className='flex flex-col gap-1'>
-  <div>
-  <Input 
-   value={inputSkillValue}
-   onChange={(e) => setInputSkillValue(e.target.value)}
-  onBlur={handleSkill}
-    onKeyDown={handleSkill} 
-  />
-  </div>
-
-  <div className='flex gap-0.5 flex-wrap'>
-   {  createSkillTag.length >0 && createSkillTag?.map((tag,index)=>{
-    return <Tag style={{backgroundColor:'pink'}}
-    closable
-    onClose={(e) => {
-      e.preventDefault();
-      handleCloseSkill(tag);
-    }}
-  >
-    {tag}
-  </Tag>
-   })
-
-   }
-
-  </div>
-  </div>
-  {/* {errors.phone && touched.phone ? (<div className='text-red-500 '>{errors.phone}</div>) : ''} */}
-</Form.Item>
-
-
-
-
-
-<Form.Item label="Chứng chỉ">
-  <div className='flex flex-col gap-1'>
-        <div>
-        <Input 
-        value={inputCertificationValue}
-        onChange={(e) => setInputCertificationValue(e.target.value)}
-        onBlur={handleCertification}
-          onKeyDown={handleCertification} id='certification'
-        />
-        </div>
-
-        <div className='flex gap-0.5 flex-wrap'>
-        {  createCertificationTag.length >0 && createCertificationTag?.map((tag,index)=>{
-          return <Tag
-          style={{backgroundColor:'lightgreen'}}
-          closable
-          onClose={(e) => {
-            e.preventDefault();
-            handleCloseCertification(tag);
-          }}
-        >
-          {tag}
-        </Tag>
-        })
-
-        }
-
-        </div>
-  </div>
-  
-</Form.Item>
-
-
-
+     
 
         <Form.Item >
-            <Button onClick={()=>  setVisible(false)} className='bg-yellow-500 text-white' >Hủy</Button> <button  type='submit' className='px-2 py-1 rounded bg-green-500 text-white' >Thêm Người Dùng</button>
+            <Button onClick={()=>  setVisible(false)} className='bg-yellow-500 text-white' >Hủy</Button> <button  type='submit' className='px-2 py-1 rounded bg-green-500 text-white' >Thêm Loại Công Việc</button>
         </Form.Item>
       </Form>
     </Modal>
@@ -396,4 +282,4 @@ const handleCertification = (e) => {
   )
 }
 
-export default ModalAddUser
+export default ModalAddTypeJob

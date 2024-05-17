@@ -36,7 +36,7 @@ function ModalEditAvatarUser({ isOpen, setIsOpen}) {
    
       const dispatch=useDispatch();
     
-  
+      const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
       const { handleChange, handleSubmit, handleBlur, resetForm, values, errors, touched,setFieldValue } = useFormik({
         
         initialValues: {
@@ -44,8 +44,15 @@ function ModalEditAvatarUser({ isOpen, setIsOpen}) {
             formFile: ""
   
         },
+        
         validationSchema: yup.object().shape({
-      //     taiKhoan: yup.string().required("Vui lòng nhập tên tài khoản "),
+          formFile: yup.mixed()
+          .required('Vui lòng chọn một file')
+          .test(
+            'fileType',
+            'File không hợp lệ. Vui lòng chọn một file ảnh.',
+            value => value && SUPPORTED_FORMATS.includes(value.type)
+          )
       //     hoTen: yup.string().required("Vui lòng nhập họ và tên"),
     
       //     email: yup.string().required("Vui lòng nhập email"),

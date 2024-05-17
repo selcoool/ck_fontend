@@ -25,14 +25,15 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { addAUser, editAUser, getAllUsers } from '../../../redux/userReducerSlice';
 import { editAJob, getAllJobs } from '../../../redux/jobReducerSlice';
-import { editAComment } from '../../../redux/commentReducerSlice';
+import { editAComment, editARelatedComment } from '../../../redux/commentReducerSlice';
+import { deleteATypeJob, editATypeJob } from '../../../redux/typeJobReducerSlice';
 const { TextArea } = Input;
 
 
-function ModalEditComment({visible,setVisible,data}) {
+function ModalEditTypeJob({visible,setVisible,data}) {
 
     
-    console.log('opppppppppppppppp',visible)
+    console.log('ModalEditTypeJob',data)
 //     const [createSkillTag, setCreateSkillTag]=useState([])
 //     const [inputSkillValue, setInputSkillValue] = useState('');
 //     const [inputEditSkillValue, setInputEditSkillValue] = useState([]);
@@ -54,11 +55,9 @@ function ModalEditComment({visible,setVisible,data}) {
         enableReinitialize:true,
         initialValues: {
         id: data?.id,
-        maCongViec: data?.maCongViec,
-        maNguoiBinhLuan: data?.maNguoiBinhLuan,
-        ngayBinhLuan: data?.ngayBinhLuan,
-        noiDung: data?.noiDung,
-        saoBinhLuan: data?.saoBinhLuan
+        tenLoaiCongViec: data?.tenLoaiCongViec
+        ,
+       
        
 
       },
@@ -90,7 +89,7 @@ function ModalEditComment({visible,setVisible,data}) {
                   }
 
 
-                 await dispatch(editAComment({formData:values}))
+                 await dispatch(editATypeJob({formData:values}))
                 //  resetForm();
                    setVisible(false)
                 //  setImageData();
@@ -174,7 +173,7 @@ function ModalEditComment({visible,setVisible,data}) {
     >
 
      
-        <h1 className='text-2xl font-bold text-center pb-3'>Cập Nhật Bình Luận</h1>
+        <h1 className='text-2xl font-bold text-center pb-3'>Cập Nhật Loại Công Việc</h1>
         <Form
                       onSubmitCapture={handleSubmit}
 
@@ -182,41 +181,26 @@ function ModalEditComment({visible,setVisible,data}) {
 
 
                     >
+                   
 
-                      {/* <Form.Item >
-
-                        <Input onChange={handleChange} onBlur={handleBlur} id='noiDung' value={values.noiDung} placeholder='Vui lòng gõ bình luận...' />
-
-                        {errors.noiDung && touched.noiDung
-                          ? (<div className='text-red-500 '>{errors.noiDung
-                          }</div>) : ''}
-
-
-                      </Form.Item> */}
-
-
-                      <Form.Item >
-          <TextArea onChange={handleChange} onBlur={handleBlur} id='noiDung' value={values.noiDung} placeholder='Vui lòng gõ bình luận...' />
-          {errors.noiDung && touched.noiDung ? (<div className='text-red-500 '>{errors.noiDung}</div>) : ''}
-        </Form.Item>
-
-                      {/* <Form.Item label="Sao bình luận">
-                        <Rate defaultValue={5} onChange={handleOnChangeCustom('saoBinhLuan')} id='saoBinhLuan' value={values.saoBinhLuan} />
-                        {errors.saoBinhLuan && touched.saoBinhLuan ? (
-                          <div className='text-red-500 '>{errors.saoBinhLuan}</div>
-                        ) : ''}
-                      </Form.Item> */}
+                    
+                   <Form.Item  label="Tên loại công việc">
+        
+        <Input  onChange={handleChange} onBlur={handleBlur} id='tenLoaiCongViec' value={values.tenLoaiCongViec} />
+        
+       
+        {errors.tenLoaiCongViec && touched.tenLoaiCongViec ? (<div className='text-red-500 '>{errors.tenLoaiCongViec}</div>) : ''}
+        
+      </Form.Item>
 
 
-                      <Form.Item label="Sao bình luận">
-        <Rate defaultValue={5}  onChange={handleOnChangeCustom('saoBinhLuan')}  id='saoBinhLuan' value={values.saoBinhLuan} defaultValue={5} />
-  {errors.saoBinhLuan && touched.saoBinhLuan ? (
-    <div className='text-red-500 '>{errors.saoBinhLuan}</div>
-  ) : ''}
-   </Form.Item>
+
+                     
+
+            
 
                       <Form.Item >
-                        <button type='submit' className='px-2 py-1 rounded bg-green-500 text-white' >Chỉnh sửa bình luận</button>
+                        <button type='submit' className='px-2 py-1 rounded bg-green-500 text-white' >Chỉnh sửa loại công việc</button>
                       </Form.Item>
                     </Form>
     </Modal>
@@ -224,7 +208,7 @@ function ModalEditComment({visible,setVisible,data}) {
   )
 }
 
-export default ModalEditComment
+export default ModalEditTypeJob
 
 
 

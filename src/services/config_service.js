@@ -1,15 +1,18 @@
 import axios from "axios"
-// const token = localStorage.getItem('token');
+import { useEffect } from "react";
 
-let token ='';
-if(localStorage.getItem('USER')){
-    token =JSON.parse(localStorage.getItem('USER'))?.token
 
-    // console.log('Bearer ${token}',JSON.parse(localStorage.getItem('USER'))?.user.role)
-}
-// console.log('lllllllllllllllllllllllllxxxxxxxxxxxxx',token)
+    let token ='';
 
-console.log('Bearer ${token}',`Bearer ${token}`)
+
+    if(localStorage.getItem('USER')){
+        token =JSON.parse(localStorage.getItem('USER'))?.token
+    
+    }
+   
+
+
+
 
 export const http = axios.create({
     baseURL: "https://fiverrnew.cybersoft.edu.vn",

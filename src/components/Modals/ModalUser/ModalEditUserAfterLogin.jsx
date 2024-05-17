@@ -64,17 +64,16 @@ function ModalEditUserAfterLogin({visible,setVisible,data}) {
 
       },
       validationSchema: yup.object().shape({
-    //     taiKhoan: yup.string().required("Vui lòng nhập tên tài khoản "),
-    //     hoTen: yup.string().required("Vui lòng nhập họ và tên"),
+        name: yup.string().required("Vui lòng nhập tên tài khoản "),
+        email: yup.string().email('Địa chỉ email không hợp lệ').required("Vui lòng nhập email"),
   
-    //     email: yup.string().required("Vui lòng nhập email"),
-    //     soDt:yup.number().required("Vui lòng nhập số điện thoại"),
+        phone:yup.string()
+        .matches(/^[0-9]+$/, "Số điện thoại chỉ được chứa các chữ số")
+        .required('Vui lòng nhập số điện thoại')
+        .min(10, 'Số điện thoại phải có ít nhất 10 chữ số')
+        .max(11, 'Số điện thoại không được vượt quá 11 chữ số'),
 
-    //     matKhau:yup.string().required("Vui lòng nhập mật khẩu"),
-    //    maNhom:yup.string().required("Vui lòng chọn mã nhóm"),
-    //    maLoaiNguoiDung:yup.string().required("Vui lòng chọn mã loại người dùng"),
-
-      //  File:yup.string().required("Vui lòng chọn file")
+        birthday:yup.string().required("Vui lòng nhập ngày sinh"),
       
   
   

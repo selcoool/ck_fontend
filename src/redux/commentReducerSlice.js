@@ -4,13 +4,13 @@ import { http } from "../services/config_service"
 import { ToastContainer, toast } from 'react-toastify';
 
 
-export const getRelatedComments = createAsyncThunk(
-  'comments/getRelatedComments',
+export const getAllComments = createAsyncThunk(
+  'comments/getAllComments',
   async (user, thunkAPI) => {
     try {
 
      console.log('yyyyyyyyyyyy',user)
-      let users = await http.get(`/api/binh-luan/lay-binh-luan-theo-cong-viec/${user.jobId}`);
+      let users = await http.get(`/api/binh-luan`);
       console.log('yyyyyyyyyyyy_user',users)
       
     
@@ -20,29 +20,6 @@ export const getRelatedComments = createAsyncThunk(
     }
   }
 );
-
-
-
-export const addAComment = createAsyncThunk(
-  'comments/addAComment',
-  async (user, {dispatch,rejectWithValue}) => {
-    try {
-      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
-      // Gửi request POST đến endpoint `/QuanLyNguoiDung/ThemNguoiDung` với formData của user
-      const users = await http.post(`/api/binh-luan`, user.formData);
-      // Trả về dữ liệu từ response
-      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxusers',users)
-      // dispatch(getRelatedComments())
-      
-      return users.data.content;
-    } catch (error) {
-      // Trả về một giá trị bị reject nếu có lỗi xảy ra
-      return rejectWithValue({ error: error.message });
-    }
-  }
-);
-
-
 
 
 export const deleteAComment = createAsyncThunk(
@@ -66,9 +43,99 @@ export const deleteAComment = createAsyncThunk(
 );
 
 
-
 export const editAComment = createAsyncThunk(
   'comments/editAComment',
+  async (user, {dispatch,rejectWithValue}) => {
+    try {
+
+      // console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',await user.formData.id)
+      const users = await http.put(`/api/binh-luan/${user.formData.id}`,user.formData)
+      // console.log('RRRRRxxxxxxxxxxxxxeditAUser',users)
+      // console.log('dddyyyyyyy',users)
+      // dispatch(getAllJobs())
+      return users.data.content;
+
+
+
+    } catch (error) {
+      return rejectWithValue({ error: error.message });
+    }
+  }
+);
+
+
+export const getRelatedComments = createAsyncThunk(
+  'comments/getRelatedComments',
+  async (user, thunkAPI) => {
+    try {
+
+     console.log('yyyyyyyyyyyy',user)
+      let users = await http.get(`/api/binh-luan/lay-binh-luan-theo-cong-viec/${user.jobId}`);
+      console.log('yyyyyyyyyyyy_user',users)
+      
+    
+      return users.data.content;
+    } catch (error) {
+      return thunkAPI.rejectWithValue({ error: error.message });
+    }
+  }
+);
+
+
+
+
+
+
+
+
+
+
+export const addARelatedComment = createAsyncThunk(
+  'comments/addARelatedComment',
+  async (user, {dispatch,rejectWithValue}) => {
+    try {
+      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
+      // Gửi request POST đến endpoint `/QuanLyNguoiDung/ThemNguoiDung` với formData của user
+      const users = await http.post(`/api/binh-luan`, user.formData);
+      // Trả về dữ liệu từ response
+      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxusers',users)
+      // dispatch(getRelatedComments())
+      
+      return users.data.content;
+    } catch (error) {
+      // Trả về một giá trị bị reject nếu có lỗi xảy ra
+      return rejectWithValue({ error: error.message });
+    }
+  }
+);
+
+
+
+
+export const deleteARelatedComment = createAsyncThunk(
+  'comments/deleteARelatedComment',
+  async (user, {dispatch,rejectWithValue}) => {
+    try {
+       
+      console.log('pppppppppppppppppcccc',user.id)
+      const users = await http.delete(`/api/binh-luan/${user.id}`)
+      // dispatch(getAllJobs())
+        console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
+      return user.id;
+
+    //   console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
+
+
+    } catch (error) {
+      return rejectWithValue({ error: error.message });
+    }
+  }
+);
+
+
+
+export const editARelatedComment = createAsyncThunk(
+  'comments/editARelatedComment',
   async (user, {dispatch,rejectWithValue}) => {
     try {
 
@@ -117,8 +184,8 @@ export const editAComment = createAsyncThunk(
 
 
 const initialState = {
-  comments:'',
-  relatedComments:'',
+  comments:[],
+  relatedComments:[],
   status:''
 }
 
@@ -134,39 +201,27 @@ export const userSlice = createSlice({
     // },
   },
   extraReducers: (builder) => {
-    builder.addCase(getRelatedComments.pending, (state) => {
+      
+    
+    builder.addCase(getAllComments.pending, (state) => {
       state.status = 'pending';
     });
-    builder.addCase(getRelatedComments.fulfilled, (state, action) => {
+    builder.addCase(getAllComments.fulfilled, (state, action) => {
       state.status = 'fulfilled';
-      state.relatedComments = action.payload;
+      state.comments = action.payload;
     });
-    builder.addCase(getRelatedComments.rejected, (state, action) => {
+    builder.addCase(getAllComments.rejected, (state, action) => {
       state.status = 'rejected';
     });
 
 
-    builder.addCase(addAComment.pending, (state) => {
-      state.status = 'pending';
-    });
-    builder.addCase(addAComment.fulfilled, (state, action) => {
-      state.status = 'fulfilled';
-      state.relatedComments.push(action.payload);
-      toast.success('Bạn đã bình luận công việc thành công !')
-
-    });
-    builder.addCase(addAComment.rejected, (state, action) => {
-      state.status = 'rejected';
-      toast.error('Bạn đã bình luận không thành công ! !')
-    });
-
-
+    
     builder.addCase(deleteAComment.pending, (state) => {
       state.status = 'pending';
     });
     builder.addCase(deleteAComment.fulfilled, (state, action) => {
       state.status = 'fulfilled';
-      state.relatedComments = state.relatedComments.filter(comment => comment.id !== action.payload);
+      state.comments = state.comments.filter(comment => comment.id !== action.payload);
       toast.success('Bạn đã xóa bình luận thành công !')
       // console.log('action.payloadccccccccccc',action.payload)
     });
@@ -182,13 +237,78 @@ export const userSlice = createSlice({
     builder.addCase(editAComment.fulfilled, (state, action) => {
       state.status = 'fulfilled';
       // state.movies = state.movies.filter(movie => movie.maPhim !== action.payload);
+      state.comments = state.comments.map(comment =>
+        comment.id === action.payload.id ? action.payload : comment
+        );
+        toast.success('Bạn đã chỉnh sửa  bình luận thành công !')
+      // console.log("oiiiiiiiiii",action.payload)
+    });
+    builder.addCase(editAComment.rejected, (state, action) => {
+      state.status = 'rejected';
+      toast.error('Bạn chỉnh sửa thất bại !')
+    });
+
+
+
+
+    
+   
+
+    builder.addCase(getRelatedComments.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(getRelatedComments.fulfilled, (state, action) => {
+      state.status = 'fulfilled';
+      state.relatedComments = action.payload;
+    });
+    builder.addCase(getRelatedComments.rejected, (state, action) => {
+      state.status = 'rejected';
+    });
+
+
+    builder.addCase(addARelatedComment.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(addARelatedComment.fulfilled, (state, action) => {
+      state.status = 'fulfilled';
+      state.relatedComments.push(action.payload);
+      toast.success('Bạn đã bình luận công việc thành công !')
+
+    });
+    builder.addCase(addARelatedComment.rejected, (state, action) => {
+      state.status = 'rejected';
+      toast.error('Bạn đã bình luận không thành công ! !')
+    });
+
+
+    builder.addCase(deleteARelatedComment.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(deleteARelatedComment.fulfilled, (state, action) => {
+      state.status = 'fulfilled';
+      state.relatedComments = state.relatedComments.filter(comment => comment.id !== action.payload);
+      toast.success('Bạn đã xóa bình luận thành công !')
+      // console.log('action.payloadccccccccccc',action.payload)
+    });
+    builder.addCase(deleteARelatedComment.rejected, (state, action) => {
+      state.status = 'rejected';
+      toast.error('Bạn xóa bình luận thất bại !')
+    });
+
+
+    builder.addCase(editARelatedComment.pending, (state) => {
+      state.status = 'pending';
+    });
+    builder.addCase(editARelatedComment.fulfilled, (state, action) => {
+      state.status = 'fulfilled';
+      // state.movies = state.movies.filter(movie => movie.maPhim !== action.payload);
       state.relatedComments = state.relatedComments.map(comment =>
         comment.id === action.payload.id ? action.payload : comment
         );
         toast.success('Bạn đã chỉnh sửa  bình luật thành công !')
       // console.log("oiiiiiiiiii",action.payload)
     });
-    builder.addCase(editAComment.rejected, (state, action) => {
+    builder.addCase(editARelatedComment.rejected, (state, action) => {
       state.status = 'rejected';
       toast.error('Bạn chỉnh sửa thất bại !')
     });

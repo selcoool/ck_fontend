@@ -48,8 +48,8 @@ function ModalSignIn({ isOpen, setIsOpen}) {
   
         },
         validationSchema: yup.object().shape({
-      //     taiKhoan: yup.string().required("Vui lòng nhập tên tài khoản "),
-      //     hoTen: yup.string().required("Vui lòng nhập họ và tên"),
+          email: yup.string().email('Địa chỉ email không hợp lệ').required("Vui lòng nhập email "),
+          password: yup.string().required("Vui lòng nhập mật khẩu"),
     
       //     email: yup.string().required("Vui lòng nhập email"),
       //     soDt:yup.number().required("Vui lòng nhập số điện thoại"),
@@ -58,7 +58,7 @@ function ModalSignIn({ isOpen, setIsOpen}) {
       //    maNhom:yup.string().required("Vui lòng chọn mã nhóm"),
       //    maLoaiNguoiDung:yup.string().required("Vui lòng chọn mã loại người dùng"),
   
-        //  File:yup.string().required("Vui lòng chọn file")
+     
         
     
     
@@ -92,9 +92,9 @@ function ModalSignIn({ isOpen, setIsOpen}) {
         }
       });
     
-      console.log('values', values)
-      console.log('errors', errors)
-      console.log('touched', touched);
+      // console.log('values', values)
+      // console.log('errors', errors)
+      // console.log('touched', touched);
   
   
     return (

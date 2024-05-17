@@ -13,6 +13,7 @@ import ModalDetailUser from './Modals/ModalUser/ModalDetailUser';
 import ModalAddUser from './Modals/ModalUser/ModalAddUser';
 import ModalEditUser from './Modals/ModalUser/ModalEditUser';
 
+
 // import ModalEditMovie from './ModalEditMovie';
 // import ModalEditUser from './ModalEditUser';
 
@@ -31,11 +32,10 @@ function ManageUser() {
     const [modalAddUser, setModalAddUser] = useState(false);
     const [modalEditUser, setModalEditUser] = useState(false);
     const [modalDetailUser, setModalDetailUser] = useState(false);
-  
+   
 
-    // console.log('yyyyyyyyyyyyygroup',group)
-    // console.log('yyyyyyyyyyyyyusersData',usersData)
-    // console.log('yyyyyyyyyyyyyeditUsersData',editUsersData)
+
+
   
     useEffect(() => {
       setUserData(users);
@@ -123,7 +123,7 @@ function ManageUser() {
   <div className='px-3 '>
   <Table
   rowKey={'id'}
-scroll={{ x: 700, y: 450 }}
+scroll={{ x: 700, y: 550 }}
 dataSource={userData}
 columns={[
   {

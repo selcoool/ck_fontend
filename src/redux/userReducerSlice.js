@@ -4,6 +4,7 @@ import { http } from "../services/config_service"
 import { ToastContainer, toast } from 'react-toastify';
 
 
+
 export const getAllUsers = createAsyncThunk(
   'users/getAllUsers',
   async (user, thunkAPI) => {
@@ -14,7 +15,7 @@ export const getAllUsers = createAsyncThunk(
         users = await http.get(`/api/users`);
     } else {
           users = await http.get(`/api/users/search/${user?.searchUser}`)
-          console.log('RRRRRxxxxxxxxxxxxxusersxxxxxxxxxxxxxxxxx',users.data.content)
+      
     }
       return users.data.content;
 
@@ -35,15 +36,14 @@ export const addAUser = createAsyncThunk(
   'users/addAUser',
   async (user, {dispatch,rejectWithValue}) => {
     try {
-      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
-      // Gửi request POST đến endpoint `/QuanLyNguoiDung/ThemNguoiDung` với formData của user
+    
       const users = await http.post(`/api/users`, user.formData);
       // Trả về dữ liệu từ response
       dispatch(getAllUsers())
-      console.log('RRRRRxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',users)
+    
       return users.data.content;
     } catch (error) {
-      // Trả về một giá trị bị reject nếu có lỗi xảy ra
+     
       return rejectWithValue({ error: error.message });
     }
   }
@@ -60,14 +60,13 @@ export const deleteAUser = createAsyncThunk(
 
      
 
-      console.log('pppppppppppppppppcccc',user.id)
+    
       const users = await http.delete(`/api/users?id=${user.id}`)
       dispatch(getAllUsers())
-        console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
+   
       return user.id;
 
-    //   console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
-
+   
 
     } catch (error) {
       return rejectWithValue({ error: error.message });
@@ -82,10 +81,10 @@ export const editAUser = createAsyncThunk(
   async (user, {dispatch,rejectWithValue}) => {
     try {
 
-      // console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',await user.formData.id)
+      
       const users = await http.put(`/api/users/${user.formData.id}`,user.formData)
       console.log('RRRRRxxxxxxxxxxxxxeditAUser',users)
-      // console.log('dddyyyyyyy',users)
+ 
 
       dispatch(getAllUsers())
       return users.data.content;
@@ -106,10 +105,10 @@ export const editAUserAfterLogin = createAsyncThunk(
   async (user, {dispatch,rejectWithValue}) => {
     try {
 
-      // console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',await user.formData.id)
+      
       const users = await http.put(`/api/users/${user.formData.id}`,user.formData)
       console.log('RRRRRxxxxxxxxxxxxxeditAUser',users)
-      // console.log('dddyyyyyyy',users)
+     
 
       dispatch(getAllUsers())
       return users.data.content;
@@ -152,7 +151,7 @@ export const editAvatarUser = createAsyncThunk(
 
 export const signUpUser = createAsyncThunk(
   'users/signUpUser',
-  async (user, thunkAPI) => {
+  async (user, {dispatch,rejectWithValue}) => {
     try {
       // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
       // Gửi request POST đến endpoint `/QuanLyNguoiDung/ThemNguoiDung` với formData của user
@@ -162,7 +161,7 @@ export const signUpUser = createAsyncThunk(
       return users.data.content;
     } catch (error) {
       // Trả về một giá trị bị reject nếu có lỗi xảy ra
-      return thunkAPI.rejectWithValue({ error: error.message });
+      return rejectWithValue({ error: error.message });
     }
   }
 );
@@ -171,56 +170,26 @@ export const signUpUser = createAsyncThunk(
 
 export const signInUser = createAsyncThunk(
   'users/signInUser',
-  async (user, thunkAPI) => {
+  async (user, {dispatch,rejectWithValue}) => {
     
     try {
 
       // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
       const users = await http.post(`/api/auth/signin`,user.formData)
-
+      dispatch(getAllUsers())
      
       return users.data.content;
 
 
 
     } catch (error) {
-      return thunkAPI.rejectWithValue({ error: error.message });
+      return rejectWithValue({ error: error.message });
     }
   }
 );
 
 
 
-// export const searchUsers = createAsyncThunk(
-//   'users/searchUsers',
-//   async (user, {dispatch,rejectWithValue}) => {
-//     try {
-
-//       console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa=xxxxxxxxxx',await user)
-//       const users = await http.get(`/api/cong-viec/lay-danh-sach-cong-viec-theo-ten/${user.searchUser}`)
-
-//       console.log('dddyyyyyyy',users)
-
-//       // dispatch(getAllUsers())
-//       return users.data.content;
-
-
-
-//     } catch (error) {
-//       return rejectWithValue({ error: error.message });
-//     }
-//   }
-// );
-
-
-
-
-
-// let user ='';
-// if(localStorage.getItem('USER')){
-//   user =JSON.parse(localStorage.getItem('USER'))
-// }
-// console.log('lllllllllllllllllllllllll',JSON.parse(localStorage.getItem('USER')).accessToken)
 
 
 
@@ -277,7 +246,6 @@ export const userSlice = createSlice({
       state.status = 'fulfilled';
       state.users = state.users.filter(user => user.id !== action.payload);
       toast.success('Bạn đã xóa thành công !')
-      // console.log('action.payloadccccccccccc',action.payload)
     });
     builder.addCase(deleteAUser.rejected, (state, action) => {
       state.status = 'rejected';
@@ -290,13 +258,12 @@ export const userSlice = createSlice({
     });
     builder.addCase(editAUser.fulfilled, (state, action) => {
       state.status = 'fulfilled';
-      // state.movies = state.movies.filter(movie => movie.maPhim !== action.payload);
       state.users = state.users.map(user =>
         user.id === action.payload.id ? action.payload : user
         );
 
         toast.success('Bạn đã chỉnh sửa thành công !')
-      console.log("oiiiiiiiiii",action.payload)
+
     });
     builder.addCase(editAUser.rejected, (state, action) => {
       state.status = 'rejected';
@@ -311,7 +278,6 @@ export const userSlice = createSlice({
     });
     builder.addCase(editAUserAfterLogin.fulfilled, (state, action) => {
       state.status = 'fulfilled';
-      // state.movies = state.movies.filter(movie => movie.maPhim !== action.payload);
       state.users = state.users.map(user =>
         user.id === action.payload.id ? action.payload : user
         );
@@ -321,7 +287,7 @@ export const userSlice = createSlice({
         }
        
         toast.success('Bạn đã chỉnh sửa thành công 1 !')
-      console.log("oiiiiiiiiii",action.payload)
+   
     });
     builder.addCase(editAUserAfterLogin.rejected, (state, action) => {
       state.status = 'rejected';
@@ -388,7 +354,7 @@ export const userSlice = createSlice({
       state.signIn=action.payload;
       localStorage.setItem('USER',JSON.stringify(action.payload))
       toast.success('Bạn đã đăng nhập thành công !')
-      // console.log('fulfilled tttttttttttttttttttttt',JSON.stringify(action.payload))
+   
     });
     builder.addCase(signInUser.rejected, (state, action) => {
       state.status = 'rejected';
