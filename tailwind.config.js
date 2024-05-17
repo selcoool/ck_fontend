@@ -6,7 +6,7 @@ module.exports = {
       backgroundImage: {
         'background_sidebar': "url('/public/assets/bg01.jpeg')",
         'background_sidebar2': "url('/public/assets/bg02.jpeg')",
-        // 'background_logout':"url('/public/assets/logout.jpeg')",
+        'background_work':"url('/public/assets/bg03.jpeg')",
         // 'background_logout':"url('/public/assets/logout.jpeg')",
         // 'background_detail':"url('/public/assets/detailbg.jpeg')"
         

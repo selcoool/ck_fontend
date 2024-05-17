@@ -80,7 +80,8 @@ function ShowRecruitJob() {
     [...recruitJobData]?.reverse().map((recruitJob) => (
         <div key={recruitJob?.id} className=' overflow-hidden cursor-pointer group'>
             
-            <div className='flex gap-1 bg-orange-200  flex-col p-3  transition-all duration-100 '>
+            <div className='flex gap-1   flex-col p-3 bg-background_work bg-cover  transition-all duration-100 '>
+                <div className='bg-gray-800/60 flex flex-col'>
                 <div className='pb-3 flex items-center justify-center gap-3'>
                     <h1 className='font-bold text-sky-500 '>{recruitJob?.maNguoiThue}</h1>
                 </div>
@@ -90,15 +91,18 @@ function ShowRecruitJob() {
                 <div className='pb-3 flex items-center justify-center gap-3'>
                     <h1 className='font-bold text-sky-500 '>{recruitJob?.ngayThue}</h1>
                 </div>
+               
                 <div className='pb-3 flex items-center justify-center gap-3'>
                     <h1 className='font-bold text-sky-500 '>{recruitJob.hoanThanh ? (<div className='text-green-500'>Đã hoàn thành</div>) : (<div className='text-red-500'>Chưa hoàn thành</div>)}</h1>
                 </div>
+                
 
               <div className=' flex justify-center items-center'>
                    <div onClick={()=>[setModalEditRecruitJob(!modalEditRecruitJob),setEditRecruitJobData(recruitJob)]} className='p-2 bg-sky-500 rounded-l-full'>Cập nhật</div>
                    <div onClick={()=>[setModalDetailRecruitJob(!modalDetailRecruitJob),setDetailRecruitJobData(recruitJob)]} className='p-2 bg-orange-500'>Chi tiết CV</div>
                    <div onClick={()=>handleDeleteRecruitJob(recruitJob)} className='p-2 bg-red-500 rounded-r-full'>Xoá</div>
 
+              </div>
               </div>
              
             </div>
