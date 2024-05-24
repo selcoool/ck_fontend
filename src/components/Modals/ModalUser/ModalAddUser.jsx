@@ -74,7 +74,7 @@ function ModalAddUser({visible,setVisible}) {
       onSubmit: async(values) => {
          try {
 
-                 console.log('onSubmitvaluesxxxxxxxxxx',values)
+                //  console.log('onSubmitvaluesxxxxxxxxxx',values)
                   let formData = new FormData();
                   for (let key in values){
                     // console.log('values[key]',values[key])
@@ -94,15 +94,15 @@ function ModalAddUser({visible,setVisible}) {
 
           
          } catch (error) {
-              console.log('error',error)
+              // console.log('error',error)
          }
                   
       }
     });
   
-    console.log('values', values)
-    console.log('errors', errors)
-    console.log('touched', touched);
+    // console.log('values', values)
+    // console.log('errors', errors)
+    // console.log('touched', touched);
 
 
 
@@ -131,7 +131,6 @@ function ModalAddUser({visible,setVisible}) {
 
  const handleCloseSkill = (removedTag) => {
   const newTags = createSkillTag.filter((tag) => tag !== removedTag);
-  console.log("newTags",newTags);
   setFieldValue('skill',newTags);
   setCreateSkillTag(newTags);
 };
@@ -148,7 +147,6 @@ function ModalAddUser({visible,setVisible}) {
       setCreateSkillTag((prevTags) => {
 
         const newTags = [...prevTags, tagValue];
-        console.log('Enter key pressed', newTags); 
         setFieldValue('skill',newTags);
         // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
@@ -162,7 +160,6 @@ function ModalAddUser({visible,setVisible}) {
     if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
       setCreateSkillTag((prevTags) => {
         const newTags = [...prevTags, tagValue];
-        console.log('Mouse left input', newTags);
         setFieldValue('skill',newTags); // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
       });
@@ -176,7 +173,6 @@ function ModalAddUser({visible,setVisible}) {
 
 const handleCloseCertification = (removedTag) => {
   const newTags = createCertificationTag.filter((tag) => tag !== removedTag);
-  console.log("newTags",newTags);
   setFieldValue('certification',newTags);
   setCreateCertificationTag(newTags);
 };
@@ -190,7 +186,7 @@ const handleCertification = (e) => {
       setCreateCertificationTag((prevTags) => {
 
         const newTags = [...prevTags, tagValue];
-        console.log('Enter key pressed', newTags); 
+   
         setFieldValue('certification',newTags);
         // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
@@ -204,7 +200,7 @@ const handleCertification = (e) => {
     if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
       setCreateCertificationTag((prevTags) => {
         const newTags = [...prevTags, tagValue];
-        console.log('Mouse left input', newTags);
+
         setFieldValue('certification',newTags); // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
       });
@@ -294,7 +290,7 @@ const handleCertification = (e) => {
       </Radio.Group>
     </Form.Item>
 
-    {JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+    {JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
     
 
 <Form.Item label="Vai trò">

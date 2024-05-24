@@ -5,7 +5,6 @@ import Search from 'antd/es/input/Search'
 import { Button } from 'antd';
 import ModalAddJob from './Modals/ModalJob/ModalAddJob';
 import ModalDetailJobUi from './Modals/ModalJob/ModalDetailJobUi';
-import ModalDetailUser from './Modals/ModalUser/ModalDetailUser';
 import Footer from './Footer';
 
 ;
@@ -20,17 +19,10 @@ function ShowJobs() {
   const [modalDetailJobUi, setModalDetailJobUi] = useState(false);
   const [modalDetailUser, setModalDetailUser] = useState(false);
 
-
-  console.log('dddddddddd',modalDetailJobUi)
-  console.log('ddddddddddssss',modalDetailJobUi)
-  
-
   
    const [modalAddJob, setModalAddJob] = useState(false);
   const [jobData, setJobData] = useState([]);
 
-  console.log('modalAddJob',modalAddJob)
-  console.log('jobData',jobData)
 
 
 useEffect(() => {
@@ -80,7 +72,7 @@ useEffect(() => {
 
     <div className=' flex  gap-1 '>
 <Button  size="large" className='bg-white' >Số công việc ({jobs ?jobs.length:0})</Button>
-{JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+{ JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
       <>                      
   <Button size="large"  onClick={()=>setModalAddJob(!modalAddJob)} className='bg-green-500'>Thêm Công Việc</Button>
   <ModalAddJob visible={modalAddJob} setVisible={setModalAddJob}/>

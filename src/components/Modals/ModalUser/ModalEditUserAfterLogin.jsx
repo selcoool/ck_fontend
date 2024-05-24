@@ -1,29 +1,20 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect,  useState } from 'react';
 import {
   Modal,
   Button,
-  Cascader,
-  Checkbox,
-  ColorPicker,
   DatePicker,
   Form,
   Input,
-  InputNumber,
   Radio,
-  Select,
-  Slider,
-  Switch,
-  TreeSelect,
-  Upload,
-  Tag,
+
 } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from "yup"
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { addAUser, editAUser, editAUserAfterLogin, getAllUsers } from '../../../redux/userReducerSlice';
-const { TextArea } = Input;
+import {editAUserAfterLogin, getAllUsers } from '../../../redux/userReducerSlice';
+
 
 
 function ModalEditUserAfterLogin({visible,setVisible,data}) {
@@ -47,7 +38,7 @@ function ModalEditUserAfterLogin({visible,setVisible,data}) {
     const dispatch=useDispatch();
   
 
-    const { handleChange, handleSubmit, handleBlur, resetForm, values, errors, touched,setFieldValue } = useFormik({
+    const { handleChange, handleSubmit, handleBlur, values, errors, touched,setFieldValue } = useFormik({
         enableReinitialize:true,
         initialValues: {
         id: data?.id,
@@ -81,7 +72,6 @@ function ModalEditUserAfterLogin({visible,setVisible,data}) {
       onSubmit: async(values) => {
          try {
 
-                 console.log('onSubmitvaluesxxxxxxxxxx',values)
                   let formData = new FormData();
                   for (let key in values){
                     // console.log('values[key]',values[key])
@@ -101,22 +91,21 @@ function ModalEditUserAfterLogin({visible,setVisible,data}) {
 
           
          } catch (error) {
-              console.log('error',error)
+              // console.log('error',error)
          }
                   
       }
     });
   
-    console.log('values', values)
-    console.log('errors', errors)
-    console.log('touched', touched);
+    // console.log('values', values)
+    // console.log('errors', errors)
+    // console.log('touched', touched);
 
 
 
      const [createSkillTag, setCreateSkillTag] = useState(data?.skill || []);
-  const [inputSkillValue, setInputSkillValue] = useState('');
   const [createCertificationTag, setCreateCertificationTag] = useState(data?.certification || []);
-  const [inputCertificationValue, setInputCertificationValue] = useState('');
+
 
 
  
@@ -126,78 +115,74 @@ function ModalEditUserAfterLogin({visible,setVisible,data}) {
     setCreateCertificationTag(data?.certification || []);
   }, [data]);
 
-  const handleCloseSkill = (removedTag) => {
-        const newTags = createSkillTag.filter((tag) => tag !== removedTag);
-        console.log("newTags", newTags);
-        setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
-        setCreateSkillTag(newTags); // Cập nhật state createSkillTag
-      };
+  // const handleCloseSkill = (removedTag) => {
+  //       const newTags = createSkillTag.filter((tag) => tag !== removedTag);
+  //       setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
+  //       setCreateSkillTag(newTags); // Cập nhật state createSkillTag
+  //     };
 
  
       
-      const handleSkill = (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          const tagValue = e.target.value.trim();
-          if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
-            const newTags = [...createSkillTag, tagValue];
-            console.log('Enter key pressed', newTags);
-            setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
-            setCreateSkillTag(newTags); // Cập nhật state createSkillTag
-            e.target.value = '';
-            setInputSkillValue('');
-          }
-        }
-        if (e.type === 'blur') {
-          const tagValue = e.target.value.trim();
-          if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
-            const newTags = [...createSkillTag, tagValue];
-            console.log('Mouse left input', newTags);
-            setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
-            setCreateSkillTag(newTags); // Cập nhật state createSkillTag
-            e.target.value = '';
-            setInputSkillValue('');
-          }
-        }
-      };
+      // const handleSkill = (e) => {
+      //   if (e.key === 'Enter') {
+      //     e.preventDefault();
+      //     const tagValue = e.target.value.trim();
+      //     if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
+      //       const newTags = [...createSkillTag, tagValue];
+      //       setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
+      //       setCreateSkillTag(newTags); // Cập nhật state createSkillTag
+      //       e.target.value = '';
+      //       setInputSkillValue('');
+      //     }
+      //   }
+      //   if (e.type === 'blur') {
+      //     const tagValue = e.target.value.trim();
+      //     if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
+      //       const newTags = [...createSkillTag, tagValue];
+   
+      //       setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
+      //       setCreateSkillTag(newTags); // Cập nhật state createSkillTag
+      //       e.target.value = '';
+      //       setInputSkillValue('');
+      //     }
+      //   }
+      // };
 
 //   const handleCloseCertification = (removedTag) => {
 //     const newTags = createCertificationTag.filter((tag) => tag !== removedTag);
 //     setCreateCertificationTag(newTags);
 //   };
 
-    const handleCloseCertification = (removedTag) => {
-        const newTags = createCertificationTag.filter((tag) => tag !== removedTag);
-        console.log("newTags", newTags);
-        setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
-        setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
-      };
+    // const handleCloseCertification = (removedTag) => {
+    //     const newTags = createCertificationTag.filter((tag) => tag !== removedTag);
+   
+    //     setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
+    //     setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
+    //   };
       
-      const handleCertification = (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          const tagValue = e.target.value.trim();
-          if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
-            const newTags = [...createCertificationTag, tagValue];
-            console.log('Enter key pressed', newTags);
-            setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
-            setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
-            e.target.value = '';
-            setInputCertificationValue('');
-          }
-        }
-        if (e.type === 'blur') {
-          const tagValue = e.target.value.trim();
-          if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
-            const newTags = [...createCertificationTag, tagValue];
-            console.log('Mouse left input', newTags);
-            setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
-            setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
-            e.target.value = '';
-            setInputCertificationValue('');
-          }
-        }
-      };
+    //   const handleCertification = (e) => {
+    //     if (e.key === 'Enter') {
+    //       e.preventDefault();
+    //       const tagValue = e.target.value.trim();
+    //       if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
+    //         const newTags = [...createCertificationTag, tagValue];
+    //         setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
+    //         setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
+    //         e.target.value = '';
+    //         setInputCertificationValue('');
+    //       }
+    //     }
+    //     if (e.type === 'blur') {
+    //       const tagValue = e.target.value.trim();
+    //       if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
+    //         const newTags = [...createCertificationTag, tagValue];
+    //         setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
+    //         setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
+    //         e.target.value = '';
+    //         setInputCertificationValue('');
+    //       }
+    //     }
+    //   };
 
 
 
@@ -218,11 +203,11 @@ function ModalEditUserAfterLogin({visible,setVisible,data}) {
     //   console.log("value_date", moment(value.selectedDate).format('DD/MM/YYYY'));
     // };
 
- const handleOnChangeCustom=(name)=>{
-   return (value)=>{
-    setFieldValue(name,value)
-   }
- }
+//  const handleOnChangeCustom=(name)=>{
+//    return (value)=>{
+//     setFieldValue(name,value)
+//    }
+//  }
 
  const handleGenderOnChangeCustom=(name)=>{
   //  console.log('dddđ')

@@ -1,7 +1,7 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import { http } from "../services/config_service"
 
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 
 
 export const getAllComments = createAsyncThunk(
@@ -9,9 +9,9 @@ export const getAllComments = createAsyncThunk(
   async (user, thunkAPI) => {
     try {
 
-     console.log('yyyyyyyyyyyy',user)
+
       let users = await http.get(`/api/binh-luan`);
-      console.log('yyyyyyyyyyyy_user',users)
+ 
       
     
       return users.data.content;
@@ -27,10 +27,10 @@ export const deleteAComment = createAsyncThunk(
   async (user, {dispatch,rejectWithValue}) => {
     try {
        
-      console.log('pppppppppppppppppcccc',user.id)
-      const users = await http.delete(`/api/binh-luan/${user.id}`)
+      // console.log('pppppppppppppppppcccc',user.id)
+      await http.delete(`/api/binh-luan/${user.id}`)
       // dispatch(getAllJobs())
-        console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
+       
       return user.id;
 
     //   console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
@@ -66,17 +66,17 @@ export const editAComment = createAsyncThunk(
 
 export const getRelatedComments = createAsyncThunk(
   'comments/getRelatedComments',
-  async (user, thunkAPI) => {
+  async (user, {dispatch,rejectWithValue}) => {
     try {
 
-     console.log('yyyyyyyyyyyy',user)
+    
       let users = await http.get(`/api/binh-luan/lay-binh-luan-theo-cong-viec/${user.jobId}`);
-      console.log('yyyyyyyyyyyy_user',users)
+
       
     
       return users.data.content;
     } catch (error) {
-      return thunkAPI.rejectWithValue({ error: error.message });
+      return rejectWithValue({ error: error.message });
     }
   }
 );
@@ -94,11 +94,11 @@ export const addARelatedComment = createAsyncThunk(
   'comments/addARelatedComment',
   async (user, {dispatch,rejectWithValue}) => {
     try {
-      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
+    
       // Gửi request POST đến endpoint `/QuanLyNguoiDung/ThemNguoiDung` với formData của user
       const users = await http.post(`/api/binh-luan`, user.formData);
       // Trả về dữ liệu từ response
-      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxusers',users)
+
       // dispatch(getRelatedComments())
       
       return users.data.content;
@@ -116,15 +116,10 @@ export const deleteARelatedComment = createAsyncThunk(
   'comments/deleteARelatedComment',
   async (user, {dispatch,rejectWithValue}) => {
     try {
-       
-      console.log('pppppppppppppppppcccc',user.id)
-      const users = await http.delete(`/api/binh-luan/${user.id}`)
+       await http.delete(`/api/binh-luan/${user.id}`)
       // dispatch(getAllJobs())
-        console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
+     
       return user.id;
-
-    //   console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
-
 
     } catch (error) {
       return rejectWithValue({ error: error.message });
@@ -388,6 +383,6 @@ export const userSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {  } = userSlice.actions
+// export const {  } = userSlice.actions
 
 export default userSlice.reducer

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import moment from 'moment';
 import 'moment/locale/vi';
 import { Modal, Rate } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,7 +38,7 @@ function ModalDetailRecruitJob({ visible, setVisible, data }) {
       >
         <h1 className='text-2xl font-bold text-center pb-3'>
           <span className='text-red-500'>
-            {Array.isArray(detailRecruitJobData) && detailRecruitJobData[0]?.nguoiTao}
+            {Array.isArray(detailRecruitJobData) && detailRecruitJobData[0]?.tenCongViec}
           </span>
           -[{data?.id}]
         </h1>

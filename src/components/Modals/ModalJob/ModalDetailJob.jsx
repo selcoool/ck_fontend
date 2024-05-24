@@ -1,12 +1,10 @@
 import React from 'react'
-import moment from 'moment';
 import 'moment/locale/vi';
-import { Modal, Form, Input, Button, Rate } from 'antd';
+import { Modal, Rate } from 'antd';
 import { useDispatch } from 'react-redux';
 import { getAllJobs } from '../../../redux/jobReducerSlice';
 
 function ModalDetailJob({visible,setVisible,data}) {
-  console.log("ModalDetailJob",data)
   const dispatch=useDispatch();
 
   return (

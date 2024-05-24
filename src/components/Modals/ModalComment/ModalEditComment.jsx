@@ -31,22 +31,6 @@ const { TextArea } = Input;
 
 function ModalEditComment({ visible, setVisible, data }) {
 
-
-  console.log('opppppppppppppppp', visible)
-  //     const [createSkillTag, setCreateSkillTag]=useState([])
-  //     const [inputSkillValue, setInputSkillValue] = useState('');
-  //     const [inputEditSkillValue, setInputEditSkillValue] = useState([]);
-
-
-  //     const [createCertificationTag, setCreateCertificationTag]=useState([])
-  //   const [inputCertificationValue, setInputCertificationValue] = useState('');
-  // console.log('createSkillTag',createSkillTag)
-
-
-
-
-
-
   const dispatch = useDispatch();
 
 
@@ -81,7 +65,7 @@ function ModalEditComment({ visible, setVisible, data }) {
     onSubmit: async (values) => {
       try {
 
-        console.log('onSubmitvaluesxxxxxxxxxx', values)
+
         let formData = new FormData();
         for (let key in values) {
 
@@ -98,15 +82,15 @@ function ModalEditComment({ visible, setVisible, data }) {
 
 
       } catch (error) {
-        console.log('error', error)
+  
       }
 
     }
   });
 
-  console.log('values', values)
-  console.log('errors', errors)
-  console.log('touched', touched);
+  // console.log('values', values)
+  // console.log('errors', errors)
+  // console.log('touched', touched);
 
 
 

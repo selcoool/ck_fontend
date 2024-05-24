@@ -4,7 +4,7 @@ import 'moment/locale/vi';
 import { Modal, Form, Input, Button, Rate } from 'antd';
 
 function ModalDetailUserUi({visible,setVisible,data}) {
-  console.log("pppppppppppdataxx",data)
+
 
   return (
    

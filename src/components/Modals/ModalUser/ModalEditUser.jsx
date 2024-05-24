@@ -1,43 +1,28 @@
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Modal,
   Button,
-  Cascader,
-  Checkbox,
-  ColorPicker,
   DatePicker,
   Form,
   Input,
-  InputNumber,
   Radio,
   Select,
-  Slider,
-  Switch,
-  TreeSelect,
-  Upload,
   Tag,
 } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from "yup"
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { addAUser, editAUser, getAllUsers } from '../../../redux/userReducerSlice';
-const { TextArea } = Input;
+import { editAUser, getAllUsers } from '../../../redux/userReducerSlice';
+
 
 
 function ModalEditUser({visible,setVisible,data}) {
 
 
     
-//     const [createSkillTag, setCreateSkillTag]=useState([])
-//     const [inputSkillValue, setInputSkillValue] = useState('');
-//     const [inputEditSkillValue, setInputEditSkillValue] = useState([]);
 
-
-//     const [createCertificationTag, setCreateCertificationTag]=useState([])
-//   const [inputCertificationValue, setInputCertificationValue] = useState('');
-    // console.log('createSkillTag',createSkillTag)
 
     
   
@@ -47,7 +32,7 @@ function ModalEditUser({visible,setVisible,data}) {
     const dispatch=useDispatch();
   
 
-    const { handleChange, handleSubmit, handleBlur, resetForm, values, errors, touched,setFieldValue } = useFormik({
+    const { handleChange, handleSubmit, handleBlur, values, errors, touched,setFieldValue } = useFormik({
         enableReinitialize:true,
         initialValues: {
         id: data?.id,
@@ -82,7 +67,7 @@ function ModalEditUser({visible,setVisible,data}) {
       onSubmit: async(values) => {
          try {
 
-                 console.log('onSubmitvaluesxxxxxxxxxx',values)
+                //  console.log('onSubmitvaluesxxxxxxxxxx',values)
                   let formData = new FormData();
                   for (let key in values){
                     // console.log('values[key]',values[key])
@@ -108,9 +93,9 @@ function ModalEditUser({visible,setVisible,data}) {
       }
     });
   
-    console.log('values', values)
-    console.log('errors', errors)
-    console.log('touched', touched);
+    // console.log('values', values)
+    // console.log('errors', errors)
+    // console.log('touched', touched);
 
 
 
@@ -129,7 +114,6 @@ function ModalEditUser({visible,setVisible,data}) {
 
   const handleCloseSkill = (removedTag) => {
         const newTags = createSkillTag.filter((tag) => tag !== removedTag);
-        console.log("newTags", newTags);
         setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
         setCreateSkillTag(newTags); // Cập nhật state createSkillTag
       };
@@ -142,7 +126,6 @@ function ModalEditUser({visible,setVisible,data}) {
           const tagValue = e.target.value.trim();
           if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
             const newTags = [...createSkillTag, tagValue];
-            console.log('Enter key pressed', newTags);
             setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
             setCreateSkillTag(newTags); // Cập nhật state createSkillTag
             e.target.value = '';
@@ -153,7 +136,7 @@ function ModalEditUser({visible,setVisible,data}) {
           const tagValue = e.target.value.trim();
           if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
             const newTags = [...createSkillTag, tagValue];
-            console.log('Mouse left input', newTags);
+
             setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
             setCreateSkillTag(newTags); // Cập nhật state createSkillTag
             e.target.value = '';
@@ -169,7 +152,7 @@ function ModalEditUser({visible,setVisible,data}) {
 
     const handleCloseCertification = (removedTag) => {
         const newTags = createCertificationTag.filter((tag) => tag !== removedTag);
-        console.log("newTags", newTags);
+  
         setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
         setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
       };
@@ -180,7 +163,7 @@ function ModalEditUser({visible,setVisible,data}) {
           const tagValue = e.target.value.trim();
           if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
             const newTags = [...createCertificationTag, tagValue];
-            console.log('Enter key pressed', newTags);
+    
             setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
             setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
             e.target.value = '';
@@ -191,7 +174,7 @@ function ModalEditUser({visible,setVisible,data}) {
           const tagValue = e.target.value.trim();
           if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
             const newTags = [...createCertificationTag, tagValue];
-            console.log('Mouse left input', newTags);
+  
             setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
             setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
             e.target.value = '';
@@ -378,7 +361,7 @@ function ModalEditUser({visible,setVisible,data}) {
       </Radio.Group>
     </Form.Item>
 
-    {JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+    {JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
       <Form.Item label="Vai trò">
       <Select
         style={{width:100}}

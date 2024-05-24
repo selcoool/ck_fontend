@@ -3,20 +3,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   Modal,
   Button,
-  Cascader,
-  Checkbox,
-  ColorPicker,
-  DatePicker,
   Form,
   Input,
-  InputNumber,
-  Radio,
   Select,
-  Slider,
-  Switch,
-  TreeSelect,
-  Upload,
-  Tag,
   Rate,
 } from 'antd';
 import { useFormik } from 'formik';
@@ -41,13 +30,9 @@ function ModalAddJob({visible,setVisible}) {
   const [createCertificationTag, setCreateCertificationTag]=useState([])
   const [inputCertificationValue, setInputCertificationValue] = useState('');
 
-    // console.log('modalCreateMovie',visible)
     const {typeJobs} = useSelector((state) => state?.manageTypeJob);
     const [typeJobData, setTypeJobData] = useState([]);
-  console.log('typeJobData',typeJobData)
 
- 
- 
 
     useEffect(() => {
       setTypeJobData(typeJobs);
@@ -67,7 +52,7 @@ function ModalAddJob({visible,setVisible}) {
         tenCongViec: "",
         danhGia: 0,
         giaTien: 0,
-        nguoiTao: localStorage.getItem('USER') ? JSON.parse(localStorage.getItem('USER')).user.id : 0,
+        nguoiTao: localStorage?.getItem('USER') ? JSON.parse(localStorage?.getItem('USER')).user.id : 0,
         hinhAnh: "",
         moTa: "",
         maChiTietLoaiCongViec: 0,
@@ -96,10 +81,9 @@ function ModalAddJob({visible,setVisible}) {
       onSubmit: async(values) => {
          try {
 
-                 console.log('onSubmitvaluesxxxxxxxxxx',values)
                   let formData = new FormData();
                   for (let key in values){
-                    // console.log('values[key]',values[key])
+                  
                         formData.append(key,values[key]);
                     
                   }
@@ -108,40 +92,28 @@ function ModalAddJob({visible,setVisible}) {
                  await dispatch(addAJob({formData:values}))
                  resetForm();
                    setVisible(false)
-                //  setImageData();
-                
                
-                //   fileInputRef.current.value = null;
-                
 
           
          } catch (error) {
-              console.log('error',error)
+              // console.log('error',error)
          }
                   
       }
     });
   
-    console.log('values', values)
-    console.log('errors', errors)
-    console.log('touched', touched);
+    // console.log('values', values)
+    // console.log('errors', errors)
+    // console.log('touched', touched);
 
 
 
     const handleChangeDatePicker = (date, dateString) => {
 
-      // console.log('handleChangeDatePicker', moment('2024-04-30T00:00:00', 'DD/MM/YYYY'));
-      // console.log('handleChangeDatePicker', moment(date.d).format('DD/MM/YYYY'));
       setFieldValue('birthday', dateString); // Update form value
     };
 
-    
 
-    // const handleChangeDatePicker = (value) => {
-    //   // console.log('dateString', dateString);
-
-    //   console.log("value_date", moment(value.selectedDate).format('DD/MM/YYYY'));
-    // };
 
     const handleOnChangeCustom = (name) => {
       return (value) => {
@@ -158,7 +130,7 @@ function ModalAddJob({visible,setVisible}) {
 
  const handleCloseSkill = (removedTag) => {
   const newTags = createSkillTag.filter((tag) => tag !== removedTag);
-  console.log("newTags",newTags);
+  // console.log("newTags",newTags);
   setFieldValue('skill',newTags);
   setCreateSkillTag(newTags);
 };
@@ -175,7 +147,7 @@ function ModalAddJob({visible,setVisible}) {
       setCreateSkillTag((prevTags) => {
 
         const newTags = [...prevTags, tagValue];
-        console.log('Enter key pressed', newTags); 
+        // console.log('Enter key pressed', newTags); 
         setFieldValue('skill',newTags);
         // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
@@ -189,7 +161,7 @@ function ModalAddJob({visible,setVisible}) {
     if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
       setCreateSkillTag((prevTags) => {
         const newTags = [...prevTags, tagValue];
-        console.log('Mouse left input', newTags);
+        // console.log('Mouse left input', newTags);
         setFieldValue('skill',newTags); // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
       });
@@ -203,7 +175,7 @@ function ModalAddJob({visible,setVisible}) {
 
 const handleCloseCertification = (removedTag) => {
   const newTags = createCertificationTag.filter((tag) => tag !== removedTag);
-  console.log("newTags",newTags);
+  // console.log("newTags",newTags);
   setFieldValue('certification',newTags);
   setCreateCertificationTag(newTags);
 };
@@ -217,7 +189,7 @@ const handleCertification = (e) => {
       setCreateCertificationTag((prevTags) => {
 
         const newTags = [...prevTags, tagValue];
-        console.log('Enter key pressed', newTags); 
+        // console.log('Enter key pressed', newTags); 
         setFieldValue('certification',newTags);
         // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
@@ -231,7 +203,7 @@ const handleCertification = (e) => {
     if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
       setCreateCertificationTag((prevTags) => {
         const newTags = [...prevTags, tagValue];
-        console.log('Mouse left input', newTags);
+   
         setFieldValue('certification',newTags); // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
       });
@@ -324,7 +296,7 @@ const handleCertification = (e) => {
     {typeJobData.length>0 && Array.isArray(typeJobData) 
     ?( 
       typeJobData.map((typeJob,index)=>{
-        return ( <Select.Option  value={typeJob?.id} >{typeJob?.tenLoaiCongViec}</Select.Option>)
+        return ( <Select.Option key={typeJob?.id}  value={typeJob?.id} >{typeJob?.tenLoaiCongViec}</Select.Option>)
       })
    
     ) 

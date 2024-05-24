@@ -34,19 +34,7 @@ const { TextArea } = Input;
 function ModalEditRecruitJob({visible,setVisible,data}) {
 
     
-    console.log('ModalEditTypeJob',data)
-//     const [createSkillTag, setCreateSkillTag]=useState([])
-//     const [inputSkillValue, setInputSkillValue] = useState('');
-//     const [inputEditSkillValue, setInputEditSkillValue] = useState([]);
 
-
-//     const [createCertificationTag, setCreateCertificationTag]=useState([])
-//   const [inputCertificationValue, setInputCertificationValue] = useState('');
-    // console.log('createSkillTag',createSkillTag)
-
-    
-  
-  
     
  
     const dispatch=useDispatch();
@@ -83,10 +71,10 @@ function ModalEditRecruitJob({visible,setVisible,data}) {
       onSubmit: async(values) => {
          try {
 
-                 console.log('onSubmitvaluesxxxxxxxxxx',values)
+  
                   let formData = new FormData();
                   for (let key in values){
-                    // console.log('values[key]',values[key])
+
                         formData.append(key,values[key]);
                     
                   }
@@ -103,15 +91,15 @@ function ModalEditRecruitJob({visible,setVisible,data}) {
 
           
          } catch (error) {
-              console.log('error',error)
+              // console.log('error',error)
          }
                   
       }
     });
   
-    console.log('values', values)
-    console.log('errors', errors)
-    console.log('touched', touched);
+    // console.log('values', values)
+    // console.log('errors', errors)
+    // console.log('touched', touched);
 
 
 
@@ -125,18 +113,12 @@ function ModalEditRecruitJob({visible,setVisible,data}) {
 
     const handleChangeDatePicker = (date, dateString) => {
 
-      // console.log('handleChangeDatePicker', moment('2024-04-30T00:00:00', 'DD/MM/YYYY'));
-      // console.log('handleChangeDatePicker', moment(date.d).format('DD/MM/YYYY'));
+  
       setFieldValue('birthday', dateString); // Update form value
     };
 
     
 
-    // const handleChangeDatePicker = (value) => {
-    //   // console.log('dateString', dateString);
-
-    //   console.log("value_date", moment(value.selectedDate).format('DD/MM/YYYY'));
-    // };
 
  const handleOnChangeCustom=(name)=>{
    return (value)=>{
@@ -205,25 +187,7 @@ function ModalEditRecruitJob({visible,setVisible,data}) {
 </Form.Item>
 
 
-                   
-
-{/*                     
-                   <Form.Item  label="Trạng thái">
-        
-        <Input  onChange={handleChange} onBlur={handleBlur} id='tenLoaiCongViec' value={values.tenLoaiCongViec} />
-        
-       
-        {errors.tenLoaiCongViec && touched.tenLoaiCongViec ? (<div className='text-red-500 '>{errors.tenLoaiCongViec}</div>) : ''}
-        
-      </Form.Item> */}
-
-
-
-                     
-
-            
-
-                      <Form.Item >
+<Form.Item >
                         <button type='submit' className='px-2 py-1 rounded bg-green-500 text-white' >Cập nhật thuê công việc</button>
                       </Form.Item>
                     </Form>

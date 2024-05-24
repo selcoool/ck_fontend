@@ -4,7 +4,7 @@ import 'moment/locale/vi';
 import { Modal, Form, Input, Button, Rate } from 'antd';
 
 function ModalDetailUser({visible,setVisible,data}) {
-  console.log("pppppppppppdataxx",data)
+  // console.log("pppppppppppdataxx",data)
 
   return (
    
@@ -46,15 +46,13 @@ function ModalDetailUser({visible,setVisible,data}) {
            <span className='font-bold' > Giới tính:</span>  {data?.gender ? "Nam" : "Nữ"}
             </div>
             </div>
-            <div>
+            {/* <div>
            <span className='font-bold' > Mật Khẩu:</span>{data?.password} 
             
-            </div>
+            </div> */}
             <div>
            <span className='font-bold' > Chứng Chỉ:</span>  
-           {/* {data?.certification?.map((certificate,index)=>{
-             return (<span className='text-red-500'>{certificate+', '}</span>)
-           })}   */}
+   
 
              {data?.certification?.length > 0 && Array.isArray(data?.certification) ? (
                 data.certification.map((certificate, index) => {

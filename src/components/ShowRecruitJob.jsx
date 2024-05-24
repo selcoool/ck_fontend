@@ -25,10 +25,10 @@ function ShowRecruitJob() {
      const [modalDetailRecruitJob, setModalDetailRecruitJob] = useState(false);
 
     useEffect(() => {
-        const userId = JSON.parse(localStorage.getItem('USER'))?.user.id;
+        const userId = JSON.parse(localStorage?.getItem('USER'))?.user.id;
         const filteredJobs = recruitJobs.filter((recruitJob) => recruitJob.maNguoiThue === userId);
         setRecruitJobData(filteredJobs);
-      }, [recruitJobs, JSON.parse(localStorage.getItem('USER'))?.user.id]);
+      }, [recruitJobs, JSON.parse(localStorage?.getItem('USER'))?.user.id]);
       
       // Effect to fetch all recruit jobs
       useEffect(() => {
@@ -36,9 +36,8 @@ function ShowRecruitJob() {
       }, []);
 
       const handleDeleteRecruitJob=(value)=>{
-        // dispatch(deleteAMovie(value))
   
-        console.log('xxxxxxxxxxxxx',value)
+  
   
         Modal.confirm({
           title:"Bạn thật sự muốn xóa thuê công việc này ?",

@@ -6,25 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 // import {deleteAUser } from '../redux/apiUser';
 import { Rate } from 'antd'
 
-import { deleteAJob, getAllJobs } from '../redux/jobReducerSlice';
-
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { FaRegImage } from "react-icons/fa6";
 
-import ModalDetailUser from './Modals/ModalUser/ModalDetailUser';
-import ModalAddUser from './Modals/ModalUser/ModalAddUser';
-import ModalEditUser from './Modals/ModalUser/ModalEditUser';
-import ModalAddJob from './Modals/ModalJob/ModalAddJob';
-import ModalDetailJob from './Modals/ModalJob/ModalDetailJob';
-import ModalEditJob from './Modals/ModalJob/ModalEditJob';
-import ModalEditImageJob from './Modals/ModalJob/ModalEditImageJob';
-import { SiMalt } from 'react-icons/si';
 import { deleteAComment, getAllComments } from '../redux/commentReducerSlice';
 import ModalDetailComment from './Modals/ModalComment/ModalDetailComment';
 import ModalEditComment from './Modals/ModalComment/ModalEditComment';
-// import ModalEditMovie from './ModalEditMovie';
-// import ModalEditUser from './ModalEditUser';
+
 
 function ManageComment() {
 
@@ -83,7 +71,7 @@ function ManageComment() {
 
 
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full lg:min-h-screen'>
       <div className='flex flex-col'>
 
 
@@ -103,7 +91,7 @@ function ManageComment() {
         </div>
 
         <div className='flex justify-center items-center pt-3 '>
-          <Title className='flex text-center text-sm md:text-2xl'>QUẢN LÝ BÌNH LUẬN</Title>
+          <Title className='flex text-center text-sm md:text-2xl'>BÌNH LUẬN</Title>
 
         </div>
 
@@ -227,9 +215,9 @@ function ManageComment() {
                 render: (text, tenCongViecData) => (
 
 
-                  JSON.parse(localStorage.getItem('USER'))?.user.role === "USER" || JSON.parse(localStorage.getItem('USER'))?.user.role === "ADMIN" ? (
+                  JSON.parse(localStorage?.getItem('USER'))?.user?.role === "USER" || JSON.parse(localStorage?.getItem('USER'))?.user?.role === "ADMIN" ? (
 
-                    JSON.parse(localStorage.getItem('USER'))?.user.id === tenCongViecData?.nguoiTao || JSON.parse(localStorage.getItem('USER'))?.user.role === "ADMIN" ? (
+                    JSON.parse(localStorage?.getItem('USER'))?.user?.id === tenCongViecData?.nguoiTao || JSON.parse(localStorage?.getItem('USER'))?.user?.role === "ADMIN" ? (
 
                       <div className='flex gap-2'>
 

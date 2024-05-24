@@ -98,13 +98,13 @@ function ManageJob() {
 </div>
 
 <div className='flex justify-center items-center pt-3 '>
-   <Title className='flex text-center text-sm md:text-2xl'>QUẢN LÝ CÔNG VIỆC</Title>
+   <Title className='flex text-center text-sm md:text-2xl'>CÔNG VIỆC</Title>
 
 </div>
 
 <div className='px-3 pb-3 flex  gap-1 '>
 <Button  size="large" className='bg-white' >Số công việc ({jobs ?jobs.length:0})</Button>
-{JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+{JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
       <> 
   <Button size="large"  onClick={()=>setModalAddJob(!modalAddJob)} className='bg-green-500'>Thêm Công Việc</Button>
   <ModalAddJob visible={modalAddJob} setVisible={setModalAddJob}/>
@@ -160,7 +160,7 @@ columns={[
     render: (text, hinhAnhData) => (
      
      
-      <img src={hinhAnhData.hinhAnh} alt={hinhAnhData.tenCongViec} className='w-[100px] h-[100px] object-cover' onError={(e)=>{e.target.onError=null;e.target.src='https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg'}} />
+      <img src={hinhAnhData.hinhAnh} alt={hinhAnhData.tenCongViec} className='w-[100px] h-[100px] object-cover' onError={(e)=>{e.target.onError=null;e.target.src='https://www.freeiconspng.com/uploads/no-image-icon-11.PNG'}} />
     ),
     width:110,
   },
@@ -238,9 +238,9 @@ columns={[
    render: (text,tenCongViecData) => (
 
 
-    JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+    JSON.parse(localStorage?.getItem('USER'))?.user?.role==="USER" || JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
 
-        JSON.parse(localStorage.getItem('USER'))?.user.id === tenCongViecData?.nguoiTao ||  JSON.parse(localStorage.getItem('USER'))?.user.role === "ADMIN"  ? (
+        JSON.parse(localStorage?.getItem('USER'))?.user.id === tenCongViecData?.nguoiTao ||  JSON.parse(localStorage?.getItem('USER'))?.user?.role === "ADMIN"  ? (
 
           <div className='flex gap-2'>
      

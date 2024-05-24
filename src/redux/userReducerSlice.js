@@ -1,7 +1,8 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import { http } from "../services/config_service"
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
+
 
 
 
@@ -61,7 +62,7 @@ export const deleteAUser = createAsyncThunk(
      
 
     
-      const users = await http.delete(`/api/users?id=${user.id}`)
+      await http.delete(`/api/users?id=${user.id}`)
       dispatch(getAllUsers())
    
       return user.id;
@@ -83,7 +84,7 @@ export const editAUser = createAsyncThunk(
 
       
       const users = await http.put(`/api/users/${user.formData.id}`,user.formData)
-      console.log('RRRRRxxxxxxxxxxxxxeditAUser',users)
+
  
 
       dispatch(getAllUsers())
@@ -107,7 +108,7 @@ export const editAUserAfterLogin = createAsyncThunk(
 
       
       const users = await http.put(`/api/users/${user.formData.id}`,user.formData)
-      console.log('RRRRRxxxxxxxxxxxxxeditAUser',users)
+    
      
 
       dispatch(getAllUsers())
@@ -131,10 +132,10 @@ export const editAvatarUser = createAsyncThunk(
   async (user, {dispatch,rejectWithValue}) => {
     try {
    
-      // console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',await user.formData)
+   
       const users = await http.post(`/api/users/upload-avatar`,user.formData)
 
-      // console.log('Avatar1',users)
+   
 
       dispatch(getAllUsers())
       return users.data.content;
@@ -142,8 +143,7 @@ export const editAvatarUser = createAsyncThunk(
 
 
     } catch (error) {
-      return rejectWithValue({ error});
-      // return rejectWithValue({ error: error.message });
+   
     }
   }
 );
@@ -153,11 +153,9 @@ export const signUpUser = createAsyncThunk(
   'users/signUpUser',
   async (user, {dispatch,rejectWithValue}) => {
     try {
-      // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
-      // Gửi request POST đến endpoint `/QuanLyNguoiDung/ThemNguoiDung` với formData của user
+   
       const users = await http.post(`/api/auth/signup`, user.formData);
-      // Trả về dữ liệu từ response
-      // console.log('RRRRRxxxxxxxxxxx signUpUser',users)
+      // dispatch(getAllUsers())
       return users.data.content;
     } catch (error) {
       // Trả về một giá trị bị reject nếu có lỗi xảy ra
@@ -174,9 +172,10 @@ export const signInUser = createAsyncThunk(
     
     try {
 
-      // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
       const users = await http.post(`/api/auth/signin`,user.formData)
-      dispatch(getAllUsers())
+      // dispatch(getAllUsers())
+      // dispatch(getAllComments())
+      // dispatch(getAllJobs())
      
       return users.data.content;
 
@@ -206,7 +205,7 @@ export const userSlice = createSlice({
   reducers: {
     signOutUser: (state, action) => {
       state.signIn='';
-      localStorage.removeItem('USER');
+      localStorage?.removeItem('USER');
       toast.success('Bạn đã đăng xuất thành công !')
 
     },
@@ -281,7 +280,7 @@ export const userSlice = createSlice({
       state.users = state.users.map(user =>
         user.id === action.payload.id ? action.payload : user
         );
-        if(localStorage.getItem('USER')){
+        if(localStorage?.getItem('USER')){
         state.signIn='';
         localStorage.removeItem('USER');
         }
@@ -307,8 +306,8 @@ export const userSlice = createSlice({
 
 
         // let token ='';
-        if(localStorage.getItem('USER')){
-           let oldToken =JSON.parse(localStorage.getItem('USER'))?.token
+        if(localStorage?.getItem('USER')){
+           let oldToken =JSON.parse(localStorage?.getItem('USER'))?.token
 
            let newUseData={
               token:oldToken,
@@ -353,7 +352,12 @@ export const userSlice = createSlice({
       state.status = 'fulfilled';
       state.signIn=action.payload;
       localStorage.setItem('USER',JSON.stringify(action.payload))
+   
       toast.success('Bạn đã đăng nhập thành công !')
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+     
    
     });
     builder.addCase(signInUser.rejected, (state, action) => {

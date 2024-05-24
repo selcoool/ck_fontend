@@ -3,20 +3,9 @@ import React, { useRef, useState } from 'react';
 import {
   Modal,
   Button,
-  Cascader,
-  Checkbox,
-  ColorPicker,
-  DatePicker,
   Form,
   Input,
-  InputNumber,
-  Radio,
-  Select,
-  Slider,
-  Switch,
-  TreeSelect,
-  Upload,
-  Tag,
+ 
 } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from "yup"
@@ -30,8 +19,8 @@ const { TextArea } = Input;
 
 
 function ModalEditImageJob({ isOpen, setIsOpen, data}) {
-      console.log('ModalEditAvatarUser',isOpen)
-      console.log('ModalEditAvatarUser_data',data)
+      // console.log('ModalEditAvatarUser',isOpen)
+      // console.log('ModalEditAvatarUser_data',data)
    
     
       const fileInputRef = useRef(null);
@@ -64,10 +53,6 @@ function ModalEditImageJob({ isOpen, setIsOpen, data}) {
         }),
         onSubmit: async(values) => {
            try {
-
-            console.log('ooooooooooo',values)
-                  //  setFieldValue('id',data)
-                   console.log('onSubmitvaluesxxxxxxxxxxYYYYYYYYY',values)
                     let formData = new FormData();
                     for (let key in values){
                       // console.log('values[key]',values[key])
@@ -87,16 +72,20 @@ function ModalEditImageJob({ isOpen, setIsOpen, data}) {
   
             
            } catch (error) {
-                console.log('error',error)
+                // console.log('error',error)
            }
                     
         }
       });
     
     
-      console.log('values', values)
-      console.log('errors', errors)
-      console.log('touched', touched);
+      // console.log('values', values)
+      // console.log('errors', errors)
+      // console.log('touched', touched);
+
+
+
+      
   
   
     return (
@@ -140,7 +129,7 @@ function ModalEditImageJob({ isOpen, setIsOpen, data}) {
                     }}/>
                  {errors.formFile && touched.formFile ? (<div className='text-red-500 '>{errors.formFile}</div>) : ''}
                <br />
-               {/* <img src={imageData==null ? JSON.parse(localStorage.getItem('USER'))?.user.avatar : imageData } alt='....' className='w-28 h-28 object-cover'/> */}
+             
               <img src={imageData!=null ? imageData : data?.hinhAnh} alt='....' className='w-28 h-28 object-cover'/>
         </Form.Item>
          

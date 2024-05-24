@@ -28,13 +28,8 @@ import ModalAddTypeJob from './Modals/ModalTypeJob/ModalAddTypeJob';
 
 function ManageTypeJob() {
 
-    // const onSearch = (value, _e, info) => console.log(info?.source, value);
     const {typeJobs} = useSelector((state) => state?.manageTypeJob);
 
-     // console.log('yyyyyyyyyyyyygroup',group)
-
-    // const [group, setGroup] = useState('GP00');
-    // const [usersData, setUsersData] = useState(users);
     const [editTypeJobData, setEditTypeJobData] = useState();
     const [detailTypeJobData, setDetailTypeJobData] = useState();
     const [typeJobData, setTypeJobData] = useState([]);
@@ -46,13 +41,6 @@ function ManageTypeJob() {
 
     const [modalDetailTypeJob, setModalDetailTypeJob] = useState(false);
 
-
-  
-
-    console.log('typeJobData',typeJobData)
-    // console.log('yyyyyyyyyyyyyusersData',usersData)
-    // console.log('yyyyyyyyyyyyyeditUsersData',editUsersData)
-  
     useEffect(() => {
       setTypeJobData(typeJobs);
     }, [typeJobs]);
@@ -75,17 +63,9 @@ function ManageTypeJob() {
     }, []);
 
 
-    // const handleChangeSelect = (value) => {
-    //   // console.log(`selected ${value}`);
-    //   setGroup(value)
-    // };
 
 
     const handleDeleteTypeJob=(value)=>{
-      // dispatch(deleteAMovie(value))
-
-      console.log('xxxxxxxxxxxxx',value)
-
       Modal.confirm({
         title:"Bạn thật sự muốn xóa loại công việc này ?",
         okText:"Đồng ý",
@@ -119,13 +99,13 @@ function ManageTypeJob() {
 </div>
 
 <div className='flex justify-center items-center pt-3 '>
-   <Title className='flex text-center text-sm md:text-2xl'>QUẢN LÝ LOẠI CÔNG VIỆC</Title>
+   <Title className='flex text-center text-sm md:text-2xl'> LOẠI CÔNG VIỆC</Title>
 
 </div>
 
 <div className='px-3 pb-3 flex  gap-1 '>
 <Button  size="large" className='bg-white' >Số loại công việc ({typeJobs ?typeJobs.length:0})</Button>
-{JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+{JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
       <> 
   <Button size="large"  onClick={()=>setModalAddTypeJob(!modalAddTypeJob)} className='bg-green-500'>Thêm Loại Công Việc</Button>
   <ModalAddTypeJob visible={modalAddTypeJob} setVisible={setModalAddTypeJob}/>
@@ -184,9 +164,9 @@ columns={[
    render: (text,tenCongViecData) => (
 
 
-    JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+    JSON.parse(localStorage?.getItem('USER'))?.user?.role==="USER" || JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
 
-        JSON.parse(localStorage.getItem('USER'))?.user.id === tenCongViecData?.nguoiTao ||  JSON.parse(localStorage.getItem('USER'))?.user.role === "ADMIN"  ? (
+        JSON.parse(localStorage?.getItem('USER'))?.user.id === tenCongViecData?.nguoiTao ||  JSON.parse(localStorage?.getItem('USER'))?.user?.role === "ADMIN"  ? (
 
           <div className='flex gap-2'>
      

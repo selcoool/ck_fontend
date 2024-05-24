@@ -3,28 +3,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   Modal,
   Button,
-  Cascader,
-  Checkbox,
-  ColorPicker,
-  DatePicker,
   Form,
   Input,
-  InputNumber,
-  Radio,
   Select,
-  Slider,
-  Switch,
-  TreeSelect,
-  Upload,
-  Tag,
   Rate,
 } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from "yup"
-import moment from 'moment';
-import { useDispatch } from 'react-redux';
-import { addAUser, editAUser, getAllUsers } from '../../../redux/userReducerSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { editAJob, getAllJobs } from '../../../redux/jobReducerSlice';
+import { getAllTypeJobs } from '../../../redux/typeJobReducerSlice';
 const { TextArea } = Input;
 
 
@@ -71,7 +59,7 @@ function ModalEditJob({visible,setVisible,data}) {
       onSubmit: async(values) => {
          try {
 
-                 console.log('onSubmitvaluesxxxxxxxxxx',values)
+             
                   let formData = new FormData();
                   for (let key in values){
                     // console.log('values[key]',values[key])
@@ -81,25 +69,25 @@ function ModalEditJob({visible,setVisible,data}) {
 
 
                  await dispatch(editAJob({formData:values}))
-                //  resetForm();
+            
                    setVisible(false)
-                //  setImageData();
+        
                 
                
-                //   fileInputRef.current.value = null;
+               
                 
 
           
          } catch (error) {
-              console.log('error',error)
+              // console.log('error',error)
          }
                   
       }
     });
   
-    console.log('values', values)
-    console.log('errors', errors)
-    console.log('touched', touched);
+    // console.log('values', values)
+    // console.log('errors', errors)
+    // console.log('touched', touched);
 
 
 
@@ -118,7 +106,6 @@ function ModalEditJob({visible,setVisible,data}) {
 
   const handleCloseSkill = (removedTag) => {
         const newTags = createSkillTag.filter((tag) => tag !== removedTag);
-        console.log("newTags", newTags);
         setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
         setCreateSkillTag(newTags); // Cập nhật state createSkillTag
       };
@@ -131,7 +118,6 @@ function ModalEditJob({visible,setVisible,data}) {
           const tagValue = e.target.value.trim();
           if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
             const newTags = [...createSkillTag, tagValue];
-            console.log('Enter key pressed', newTags);
             setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
             setCreateSkillTag(newTags); // Cập nhật state createSkillTag
             e.target.value = '';
@@ -142,7 +128,6 @@ function ModalEditJob({visible,setVisible,data}) {
           const tagValue = e.target.value.trim();
           if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
             const newTags = [...createSkillTag, tagValue];
-            console.log('Mouse left input', newTags);
             setFieldValue('skill', newTags); // Cập nhật giá trị trong formik
             setCreateSkillTag(newTags); // Cập nhật state createSkillTag
             e.target.value = '';
@@ -158,7 +143,6 @@ function ModalEditJob({visible,setVisible,data}) {
 
     const handleCloseCertification = (removedTag) => {
         const newTags = createCertificationTag.filter((tag) => tag !== removedTag);
-        console.log("newTags", newTags);
         setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
         setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
       };
@@ -169,7 +153,6 @@ function ModalEditJob({visible,setVisible,data}) {
           const tagValue = e.target.value.trim();
           if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
             const newTags = [...createCertificationTag, tagValue];
-            console.log('Enter key pressed', newTags);
             setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
             setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
             e.target.value = '';
@@ -180,7 +163,6 @@ function ModalEditJob({visible,setVisible,data}) {
           const tagValue = e.target.value.trim();
           if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
             const newTags = [...createCertificationTag, tagValue];
-            console.log('Mouse left input', newTags);
             setFieldValue('certification', newTags); // Cập nhật giá trị trong formik
             setCreateCertificationTag(newTags); // Cập nhật state createCertificationTag
             e.target.value = '';
@@ -200,24 +182,29 @@ function ModalEditJob({visible,setVisible,data}) {
 
     
 
-    // const handleChangeDatePicker = (value) => {
-    //   // console.log('dateString', dateString);
-
-    //   console.log("value_date", moment(value.selectedDate).format('DD/MM/YYYY'));
-    // };
-
  const handleOnChangeCustom=(name)=>{
    return (value)=>{
     setFieldValue(name,value)
    }
  }
 
- const handleGenderOnChangeCustom=(name)=>{
-  //  console.log('dddđ')
-   return (event)=>{
-    setFieldValue(name,event.target.value)
-   }
- }
+
+
+
+ const {typeJobs} = useSelector((state) => state?.manageTypeJob);
+ const [typeJobData, setTypeJobData] = useState([]);
+
+
+ useEffect(() => {
+   setTypeJobData(typeJobs);
+ }, [typeJobs]);
+
+
+ useEffect(() => {
+
+   dispatch(getAllTypeJobs())
+  
+  }, []);
 
 
 
@@ -278,10 +265,31 @@ function ModalEditJob({visible,setVisible,data}) {
         </Form.Item>
 
 
-        <Form.Item label="Mã chi tiết loại công việc">
+        {/* <Form.Item label="Mã chi tiết loại công việc">
           <Input onChange={handleChange} onBlur={handleBlur} id='moTaNgan' value={values.maChiTietLoaiCongViec} />
           {errors.maChiTietLoaiCongViec && touched.maChiTietLoaiCongViec ? (<div className='text-red-500 '>{errors.maChiTietLoaiCongViec}</div>) : ''}
-        </Form.Item>
+        </Form.Item> */}
+
+
+
+<Form.Item label="Mã chi tiết loại công việc">
+  <Select
+    onBlur={handleBlur}
+    value={values.maChiTietLoaiCongViec}
+    onChange={handleOnChangeCustom('maChiTietLoaiCongViec')} id='maChiTietLoaiCongViec'
+  >
+
+    {typeJobData.length>0 && Array.isArray(typeJobData) 
+    ?( 
+      typeJobData.map((typeJob,index)=>{
+        return ( <Select.Option  value={typeJob?.id} >{typeJob?.tenLoaiCongViec}</Select.Option>)
+      })
+   
+    ) 
+    :(<Select.Option  value='0' >Không có loại công việc</Select.Option>)}
+  </Select>
+  {errors.maChiTietLoaiCongViec && touched.maChiTietLoaiCongViec ? (<div className='text-red-500 '>{errors.maChiTietLoaiCongViec}</div>) : ''}
+</Form.Item>
 
 
 

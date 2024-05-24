@@ -29,7 +29,7 @@ const { TextArea } = Input;
 
 
 function ModalEditAvatarUser({ isOpen, setIsOpen}) {
-      console.log('ModalEditAvatarUser',isOpen)
+
     
       const fileInputRef = useRef(null);
       const [imageData,setImageData]=useState(null)
@@ -53,16 +53,7 @@ function ModalEditAvatarUser({ isOpen, setIsOpen}) {
             'File không hợp lệ. Vui lòng chọn một file ảnh.',
             value => value && SUPPORTED_FORMATS.includes(value.type)
           )
-      //     hoTen: yup.string().required("Vui lòng nhập họ và tên"),
-    
-      //     email: yup.string().required("Vui lòng nhập email"),
-      //     soDt:yup.number().required("Vui lòng nhập số điện thoại"),
-  
-      //     matKhau:yup.string().required("Vui lòng nhập mật khẩu"),
-      //    maNhom:yup.string().required("Vui lòng chọn mã nhóm"),
-      //    maLoaiNguoiDung:yup.string().required("Vui lòng chọn mã loại người dùng"),
-  
-        //  File:yup.string().required("Vui lòng chọn file")
+     
         
     
     
@@ -70,7 +61,7 @@ function ModalEditAvatarUser({ isOpen, setIsOpen}) {
         onSubmit: async(values) => {
            try {
   
-                   console.log('onSubmitvaluesxxxxxxxxxx',values)
+           
                     let formData = new FormData();
                     for (let key in values){
                       // console.log('values[key]',values[key])
@@ -90,15 +81,15 @@ function ModalEditAvatarUser({ isOpen, setIsOpen}) {
   
             
            } catch (error) {
-                console.log('error',error)
+                // console.log('error',error)
            }
                     
         }
       });
     
-      console.log('values', values)
-      console.log('errors', errors)
-      console.log('touched', touched);
+      // console.log('values', values)
+      // console.log('errors', errors)
+      // console.log('touched', touched);
   
   
     return (
@@ -142,8 +133,8 @@ function ModalEditAvatarUser({ isOpen, setIsOpen}) {
                     }}/>
                  {errors.formFile && touched.formFile ? (<div className='text-red-500 '>{errors.formFile}</div>) : ''}
                <br />
-               {/* <img src={imageData==null ? JSON.parse(localStorage.getItem('USER'))?.user.avatar : imageData } alt='....' className='w-28 h-28 object-cover'/> */}
-              <img src={imageData!=null ? imageData :JSON.parse(localStorage.getItem('USER'))?.user.avatar  } alt='....' className='w-28 h-28 object-cover'/>
+              
+              <img src={imageData!=null ? imageData :JSON.parse(localStorage?.getItem('USER'))?.user?.avatar  } alt='....' className='w-28 h-28 object-cover'/>
         </Form.Item>
          
   

@@ -1,21 +1,13 @@
 
-import React, { useRef, useState } from 'react';
+import React, {  useState } from 'react';
 import {
   Modal,
   Button,
-  Cascader,
-  Checkbox,
-  ColorPicker,
   DatePicker,
   Form,
   Input,
-  InputNumber,
   Radio,
-  Select,
-  Slider,
-  Switch,
-  TreeSelect,
-  Upload,
+
   Tag,
 } from 'antd';
 import { useFormik } from 'formik';
@@ -23,7 +15,6 @@ import * as yup from "yup"
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { signUpUser } from '../../../redux/userReducerSlice';
-const { TextArea } = Input;
 
 function ModalSignUp({ isOpen, setIsOpen}) {
     const [createSkillTag, setCreateSkillTag]=useState([])
@@ -76,10 +67,8 @@ function ModalSignUp({ isOpen, setIsOpen}) {
         onSubmit: async(values) => {
            try {
   
-                   console.log('onSubmitvaluesxxxxxxxxxx',values)
                     let formData = new FormData();
                     for (let key in values){
-                      // console.log('values[key]',values[key])
                           formData.append(key,values[key]);
                       
                     }
@@ -102,9 +91,9 @@ function ModalSignUp({ isOpen, setIsOpen}) {
         }
       });
     
-      console.log('values', values)
-      console.log('errors', errors)
-      console.log('touched', touched);
+      // console.log('values', values)
+      // console.log('errors', errors)
+      // console.log('touched', touched);
   
   
   
@@ -117,20 +106,16 @@ function ModalSignUp({ isOpen, setIsOpen}) {
   
       
   
-      // const handleChangeDatePicker = (value) => {
-      //   // console.log('dateString', dateString);
+
   
-      //   console.log("value_date", moment(value.selectedDate).format('DD/MM/YYYY'));
-      // };
-  
-   const handleOnChangeCustom=(name)=>{
-     return (value)=>{
-      setFieldValue(name,value)
-     }
-   }
+  //  const handleOnChangeCustom=(name)=>{
+  //    return (value)=>{
+  //     setFieldValue(name,value)
+  //    }
+  //  }
   
    const handleGenderOnChangeCustom=(name)=>{
-    //  console.log('dddđ')
+    
      return (event)=>{
       setFieldValue(name,event.target.value)
      }
@@ -138,7 +123,7 @@ function ModalSignUp({ isOpen, setIsOpen}) {
   
    const handleCloseSkill = (removedTag) => {
     const newTags = createSkillTag.filter((tag) => tag !== removedTag);
-    console.log("newTags",newTags);
+  
     setFieldValue('skill',newTags);
     setCreateSkillTag(newTags);
   };
@@ -155,7 +140,6 @@ function ModalSignUp({ isOpen, setIsOpen}) {
         setCreateSkillTag((prevTags) => {
   
           const newTags = [...prevTags, tagValue];
-          console.log('Enter key pressed', newTags); 
           setFieldValue('skill',newTags);
           // Log giá trị mới của createTag
           return newTags; // Trả về mảng mới
@@ -169,7 +153,6 @@ function ModalSignUp({ isOpen, setIsOpen}) {
       if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
         setCreateSkillTag((prevTags) => {
           const newTags = [...prevTags, tagValue];
-          console.log('Mouse left input', newTags);
           setFieldValue('skill',newTags); // Log giá trị mới của createTag
           return newTags; // Trả về mảng mới
         });
@@ -183,7 +166,6 @@ function ModalSignUp({ isOpen, setIsOpen}) {
   
   const handleCloseCertification = (removedTag) => {
     const newTags = createCertificationTag.filter((tag) => tag !== removedTag);
-    console.log("newTags",newTags);
     setFieldValue('certification',newTags);
     setCreateCertificationTag(newTags);
   };
@@ -197,7 +179,6 @@ function ModalSignUp({ isOpen, setIsOpen}) {
         setCreateCertificationTag((prevTags) => {
   
           const newTags = [...prevTags, tagValue];
-          console.log('Enter key pressed', newTags); 
           setFieldValue('certification',newTags);
           // Log giá trị mới của createTag
           return newTags; // Trả về mảng mới
@@ -211,7 +192,6 @@ function ModalSignUp({ isOpen, setIsOpen}) {
       if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
         setCreateCertificationTag((prevTags) => {
           const newTags = [...prevTags, tagValue];
-          console.log('Mouse left input', newTags);
           setFieldValue('certification',newTags); // Log giá trị mới của createTag
           return newTags; // Trả về mảng mới
         });

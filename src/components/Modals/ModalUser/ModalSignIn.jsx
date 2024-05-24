@@ -66,7 +66,7 @@ function ModalSignIn({ isOpen, setIsOpen}) {
         onSubmit: async(values) => {
            try {
   
-                   console.log('onSubmitvaluesxxxxxxxxxx',values)
+                 
                     let formData = new FormData();
                     for (let key in values){
                       // console.log('values[key]',values[key])

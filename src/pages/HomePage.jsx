@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Avatar, Image, Menu } from 'antd';
+import { Avatar, Menu } from 'antd';
 import { FaUserTie } from "react-icons/fa";
-import { GiFilmSpool } from "react-icons/gi";
-import { IoIosHome } from "react-icons/io";
 import { MdOutlineWork } from "react-icons/md";
 import { FaSignOutAlt } from "react-icons/fa";
 import { FaRegImage } from "react-icons/fa6";
@@ -31,7 +29,7 @@ import WorkShop from '../components/WorkShop';
 import ManageTypeJob from '../components/ManagetTypeJob';
 import ManageComment from '../components/ManageComment';
 import ManageRecruitJob from '../components/ManageRecruitJob';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 import { excerpt } from '../utility';
  
 
@@ -51,8 +49,6 @@ function HomePage() {
  const location = useLocation();
  const { pathname } = location;
 
-//  console.log('pathname',pathname)
-
     const nav=useNavigate();
   const [activeTab, setActiveTab] = useState(pathname);
 
@@ -64,8 +60,8 @@ function HomePage() {
     
 
     <div className='w-full md:w-2/6 lg:w-1/6 bg-slate-500 flex flex-col bg-background_01 bg-cover'>
-                               <div className='w-full h-12 flex justify-center'><img className='w-full h-12 object-cover ' src="https://logospng.org/wp-content/uploads/tailwind-css.png" alt="" /></div>
-                               {JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+                               <div className='w-full h-12 flex justify-center'><img className='w-full h-12 object-contain ' src="https://cybersoft.edu.vn/wp-content/uploads/2017/03/MIN-OP1.png" alt="" /></div>
+                               {JSON.parse(localStorage?.getItem('USER'))?.user?.role==="USER" || JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
                                 <div className='flex justify-between items-center px-2 pt-2'>
                                <div className='flex gap-1 cursor-pointer'  onClick={()=>[setOpenMenuAvatar(!openMenuAvatar)]}><FaRegImage className='w-5 h-5  transition-all duration-100 cursor-pointer text-red-500 hover:text-white' /><span className='text-sm'>Ảnh đại diện</span></div>
                                <div className='flex gap-1 cursor-pointer'  onClick={()=>[setOpenMenuSignOut(!openMenuSignOut)]}><FaSignOutAlt className='w-5 h-5  transition-all duration-100 cursor-pointer text-white hover:text-white' /></div>
@@ -76,10 +72,10 @@ function HomePage() {
                                
                                 <div>
 
-                                {JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
-                                    <Avatar  className=' w-28 h-28  ' src={JSON.parse(localStorage.getItem('USER')).user.avatar}  />
+                                {JSON.parse(localStorage?.getItem('USER'))?.user?.role==="USER" || JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
+                                    <Avatar  className=' w-28 h-28  ' src={JSON.parse(localStorage?.getItem('USER'))?.user?.avatar}  />
                                 ):(
-                                  <Avatar className=' w-28 h-28  ' src="https://scontent.fkul10-1.fna.fbcdn.net/v/t39.30808-6/257562002_3039447956294453_1832238329207388837_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_ohc=juigomsLgMUQ7kNvgE5NMky&_nc_ht=scontent.fkul10-1.fna&oh=00_AYBgziZNl2a59zYMf_Wzl2QSNcrd4Kcb3dZ4fn-eDt-FOQ&oe=664D784A" />
+                                  <Avatar className=' w-28 h-28  ' src="https://scontent.fkul10-1.fna.fbcdn.net/v/t39.30808-6/257562002_3039447956294453_1832238329207388837_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeEyybzle0scXOsxVvW63J2UXblvnDSlVXtduW-cNKVVeze3E-Kz8yULC2bxNbSRKAKT440E6aizZMR5v5r_CMf-&_nc_ohc=vrVaZJdhZV0Q7kNvgHkcuqv&_nc_ht=scontent.fkul10-1.fna&oh=00_AYD4ABb4g5E-3ZvggYLsR7ZPZjLiznDk7Yrf52MnZmUgCQ&oe=66567A8A" />
                                 )}
 
                                 
@@ -87,8 +83,8 @@ function HomePage() {
                                 </div>
                                 
                                 <div className='flex gap-2 text-[12px] text-zinc-50'>
-                                {JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
-                                     <div  className='cursor-pointer text-xl pt-2 font-bold flex justify-center items-center gap-1'>{excerpt(JSON.parse(localStorage.getItem('USER'))?.user.name,10)  } <FaPencil onClick={()=>[setModalEditUser(!modalEditUser),setEditUserData(JSON.parse(localStorage.getItem('USER'))?.user)]} color='#6e9eea' size={18}/></div>
+                                {JSON.parse(localStorage?.getItem('USER'))?.user?.role==="USER" || JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
+                                     <div  className='cursor-pointer text-xl pt-2 font-bold flex justify-center items-center gap-1'>{excerpt(JSON.parse(localStorage?.getItem('USER'))?.user?.name,10)  } <FaPencil onClick={()=>[setModalEditUser(!modalEditUser),setEditUserData(JSON.parse(localStorage?.getItem('USER'))?.user)]} color='#6e9eea' size={18}/></div>
                                 ):(
                                    <>
                                     <div  className='cursor-pointer pt-2 font-bold' onClick={()=>[setOpenMenuSignIn(!openMenuSignIn),setOpenMenuSignUp(false)]}>Đăng Nhập</div>

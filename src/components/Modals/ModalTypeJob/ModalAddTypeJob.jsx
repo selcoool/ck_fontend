@@ -41,10 +41,9 @@ function ModalAddTypeJob({visible,setVisible}) {
   const [createCertificationTag, setCreateCertificationTag]=useState([])
   const [inputCertificationValue, setInputCertificationValue] = useState('');
 
-    // console.log('modalCreateMovie',visible)
     const {typeJobs} = useSelector((state) => state?.manageTypeJob);
     const [typeJobData, setTypeJobData] = useState([]);
-  console.log('typeJobData',typeJobData)
+
 
  
  
@@ -85,10 +84,9 @@ function ModalAddTypeJob({visible,setVisible}) {
       onSubmit: async(values) => {
          try {
 
-                 console.log('onSubmitvaluesxxxxxxxxxx',values)
                   let formData = new FormData();
                   for (let key in values){
-                    // console.log('values[key]',values[key])
+                    
                         formData.append(key,values[key]);
                     
                   }
@@ -105,15 +103,15 @@ function ModalAddTypeJob({visible,setVisible}) {
 
           
          } catch (error) {
-              console.log('error',error)
+              // console.log('error',error)
          }
                   
       }
     });
   
-    console.log('values', values)
-    console.log('errors', errors)
-    console.log('touched', touched);
+    // console.log('values', values)
+    // console.log('errors', errors)
+    // console.log('touched', touched);
 
 
 
@@ -147,7 +145,6 @@ function ModalAddTypeJob({visible,setVisible}) {
 
  const handleCloseSkill = (removedTag) => {
   const newTags = createSkillTag.filter((tag) => tag !== removedTag);
-  console.log("newTags",newTags);
   setFieldValue('skill',newTags);
   setCreateSkillTag(newTags);
 };
@@ -164,7 +161,6 @@ function ModalAddTypeJob({visible,setVisible}) {
       setCreateSkillTag((prevTags) => {
 
         const newTags = [...prevTags, tagValue];
-        console.log('Enter key pressed', newTags); 
         setFieldValue('skill',newTags);
         // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
@@ -178,7 +174,6 @@ function ModalAddTypeJob({visible,setVisible}) {
     if (tagValue && createSkillTag.indexOf(tagValue) === -1) {
       setCreateSkillTag((prevTags) => {
         const newTags = [...prevTags, tagValue];
-        console.log('Mouse left input', newTags);
         setFieldValue('skill',newTags); // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
       });
@@ -192,7 +187,6 @@ function ModalAddTypeJob({visible,setVisible}) {
 
 const handleCloseCertification = (removedTag) => {
   const newTags = createCertificationTag.filter((tag) => tag !== removedTag);
-  console.log("newTags",newTags);
   setFieldValue('certification',newTags);
   setCreateCertificationTag(newTags);
 };
@@ -206,7 +200,6 @@ const handleCertification = (e) => {
       setCreateCertificationTag((prevTags) => {
 
         const newTags = [...prevTags, tagValue];
-        console.log('Enter key pressed', newTags); 
         setFieldValue('certification',newTags);
         // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
@@ -220,7 +213,6 @@ const handleCertification = (e) => {
     if (tagValue && createCertificationTag.indexOf(tagValue) === -1) {
       setCreateCertificationTag((prevTags) => {
         const newTags = [...prevTags, tagValue];
-        console.log('Mouse left input', newTags);
         setFieldValue('certification',newTags); // Log giá trị mới của createTag
         return newTags; // Trả về mảng mới
       });

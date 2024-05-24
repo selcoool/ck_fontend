@@ -1,7 +1,7 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import { http } from "../services/config_service"
 
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 export const getAllRecruitJobs = createAsyncThunk(
@@ -26,12 +26,12 @@ export const addARecruitJob = createAsyncThunk(
   'recruitJobs/addARecruitJob',
   async (user, {dispatch,rejectWithValue}) => {
     try {
-      console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
+  
       // Gửi request POST đến endpoint `/QuanLyNguoiDung/ThemNguoiDung` với formData của user
       const users = await http.post(`/api/thue-cong-viec`, user.formData);
       // Trả về dữ liệu từ response
       // dispatch(getAllJobs())
-      console.log('RRRRRxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',users.data.content)
+   
       return users.data.content;
     } catch (error) {
       // Trả về một giá trị bị reject nếu có lỗi xảy ra
@@ -48,13 +48,12 @@ export const deleteARecruitJob = createAsyncThunk(
   async (user, {dispatch,rejectWithValue}) => {
     try {
        
-      console.log('pppppppppppppppppcccc',user.id)
-      const users = await http.delete(`/api/thue-cong-viec/${user.id}`)
+
+      await http.delete(`/api/thue-cong-viec/${user.id}`)
       // dispatch(getAllJobs())
-        console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
+
       return user.id;
 
-    //   console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',users)
 
 
     } catch (error) {
@@ -87,97 +86,6 @@ export const editARecruitJob = createAsyncThunk(
 
 
 
-// export const editImageJob = createAsyncThunk(
-//   'jobs/editImageJob',
-//   async (user, {dispatch,rejectWithValue}) => {
-//     try {
-   
-//       // console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',await user.formData)
-//       const users = await http.post(`/api/cong-viec/upload-hinh-cong-viec/${user.id}`,user.formData)
-
-//       // console.log('Avatar1',users)
-
-//       dispatch(getAllJobs())
-//       return users.data.content;
-
-
-
-//     } catch (error) {
-//       return rejectWithValue({ error});
-//       // return rejectWithValue({ error: error.message });
-//     }
-//   }
-// );
-
-
-
-// export const searchUsers = createAsyncThunk(
-//   'users/searchUsers',
-//   async (user, {dispatch,rejectWithValue}) => {
-//     try {
-
-//       console.log('dddaaaaaaaaaaaaaaaaaaaaaaaaa',await user)
-//       const users = await http.get(`/api/users/search/${user.searchUser}`)
-
-//       // console.log('dddyyyyyyy',users)
-
-//       // dispatch(getAllUsers())
-//       return users.data.content;
-
-
-
-//     } catch (error) {
-//       return rejectWithValue({ error: error.message });
-//     }
-//   }
-// );
-
-
-// export const signUpUser = createAsyncThunk(
-//   'users/signUpUser',
-//   async (user, thunkAPI) => {
-//     try {
-//       // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
-//       // Gửi request POST đến endpoint `/QuanLyNguoiDung/ThemNguoiDung` với formData của user
-//       const users = await http.post(`/QuanLyNguoiDung/DangKy`, user.formData);
-//       // Trả về dữ liệu từ response
-//       // console.log('RRRRRxxxxxxxxxxx signUpUser',users)
-//       return users.data.content;
-//     } catch (error) {
-//       // Trả về một giá trị bị reject nếu có lỗi xảy ra
-//       return thunkAPI.rejectWithValue({ error: error.message });
-//     }
-//   }
-// );
-
-
-
-// export const signInUser = createAsyncThunk(
-//   'users/signInUser',
-//   async (user, thunkAPI) => {
-    
-//     try {
-
-//       // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',user)
-//       const users = await http.post(`/QuanLyNguoiDung/DangNhap`,user.formData)
-
-//       // console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxTTTT',users.data.content)
-//       return users.data.content;
-
-
-
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue({ error: error.message });
-//     }
-//   }
-// );
-
-
-// let user ='';
-// if(localStorage.getItem('USER')){
-//   user =JSON.parse(localStorage.getItem('USER'))
-// }
-// console.log('lllllllllllllllllllllllll',JSON.parse(localStorage.getItem('USER')).accessToken)
 
 
 
@@ -334,6 +242,6 @@ export const recruitJobSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const {  } = recruitJobSlice.actions
+// export const {  } = recruitJobSlice.actions
 
 export default recruitJobSlice.reducer

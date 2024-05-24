@@ -67,16 +67,10 @@ function ManageRecruitJob() {
     }, []);
 
 
-    // const handleChangeSelect = (value) => {
-    //   // console.log(`selected ${value}`);
-    //   setGroup(value)
-    // };
+  
 
 
     const handleDeleteRecruitJob=(value)=>{
-      // dispatch(deleteAMovie(value))
-
-      console.log('xxxxxxxxxxxxx',value)
 
       Modal.confirm({
         title:"Bạn thật sự muốn xóa thuê công việc này ?",
@@ -97,27 +91,14 @@ function ManageRecruitJob() {
    
 
 
-
-
-{/* <div className='flex justify-center items-center md:justify-start md:w-96 p-3'>
-    <Search
-   placeholder="Nhập thông tin công việc "
-   allowClear
-   enterButton="Tìm kiếm"
-   size="large"
-   onSearch={onSearchRecruitJob}
- />
-
-</div> */}
-
 <div className='flex justify-center items-center pt-3 '>
-   <Title className='flex text-center text-sm md:text-2xl'>QUẢN LÝ THUÊ CÔNG VIỆC</Title>
+   <Title className='flex text-center text-sm md:text-2xl'>THUÊ CÔNG VIỆC</Title>
 
 </div>
 
 <div className='px-3 pb-3 flex  gap-1 '>
 <Button  size="large" className='bg-white' >Số thuê công việc ({recruitJobs ?recruitJobs.length:0})</Button>
-{JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+{JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
       <> 
   {/* <Button size="large"  onClick={()=>setModalAddRecruitJob(!modalAddRecruitJob)} className='bg-green-500'>Thêm Loại Công Việc</Button> */}
   {/* <ModalAddTypeJob visible={modalAddRecruitJob} setVisible={setModalAddRecruitJob}/> */}
@@ -207,9 +188,9 @@ columns={[
    render: (text,maNguoiThueData) => (
 
 
-    JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+    JSON.parse(localStorage?.getItem('USER'))?.user?.role==="USER" || JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
 
-        JSON.parse(localStorage.getItem('USER'))?.user.id === maNguoiThueData?.nguoiTao ||  JSON.parse(localStorage.getItem('USER'))?.user.role === "ADMIN"  ? (
+        JSON.parse(localStorage?.getItem('USER'))?.user.id === maNguoiThueData?.nguoiTao ||  JSON.parse(localStorage?.getItem('USER'))?.user?.role === "ADMIN"  ? (
 
           <div className='flex gap-2  '>
      

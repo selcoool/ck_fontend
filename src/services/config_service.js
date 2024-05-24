@@ -5,8 +5,8 @@ import { useEffect } from "react";
     let token ='';
 
 
-    if(localStorage.getItem('USER')){
-        token =JSON.parse(localStorage.getItem('USER'))?.token
+    if(localStorage?.getItem('USER')){
+        token =JSON.parse(localStorage?.getItem('USER'))?.token
     
     }
    

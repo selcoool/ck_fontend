@@ -14,16 +14,8 @@ import ModalAddUser from './Modals/ModalUser/ModalAddUser';
 import ModalEditUser from './Modals/ModalUser/ModalEditUser';
 
 
-// import ModalEditMovie from './ModalEditMovie';
-// import ModalEditUser from './ModalEditUser';
-
 function ManageUser() {
-
-    // const onSearch = (value, _e, info) => console.log(info?.source, value);
     const {users} = useSelector((state) => state?.manageUser);
-
-    // const [group, setGroup] = useState('GP00');
-    // const [usersData, setUsersData] = useState(users);
     const [editUserData, setEditUserData] = useState();
     const [detailUserData, setDetailUserData] = useState();
     const [userData, setUserData] = useState([]);
@@ -59,16 +51,10 @@ function ManageUser() {
     }, []);
 
 
-    // const handleChangeSelect = (value) => {
-    //   // console.log(`selected ${value}`);
-    //   setGroup(value)
-    // };
+
 
 
     const handleDeleteUser=(value)=>{
-      // dispatch(deleteAMovie(value))
-
-      console.log('xxxxxxxxxxxxx',value)
 
       Modal.confirm({
         title:"Bạn thật sự muốn xóa người dùng này ?",
@@ -103,14 +89,14 @@ function ManageUser() {
 </div>
 
 <div className='flex justify-center items-center pt-3 '>
-   <Title className='flex text-center text-sm md:text-2xl'>QUẢN LÝ NGƯỜI DÙNG</Title>
+   <Title className='flex text-center text-sm md:text-2xl'>NGƯỜI DÙNG</Title>
 
 </div>
 
 <div className='px-3 pb-3 flex gap-1 '>
 
 <Button  size="large" className='bg-white' >Số người ({users ?users.length:0})</Button>
-{JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+{JSON.parse(localStorage?.getItem('USER'))?.user?.role==="USER" || JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
       <> 
  
  <Button size="large"  onClick={()=>setModalAddUser(!modalAddUser)} className='bg-green-500'>Thêm Người Dùng</Button>
@@ -160,23 +146,7 @@ columns={[
     render: (text) => <span>{text}</span>,
     width:110,
   },
-  // {
-  //   title: 'Email',
-  //   dataIndex: 'email',
-  //   ellipsis: true, // Hiển thị ba chấm (...) nếu nội dung quá dài
-  // //   sorter: (a, b) =>{
-  // //     let emailA=a.email.toLowerCase().trim();
-  // //     let emailB=b.email.toLowerCase().trim();
-  // //     if(emailA > emailB ){
-  // //       return 1;
-  // //     }
-  // //     return -1;
-  // // },
-  //   render: (text, film) => (
-  //     <span>{text}</span>
-  //   ),
-  //   width:180,
-  // },
+
 
   {
     title: 'Avatar',
@@ -204,7 +174,7 @@ columns={[
    render: (text, film) => (
      
      <span>{text}   </span>
-     // <img src={film.tenPhim} alt={film.tenPhim} className='w-[50px] h-[50px]' onError={(e)=>{e.target.onError=null;e.target.src='https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg'}} />
+    
    ),
    width:110,
  },
@@ -213,16 +183,14 @@ columns={[
    dataIndex: 'skill',
    ellipsis: true, // Hiển thị ba chấm (...) nếu nội dung quá dài
    render: (text, skills) => (
-  //  div
-    // console.log('ddđxxxxxxxxxxxx',skills)
-    // console.log('ddđxxxxxxxxxxxx__text',text)
+
 
     skills?.skill?.length > 0 ? (
       
       Array.isArray(skills.skill) ? (
         skills.skill.map((sk, index) => (
           <Tag style={{backgroundColor:'pink'}}>{sk}</Tag>
-          // <span key={index} className='text-red-500'>{sk}{index !== skills.skill.length - 1 ? ', ' : ''}</span>
+        
         ))
       ) : (
         <span>Chưa có kỹ năng nào</span>
@@ -231,8 +199,7 @@ columns={[
       <span>Chưa có kỹ năng nào</span>
     )
 
-    //  <span>{text}</span>
-     // <img src={film.tenPhim} alt={film.tenPhim} className='w-[50px] h-[50px]' onError={(e)=>{e.target.onError=null;e.target.src='https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg'}} />
+  
    ),
    width:150,
 
@@ -258,8 +225,7 @@ columns={[
     )
    
 
-    // <span>{text}</span>
-    // <img src={film.tenPhim} alt={film.tenPhim} className='w-[50px] h-[50px]' onError={(e)=>{e.target.onError=null;e.target.src='https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg'}} />
+    
   ),
   width:150,
 
@@ -271,7 +237,7 @@ columns={[
    render: (text, film) => (
 
      <span>{text}</span>
-     // <img src={film.tenPhim} alt={film.tenPhim} className='w-[50px] h-[50px]' onError={(e)=>{e.target.onError=null;e.target.src='https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg'}} />
+   
    ),
  
    width:80,
@@ -298,10 +264,10 @@ columns={[
    render: (text,account) => (
 
 
-    JSON.parse(localStorage.getItem('USER'))?.user.role==="USER" || JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+    JSON.parse(localStorage?.getItem('USER'))?.user?.role==="USER" || JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
   
 
-      JSON.parse(localStorage.getItem('USER'))?.user.id === account?.id   ? (
+      JSON.parse(localStorage?.getItem('USER'))?.user.id === account?.id   ? (
      <div className='flex gap-2'>
      
        <MdDelete onClick={()=>handleDeleteUser(account)} className='text-2xl text-red-600 cursor-pointer'/>
@@ -309,7 +275,7 @@ columns={[
        
 
        </div>
-        ) :JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+        ) :JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
           <div className='flex gap-2'>
      
           <MdDelete onClick={()=>handleDeleteUser(account)} className='text-2xl text-red-600 cursor-pointer'/>

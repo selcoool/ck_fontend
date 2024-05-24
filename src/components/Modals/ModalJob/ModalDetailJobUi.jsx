@@ -4,7 +4,7 @@ import 'moment/locale/vi';
 import { Modal, Form, Input, Button, Rate } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllJobs } from '../../../redux/jobReducerSlice';
-import { addAComment, addARelatedComment, deleteAComment, deleteARelatedComment, getAllComments, getRelatedComments } from '../../../redux/commentReducerSlice';
+import {  addARelatedComment, deleteARelatedComment,  getRelatedComments } from '../../../redux/commentReducerSlice';
 import { useFormik } from 'formik';
 import * as yup from "yup"
 import { FaPencil } from "react-icons/fa6";
@@ -16,7 +16,6 @@ import ModalSignIn from '../ModalUser/ModalSignIn';
 const { TextArea } = Input;
 
 function ModalDetailJobUi({ visible, setVisible, data }) {
-  console.log("ModalDetailJobUi", data)
 
   const dispatch = useDispatch();
   const [modalEditComment, setModalEditComment] = useState(false);
@@ -33,7 +32,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
     enableReinitialize: true,
     initialValues: {
       maCongViec: data?.id,
-      maNguoiBinhLuan: localStorage.getItem('USER') ? JSON.parse(localStorage.getItem('USER'))?.user?.id : 0,
+      maNguoiBinhLuan: localStorage?.getItem('USER') ? JSON.parse(localStorage?.getItem('USER'))?.user?.id : 0,
       ngayBinhLuan: moment().format('DD/MM/YYYY'),
       noiDung: "",
       saoBinhLuan: 5
@@ -59,7 +58,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
     onSubmit: async (values) => {
       try {
 
-        console.log('onSubmitvaluesxxxxxxxxxx', values)
+
 
 
 
@@ -72,27 +71,21 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
 
         await dispatch(addARelatedComment({ formData: values }))
-
-        //  getRelatedComments({jobId:data?.id})
         resetForm();
-        //  setVisible(false)
-        //  setImageData();
-
-
-        //   fileInputRef.current.value = null;
+   
 
 
 
       } catch (error) {
-        console.log('error', error)
+     
       }
 
     }
   });
 
-  console.log('values', values)
-  console.log('errors', errors)
-  console.log('touched', touched);
+  // console.log('values', values)
+  // console.log('errors', errors)
+  // console.log('touched', touched);
 
 
 
@@ -117,7 +110,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
   const handleDeleteComment=(value)=>{
     // dispatch(deleteAMovie(value))
 
-    console.log('xxxxxxxxxxxxx',value)
+
 
     Modal.confirm({
       title:"Bạn thật sự muốn xóa bình luận này ?",
@@ -134,7 +127,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
   const handleRecruitJob=(value)=>{
     // dispatch(deleteAMovie(value))
 
-    console.log('xxxxxxxxxxxxx',value)
+ 
 
     Modal.confirm({
       title:"Bạn thật sự muốn thuê công việc này ?",
@@ -145,7 +138,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
         let thueCongViec={
           maCongViec: values.maCongViec,
-          maNguoiThue: localStorage.getItem('USER') ? JSON.parse(localStorage.getItem('USER'))?.user?.id : 0,
+          maNguoiThue: localStorage?.getItem('USER') ? JSON.parse(localStorage?.getItem('USER'))?.user?.id : 0,
           ngayThue:  moment().format('DD/MM/YYYY'),
           hoanThanh: false
         }
@@ -210,7 +203,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
  
               <div className='flex justify-center pt-4'>
-              {JSON.parse(localStorage.getItem('USER'))?.user.role === "USER" || JSON.parse(localStorage.getItem('USER'))?.user.role === "ADMIN" ? (
+              {JSON.parse(localStorage?.getItem('USER'))?.user?.role === "USER" || JSON.parse(localStorage?.getItem('USER'))?.user?.role === "ADMIN" ? (
             
                 <div onClick={()=>handleRecruitJob()} className='bg-yellow-500 p-3 cursor-pointer hover:text-white'>Thuê Công Việc</div>
                
@@ -243,9 +236,9 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
               {relatedComments?.length > 0 && Array.isArray(relatedComments) ? (
                 relatedComments.map((comment, index) => {
                   return (
-                    <div className='flex flex-col'>
+                    <div className='flex flex-col' key={index}>
 
-                      <div className='flex items-center gap-1'> <div><img className='w-10 h-10 rounded-full' src={comment.avatar ? comment.avatar : JSON.parse(localStorage.getItem('USER')).user.avatar} alt="" /></div>
+                      <div className='flex items-center gap-1'> <div><img className='w-10 h-10 rounded-full' src={comment?.avatar ? comment?.avatar : JSON.parse(localStorage?.getItem('USER'))?.user?.avatar} alt="" /></div>
 
 
                         <div className='flex flex-col'>
@@ -253,7 +246,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
                           <div className='flex items-center gap-1 cursor-pointer'>
                             <span className='text-lg' key={index} >{comment.tenNguoiBinhLuan}</span>
-                            {JSON.parse(localStorage.getItem('USER'))?.user.role==="ADMIN" ? (
+                            {JSON.parse(localStorage?.getItem('USER'))?.user?.role==="ADMIN" ? (
                              <> 
                             <MdDelete onClick={()=>handleDeleteComment(comment)}  className='text-red-500' />
                             <FaPencil onClick={()=>[setModalEditComment(!modalEditComment),setEditCommentData(comment)]}  className='text-cyan-500' />
@@ -281,7 +274,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
                 <span>Chưa có comment nào</span>
               )}
 
-              {JSON.parse(localStorage.getItem('USER'))?.user.role === "USER" || JSON.parse(localStorage.getItem('USER'))?.user.role === "ADMIN" ? (
+              {JSON.parse(localStorage?.getItem('USER'))?.user?.role === "USER" || JSON.parse(localStorage?.getItem('USER'))?.user?.role === "ADMIN" ? (
                 <>
 
 
