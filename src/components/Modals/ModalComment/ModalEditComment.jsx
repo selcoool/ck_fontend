@@ -2,30 +2,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Modal,
-  Button,
-  Cascader,
-  Checkbox,
-  ColorPicker,
-  DatePicker,
   Form,
   Input,
-  InputNumber,
-  Radio,
-  Select,
-  Slider,
-  Switch,
-  TreeSelect,
-  Upload,
-  Tag,
+  
   Rate,
 } from 'antd';
 import { useFormik } from 'formik';
 import * as yup from "yup"
-import moment from 'moment';
 import { useDispatch } from 'react-redux';
-import { addAUser, editAUser, getAllUsers } from '../../../redux/userReducerSlice';
-import { editAJob, getAllJobs } from '../../../redux/jobReducerSlice';
-import { editAComment, editARelatedComment } from '../../../redux/commentReducerSlice';
+
+import { getAllJobs } from '../../../redux/jobReducerSlice';
+import { editAComment} from '../../../redux/commentReducerSlice';
 const { TextArea } = Input;
 
 
@@ -47,17 +34,7 @@ function ModalEditComment({ visible, setVisible, data }) {
 
     },
     validationSchema: yup.object().shape({
-      //     taiKhoan: yup.string().required("Vui lòng nhập tên tài khoản "),
-      //     hoTen: yup.string().required("Vui lòng nhập họ và tên"),
-
-      //     email: yup.string().required("Vui lòng nhập email"),
-      //     soDt:yup.number().required("Vui lòng nhập số điện thoại"),
-
-      //     matKhau:yup.string().required("Vui lòng nhập mật khẩu"),
-      //    maNhom:yup.string().required("Vui lòng chọn mã nhóm"),
-      //    maLoaiNguoiDung:yup.string().required("Vui lòng chọn mã loại người dùng"),
-
-      //  File:yup.string().required("Vui lòng chọn file")
+      noiDung: yup.string().required("Vui lòng nhập nội dung bình luận"),
 
 
 
@@ -88,9 +65,9 @@ function ModalEditComment({ visible, setVisible, data }) {
     }
   });
 
-  // console.log('values', values)
-  // console.log('errors', errors)
-  // console.log('touched', touched);
+  console.log('values', values)
+  console.log('errors', errors)
+  console.log('touched', touched);
 
 
 
@@ -111,11 +88,6 @@ function ModalEditComment({ visible, setVisible, data }) {
 
 
 
-  // const handleChangeDatePicker = (value) => {
-  //   // console.log('dateString', dateString);
-
-  //   console.log("value_date", moment(value.selectedDate).format('DD/MM/YYYY'));
-  // };
 
   const handleOnChangeCustom = (name) => {
     return (value) => {
@@ -123,12 +95,6 @@ function ModalEditComment({ visible, setVisible, data }) {
     }
   }
 
-  const handleGenderOnChangeCustom = (name) => {
-    //  console.log('dddđ')
-    return (event) => {
-      setFieldValue(name, event.target.value)
-    }
-  }
 
 
 
@@ -164,16 +130,7 @@ function ModalEditComment({ visible, setVisible, data }) {
 
         >
 
-          {/* <Form.Item >
 
-                        <Input onChange={handleChange} onBlur={handleBlur} id='noiDung' value={values.noiDung} placeholder='Vui lòng gõ bình luận...' />
-
-                        {errors.noiDung && touched.noiDung
-                          ? (<div className='text-red-500 '>{errors.noiDung
-                          }</div>) : ''}
-
-
-                      </Form.Item> */}
 
 
           <Form.Item >

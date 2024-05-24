@@ -40,7 +40,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
 
     },
     validationSchema: yup.object().shape({
-      //     taiKhoan: yup.string().required("Vui lòng nhập tên tài khoản "),
+          noiDung: yup.string().required("Vui lòng nhập nội dung bình luận"),
       //     hoTen: yup.string().required("Vui lòng nhập họ và tên"),
 
       //     email: yup.string().required("Vui lòng nhập email"),

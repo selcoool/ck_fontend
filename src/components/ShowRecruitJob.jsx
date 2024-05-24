@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../redux/userReducerSlice';
-import Search from 'antd/es/input/Search'
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { IoIosInformationCircleOutline } from "react-icons/io";
+
 import { Button, Modal } from 'antd';
-import ModalAddUser from './Modals/ModalUser/ModalAddUser';
-import ModalDetailUserUi from './Modals/ModalUser/ModalDetailUserUi';
 import { deleteARecruitJob, getAllRecruitJobs } from '../redux/recruitJobReducerSlice';
-import { MdMoreVert } from "react-icons/md";
 import ModalEditRecruitJob from './Modals/ModalRecruitJob/ModalEditRecruitJob';
 import ModalDetailRecruitJob from './Modals/ModalRecruitJob/ModalDetailRecruitJob';
 import Footer from './Footer';
@@ -97,9 +96,10 @@ function ShowRecruitJob() {
                 
 
               <div className=' flex justify-center items-center'>
-                   <div onClick={()=>[setModalEditRecruitJob(!modalEditRecruitJob),setEditRecruitJobData(recruitJob)]} className='p-2 bg-sky-500 rounded-l-full'>Cập nhật</div>
-                   <div onClick={()=>[setModalDetailRecruitJob(!modalDetailRecruitJob),setDetailRecruitJobData(recruitJob)]} className='p-2 bg-orange-500'>Chi tiết CV</div>
-                   <div onClick={()=>handleDeleteRecruitJob(recruitJob)} className='p-2 bg-red-500 rounded-r-full'>Xoá</div>
+                   <div  className='p-2 bg-sky-500 rounded-l-full'><FaEdit onClick={()=>[setModalEditRecruitJob(!modalEditRecruitJob),setEditRecruitJobData(recruitJob)]}/></div>
+
+                   <div  className='p-2 bg-orange-500'><IoIosInformationCircleOutline onClick={()=>[setModalDetailRecruitJob(!modalDetailRecruitJob),setDetailRecruitJobData(recruitJob)]}/></div>
+                   <div  className='p-2 bg-red-500 rounded-r-full'><MdDelete onClick={()=>handleDeleteRecruitJob(recruitJob)}/></div>
 
               </div>
               </div>
