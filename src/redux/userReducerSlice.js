@@ -356,7 +356,7 @@ export const userSlice = createSlice({
       toast.success('Bạn đã đăng nhập thành công !')
       setTimeout(() => {
         window.location.reload();
-      }, 1000);
+      }, 2000);
      
    
     });

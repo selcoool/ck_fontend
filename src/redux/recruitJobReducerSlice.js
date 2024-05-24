@@ -168,71 +168,7 @@ export const recruitJobSlice = createSlice({
     });
 
 
-    // builder.addCase(editImageJob.pending, (state) => {
-    //   state.status = 'pending';
-    // });
-    // builder.addCase(editImageJob.fulfilled, (state, action) => {
-
-
-    //   state.status = 'fulfilled';
-    //   // state.movies = state.movies.filter(movie => movie.maPhim !== action.payload);
-    //   state.jobs = state.jobs.map(job =>
-    //     job.id === action.payload.id ? action.payload : job
-    //     );
-     
-    
-     
-    // });
-    // builder.addCase(editImageJob.rejected, (state, action) => {
-    //   state.status = 'rejected';
-    //   toast.error('Bạn đã cập nhật ảnh công việc thất bại ! !')
-    // });
-
-
-    
-    // builder.addCase(searchUsers.pending, (state) => {
-    //   state.status = 'pending';
-    // });
-    // builder.addCase(searchUsers.fulfilled, (state, action) => {
-    //   state.status = 'fulfilled';
-    //   state.users = action.payload;
-    // });
-    // builder.addCase(searchUsers.rejected, (state, action) => {
-    //   state.status = 'rejected';
-    // });
-
-
-
-
-    // builder.addCase(signUpUser.pending, (state) => {
-    //   state.status = 'pending';
-    // });
-    // builder.addCase(signUpUser.fulfilled, (state, action) => {
-    //   state.status = 'fulfilled';
-    //   state.signUp=action.payload
-    //   toast.success('Bạn đã đăng ký thành công !')
-    // });
-    // builder.addCase(signUpUser.rejected, (state, action) => {
-    //   state.status = 'rejected';
-    //   toast.error('Bạn đăng ký không thành công !')
-    // });
-
-
-    // builder.addCase(signInUser.pending, (state) => {
-    //   state.status = 'pending';
-    // });
-    // builder.addCase(signInUser.fulfilled, (state, action) => {
-    //   state.status = 'fulfilled';
-    //   state.signIn=action.payload;
-    //   localStorage.setItem('USER',JSON.stringify(action.payload))
-    //   toast.success('Bạn đã đăng nhập thành công !')
-    //   // console.log('fulfilled tttttttttttttttttttttt',JSON.stringify(action.payload))
-    // });
-    // builder.addCase(signInUser.rejected, (state, action) => {
-    //   state.status = 'rejected';
-    //   toast.error('Bạn đã đăng nhập không thành công !')
-    // });
-
+   
 
 
   
