@@ -161,7 +161,7 @@ export const userSlice = createSlice({
     builder.addCase(deleteAJob.fulfilled, (state, action) => {
       state.status = 'fulfilled';
       state.jobs = state.jobs.filter(job => job.id !== action.payload);
-      toast.success('Bạn đã xóa thành công !')
+      toast.success('Bạn đã xóa thành công,do có thể bạn không phải người tạo, admin cũng không thể xóa !')
       // console.log('action.payloadccccccccccc',action.payload)
     });
     builder.addCase(deleteAJob.rejected, (state, action) => {
@@ -184,7 +184,7 @@ export const userSlice = createSlice({
     });
     builder.addCase(editAJob.rejected, (state, action) => {
       state.status = 'rejected';
-      toast.error('Bạn chỉnh sửa thất bại !')
+      toast.error('Bạn chỉnh sửa thất bại,do có thể bạn không phải người tạo, admin cũng không thể chỉnh sửa!')
     });
 
 
@@ -205,7 +205,8 @@ export const userSlice = createSlice({
     });
     builder.addCase(editImageJob.rejected, (state, action) => {
       state.status = 'rejected';
-      toast.error('Bạn đã cập nhật ảnh công việc thất bại ! !')
+      toast.error('Bạn đã cập nhật ảnh công việc thất bại,do có thể bạn không phải người tạo, admin cũng không thể chỉnh sửa ! !')
+      
     });
 
 
