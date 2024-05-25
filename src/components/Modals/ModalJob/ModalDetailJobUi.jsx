@@ -176,7 +176,7 @@ function ModalDetailJobUi({ visible, setVisible, data }) {
           <div className='flex gap-2'>
             <div className='w-1/2 flex justify-center items-center'>
               <img className='w-80 h-80 object-cover' src={data?.hinhAnh} alt={data?.hinhAnh}
-                onError={(e) => { e.target.onError = null; e.target.src = 'https://thuthuatnhanh.com/wp-content/uploads/2020/09/hinh-nen-gai-xinh-hd.jpg' }}
+                onError={(e) => { e.target.onError = null; e.target.src = 'https://www.freeiconspng.com/uploads/no-image-icon-11.PNG' }}
               ></img>
 
             </div>
